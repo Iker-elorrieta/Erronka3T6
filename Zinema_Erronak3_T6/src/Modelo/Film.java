@@ -1,5 +1,7 @@
 package Modelo;
 
+import java.util.Objects;
+
 public class Film {
 	private int ID_film;
 	private String tituloa;
@@ -7,6 +9,14 @@ public class Film {
 	private String generoa;
 	private double prezioa;
 	
+	public Film () {
+		this.ID_film = 0;
+		this.tituloa = "";
+		this.iraupena = 0;
+		this.generoa = "";
+		this.prezioa = 0;
+	}
+
 	public int getID_film() {
 		return ID_film;
 	}
@@ -37,6 +47,30 @@ public class Film {
 	public void setPrezioa(double prezioa) {
 		this.prezioa = prezioa;
 	}
+	
+	@Override
+	public String toString() {
+		return "Film [ID_film=" + ID_film + ", tituloa=" + tituloa + ", iraupena=" + iraupena + ", generoa=" + generoa
+				+ ", prezioa=" + prezioa + "]";
+	}
+
+	@Override
+	public int hashCode() {
+		return Objects.hash(ID_film);
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Film other = (Film) obj;
+		return ID_film == other.ID_film;
+	}
+	
 	
 	
 }

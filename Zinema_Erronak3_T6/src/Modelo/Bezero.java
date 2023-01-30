@@ -1,5 +1,7 @@
 package Modelo;
 
+import java.util.Objects;
+
 public class Bezero {
 	private String DNI;
 	private String izena;
@@ -7,6 +9,15 @@ public class Bezero {
 	private String abizen_2;
 	private boolean sexua;
 	private String pasahitza;
+	
+	public Bezero() {
+		this.DNI = "";
+		this.abizen_1 = "";
+		this.abizen_2 = "";
+		this.izena = "";
+		this.pasahitza = "";
+		this.sexua = true;
+	}
 	
 	public String getDNI() {
 		return DNI;
@@ -44,5 +55,27 @@ public class Bezero {
 	public void setPasahitza(String pasahitza) {
 		this.pasahitza = pasahitza;
 	}
+	@Override
+	public String toString() {
+		return "Bezero [DNI=" + DNI + ", izena=" + izena + ", abizen_1=" + abizen_1 + ", abizen_2=" + abizen_2
+				+ ", sexua=" + sexua + ", pasahitza=" + pasahitza + "]";
+	}
+	@Override
+	public int hashCode() {
+		return Objects.hash(DNI);
+	}
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Bezero other = (Bezero) obj;
+		return Objects.equals(DNI, other.DNI);
+	}
+	
+	
 
 }
