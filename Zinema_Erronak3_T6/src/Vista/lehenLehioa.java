@@ -44,53 +44,47 @@ public class lehenLehioa extends JFrame {
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 
 		setContentPane(contentPane);
-		contentPane.setLayout(null);
-		
+		contentPane.setLayout(new CardLayout(0, 0));
 		
 		//ONGI ETORRI
-		JPanel ongiEtorri = new JPanel();
-		ongiEtorri.setBounds(5, 5, 484, 314);
-		contentPane.add(ongiEtorri);
-		
-		JLabel logoa = new JLabel("");
-		logoa.setBounds(70, 0, 325, 251);
-		Image img = new ImageIcon(this.getClass().getResource("/logo.png")).getImage();
-        logoa.setIcon(new ImageIcon(img));
-		
-		JLabel txt1 = new JLabel("Ongi Etorri!");
-		txt1.setBounds(159, 249, 179, 54);
-		txt1.setFont(new Font("Comic Sans MS", Font.BOLD, 30));
-		
-		JButton btnInv = new JButton("");
-		btnInv.setBounds(0, 0, 484, 314);
-		btnInv.setOpaque(false);
-		btnInv.setContentAreaFilled(false);
-		btnInv.setBorderPainted(false);
-		ongiEtorri.setLayout(null);
-		ongiEtorri.add(logoa);
-		ongiEtorri.add(txt1);
-		ongiEtorri.add(btnInv);
-		
-		JPanel prueba = new JPanel();
-		prueba.setBounds(5, 5, 484, 314);
-		contentPane.add(prueba);
-		prueba.setLayout(null);
-		
-		JButton btnNewButton = new JButton("New button");
-		btnNewButton.setBounds(197, 5, 89, 23);
-		prueba.add(btnNewButton);
-		
-		btnInv.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                try {
-                    Thread.sleep(3000);
-                    } catch (InterruptedException ex) {
-                        System.out.println(e);
-                    }
-                ongiEtorri.setVisible(false);
-                prueba.setVisible(true);
-            }
-		});	
+				JPanel ongiEtorri = new JPanel();
+				ongiEtorri.setBounds(5, 5, 484, 314);
+				contentPane.add(ongiEtorri);
+				
+				JLabel logoa = new JLabel("");
+				logoa.setBounds(70, 0, 325, 251);
+				Image img = new ImageIcon(this.getClass().getResource("/logo.png")).getImage();
+		        logoa.setIcon(new ImageIcon(img));
+				
+				JLabel txt1 = new JLabel("Ongi Etorri!");
+				txt1.setBounds(159, 249, 179, 54);
+				txt1.setFont(new Font("Comic Sans MS", Font.BOLD, 30));
+				
+				JButton btnInv = new JButton("");
+				btnInv.setBounds(0, 0, 484, 314);
+				btnInv.setOpaque(false);
+				btnInv.setContentAreaFilled(false);
+				btnInv.setBorderPainted(false);
+				ongiEtorri.setLayout(null);
+				ongiEtorri.add(logoa);
+				ongiEtorri.add(txt1);
+				ongiEtorri.add(btnInv);
+				
+				JPanel prueba = new JPanel();
+				contentPane.add(prueba, "name_19385331456200");
+				prueba.setLayout(null);
+				
+				btnInv.addActionListener(new ActionListener() {
+		            public void actionPerformed(ActionEvent e) {
+		                try {
+		                    Thread.sleep(3000);
+		                    } catch (InterruptedException ex) {
+		                        System.out.println(e);
+		                    }
+		                ongiEtorri.setVisible(false);
+		                prueba.setVisible(true);
+		            }
+				});	
 		
 	}
 
