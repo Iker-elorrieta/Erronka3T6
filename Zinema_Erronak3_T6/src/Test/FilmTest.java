@@ -51,5 +51,6 @@ class FilmTest {
 		f1.setPrezioa(prezioa);
 		f1.setTituloa(tituloa);
 		assertTrue(f1.equals(f2));
+		assertFalse(f1.equals(null));
 	}
 }

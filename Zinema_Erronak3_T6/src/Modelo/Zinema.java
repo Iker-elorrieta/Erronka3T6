@@ -54,10 +54,10 @@ public class Zinema {
 				+ Arrays.toString(aretoak) + "]";
 	}
 	
-	@Override
+	/*@Override
 	public int hashCode() {
 		return Objects.hash(ID_zinema);
-	}
+	}*/
 	@Override
 	public boolean equals(Object obj) {
 		if (this == obj)

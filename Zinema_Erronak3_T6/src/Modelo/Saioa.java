@@ -57,10 +57,10 @@ public class Saioa {
 		return "Saioa [ID_saioa=" + ID_saioa + ", data=" + dt.format(data) + ", ordua=" + ordua + ", sarrerak="
 				+ Arrays.toString(sarrerak) + "]";
 	}
-	@Override
+	/*@Override
 	public int hashCode() {
 		return Objects.hash(ID_saioa);
-	}
+	}*/
 	@Override
 	public boolean equals(Object obj) {
 		if (this == obj)

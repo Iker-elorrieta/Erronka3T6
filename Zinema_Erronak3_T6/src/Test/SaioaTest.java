@@ -73,6 +73,7 @@ class SaioaTest {
 		s1.setID_saioa(id);
 		s1.setOrdua(ordua);
 		assertTrue(s1.equals(s2));
+		assertFalse(s1.equals(null));
 	}
 
 }

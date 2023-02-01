@@ -44,10 +44,10 @@ public class Sarrera {
 				+ erosketa_ordua + "]";
 	}
 
-	@Override
+	/*@Override
 	public int hashCode() {
 		return Objects.hash(ID_sarrera);
-	}
+	}*/
 
 	@Override
 	public boolean equals(Object obj) {

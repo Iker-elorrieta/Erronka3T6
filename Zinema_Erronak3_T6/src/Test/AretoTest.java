@@ -42,6 +42,7 @@ class AretoTest {
 		ar.setID_areto(id);
 		ar.setZenbakia(zenbakia);
 		assertTrue(ar.equals(ar2));
+		assertFalse(ar.equals(null));
 	}
 
 }

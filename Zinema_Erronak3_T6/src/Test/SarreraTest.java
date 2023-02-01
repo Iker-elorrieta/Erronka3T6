@@ -60,6 +60,7 @@ class SarreraTest {
 		s1.setID_sarrera(id);
 		s1.setErosketa_data(fecha);
 		assertTrue(s1.equals(s2));
+		assertFalse(s1.equals(null));
 	}
 
 }

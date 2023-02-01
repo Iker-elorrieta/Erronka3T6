@@ -69,10 +69,10 @@ public class Bezero {
 		return "Bezero [DNI=" + DNI + ", izena=" + izena + ", abizen_1=" + abizen_1 + ", abizen_2=" + abizen_2
 				+ ", sexua=" + sexua + ", pasahitza=" + pasahitza + "]";
 	}
-	@Override
+	/*@Override
 	public int hashCode() {
 		return Objects.hash(DNI);
-	}
+	}*/
 	@Override
 	public boolean equals(Object obj) {
 		if (this == obj)
