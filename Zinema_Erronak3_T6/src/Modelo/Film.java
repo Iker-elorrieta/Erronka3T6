@@ -72,21 +72,17 @@ public class Film {
 				+ ", prezioa=" + prezioa + ", saioak=" + Arrays.toString(saioak) + "]";
 	}
 
-	@Override
+	/*@Override
 	public int hashCode() {
 		return Objects.hash(ID_film);
 	}
-
+*/
 	@Override
 	public boolean equals(Object obj) {
-		if (this == obj)
-			return true;
 		if (obj == null)
 			return false;
-		if (getClass() != obj.getClass())
-			return false;
 		Film other = (Film) obj;
-		return ID_film == other.ID_film;
+		return Objects.equals(ID_film, other.ID_film);
 	}
 	
 	

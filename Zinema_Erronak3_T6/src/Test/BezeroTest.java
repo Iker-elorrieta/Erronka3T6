@@ -50,6 +50,7 @@ class BezeroTest {
 		b1.setPasahitza(pasahitza);
 		b1.setSexua(sexua);
 		assertTrue(b1.equals(b2));
+		assertFalse(b1.equals(null));
 	}
 		
 

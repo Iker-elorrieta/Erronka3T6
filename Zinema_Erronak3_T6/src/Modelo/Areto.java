@@ -44,20 +44,16 @@ public class Areto {
 	public String toString() {
 		return "Areto [ID_areto=" + ID_areto + ", zenbakia=" + zenbakia + ", saioak=" + Arrays.toString(saioak) + "]";
 	}
-	@Override
+	/*@Override
 	public int hashCode() {
 		return Objects.hash(ID_areto, zenbakia);
-	}
+	}*/
 	@Override
 	public boolean equals(Object obj) {
-		if (this == obj)
-			return true;
 		if (obj == null)
 			return false;
-		if (getClass() != obj.getClass())
-			return false;
 		Areto other = (Areto) obj;
-		return ID_areto == other.ID_areto;
+		return Objects.equals(ID_areto, other.ID_areto);
 	}
 	
 	

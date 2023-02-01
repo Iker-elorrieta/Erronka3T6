@@ -2,8 +2,6 @@ package Test;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
 import java.util.Arrays;
 
 import org.junit.jupiter.api.Test;
@@ -44,6 +42,7 @@ class AretoTest {
 		ar.setID_areto(id);
 		ar.setZenbakia(zenbakia);
 		assertTrue(ar.equals(ar2));
+		assertFalse(ar.equals(null));
 	}
 
 }

@@ -57,20 +57,16 @@ public class Saioa {
 		return "Saioa [ID_saioa=" + ID_saioa + ", data=" + dt.format(data) + ", ordua=" + ordua + ", sarrerak="
 				+ Arrays.toString(sarrerak) + "]";
 	}
-	@Override
+	/*@Override
 	public int hashCode() {
 		return Objects.hash(ID_saioa);
-	}
+	}*/
 	@Override
 	public boolean equals(Object obj) {
-		if (this == obj)
-			return true;
 		if (obj == null)
 			return false;
-		if (getClass() != obj.getClass())
-			return false;
 		Saioa other = (Saioa) obj;
-		return ID_saioa == other.ID_saioa;
+		return Objects.equals(ID_saioa, other.ID_saioa);
 	}
 	
 	

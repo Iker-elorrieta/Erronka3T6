@@ -41,6 +41,7 @@ class ZinemaTest {
 		z1.setIzena(izena);
 		z1.setLokalitatea(lokalitatea);
 		assertTrue(z1.equals(z2));
+		assertFalse(z1.equals(null));
 	}
 	
 

@@ -4,7 +4,6 @@ import static org.junit.jupiter.api.Assertions.*;
 
 import java.util.Arrays;
 
-import org.junit.Assert;
 import org.junit.jupiter.api.Test;
 
 import Modelo.Film;
@@ -52,5 +51,6 @@ class FilmTest {
 		f1.setPrezioa(prezioa);
 		f1.setTituloa(tituloa);
 		assertTrue(f1.equals(f2));
+		assertFalse(f1.equals(null));
 	}
 }

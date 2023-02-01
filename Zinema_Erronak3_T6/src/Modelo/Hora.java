@@ -25,20 +25,16 @@ public class Hora {
 		return  horas + ":" + minutos ;
 	}
 	
-	@Override
+	/*@Override
 	public int hashCode() {
 		return Objects.hash(horas, minutos);
-	}
+	}*/
 	@Override
 	public boolean equals(Object obj) {
-		if (this == obj)
-			return true;
 		if (obj == null)
 			return false;
-		if (getClass() != obj.getClass())
-			return false;
 		Hora other = (Hora) obj;
-		return horas == other.horas && minutos == other.minutos;
+		return Objects.equals(horas, other.horas) && Objects.equals(minutos, other.minutos);
 	}
 
 }
