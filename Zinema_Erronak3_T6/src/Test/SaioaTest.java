@@ -2,6 +2,7 @@ package Test;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+import java.util.Arrays;
 import java.util.Calendar;
 import java.util.Date;
 
@@ -9,6 +10,7 @@ import org.junit.jupiter.api.Test;
 
 import Modelo.Hora;
 import Modelo.Saioa;
+import Modelo.Sarrera;
 
 class SaioaTest {
 	
@@ -16,6 +18,9 @@ class SaioaTest {
 	Date fecha = null;
 	Hora ordua = new Hora();
 	Calendar cal = Calendar.getInstance();
+	Sarrera [] sar1 = new Sarrera [1];
+	
+	
 	
 	@Test
 	void testGetetaSet() {
@@ -29,10 +34,18 @@ class SaioaTest {
 		s1.setData(fecha);
 		s1.setID_saioa(id);
 		s1.setOrdua(ordua);
+		s1.setSarrerak(sar1);
+		Saioa s2 = new Saioa(id, fecha, ordua, sar1);
 		assertEquals(s1.getID_saioa(), id);
 		assertEquals(s1.getData(), fecha);
 		assertEquals(s1.getOrdua().getHoras(), 11);
 		assertEquals(s1.getOrdua().getMinutos(), 56);
+		assertEquals(s1.getSarrerak(), sar1);
+		assertEquals(s2.getID_saioa(), id);
+		assertEquals(s2.getData(), fecha);
+		assertEquals(s2.getOrdua().getHoras(), 11);
+		assertEquals(s2.getOrdua().getMinutos(), 56);
+		assertEquals(s2.getSarrerak(), sar1);
 	}
 	@Test
 	void testToString() {
@@ -46,7 +59,8 @@ class SaioaTest {
 		s1.setData(fecha);
 		s1.setID_saioa(id);
 		s1.setOrdua(ordua);
-		assertEquals(s1.toString(), "Saioa [ID_saioa=" + id + ", data=" + fecha + ", ordua=" + ordua + "]");
+		System.out.println(s1.toString());
+		assertEquals(s1.toString(), "Saioa [ID_saioa=" + id + ", data=" + fecha + ", ordua=" + ordua + ", sarrerak=" + null);
 	}
 	@Test
 	void testEquals() {

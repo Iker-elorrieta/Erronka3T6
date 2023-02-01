@@ -5,12 +5,15 @@ import java.util.Objects;
 
 public class Sarrera {
 	private int ID_sarrera;
-	//private int ID_saioa;
 	private Date erosketa_data;
 	
 	public Sarrera () {
 		this.ID_sarrera = 0;
 		this.erosketa_data = null;
+	}
+	public Sarrera (int id, Date data) {
+		this.ID_sarrera = id;
+		this.erosketa_data = data;
 	}
 	
 	public int getID_sarrera() {

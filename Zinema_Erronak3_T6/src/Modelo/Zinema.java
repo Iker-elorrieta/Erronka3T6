@@ -1,11 +1,13 @@
 package Modelo;
 
+import java.util.Arrays;
 import java.util.Objects;
 
 public class Zinema {
 	private int ID_zinema;
 	private String izena;
 	private String lokalitatea;
+	private Areto [] aretoak;
 	
 	public Zinema () {
 		this.ID_zinema = 0;
@@ -13,6 +15,14 @@ public class Zinema {
 		this.lokalitatea = "";
 	}
 	
+	public Areto[] getAretoak() {
+		return aretoak;
+	}
+
+	public void setAretoak(Areto[] aretoak) {
+		this.aretoak = aretoak;
+	}
+
 	public int getID_zinema() {
 		return ID_zinema;
 	}
@@ -34,7 +44,8 @@ public class Zinema {
 	
 	@Override
 	public String toString() {
-		return "Zinema [ID_zinema=" + ID_zinema + ", izena=" + izena + ", lokalitatea=" + lokalitatea + "]";
+		return "Zinema [ID_zinema=" + ID_zinema + ", izena=" + izena + ", lokalitatea=" + lokalitatea + ", aretoak="
+				+ Arrays.toString(aretoak) + "]";
 	}
 	
 	@Override

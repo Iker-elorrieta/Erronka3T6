@@ -1,5 +1,6 @@
 package Modelo;
 
+import java.util.Arrays;
 import java.util.Objects;
 
 public class Film {
@@ -8,6 +9,7 @@ public class Film {
 	private int iraupena;
 	private String generoa;
 	private double prezioa;
+	private Saioa [] saioak;
 	
 	public Film () {
 		this.ID_film = 0;
@@ -15,6 +17,14 @@ public class Film {
 		this.iraupena = 0;
 		this.generoa = "";
 		this.prezioa = 0;
+	}
+
+	public Saioa[] getSaioak() {
+		return saioak;
+	}
+
+	public void setSaioak(Saioa[] saioak) {
+		this.saioak = saioak;
 	}
 
 	public int getID_film() {
@@ -51,7 +61,7 @@ public class Film {
 	@Override
 	public String toString() {
 		return "Film [ID_film=" + ID_film + ", tituloa=" + tituloa + ", iraupena=" + iraupena + ", generoa=" + generoa
-				+ ", prezioa=" + prezioa + "]";
+				+ ", prezioa=" + prezioa + ", saioak=" + Arrays.toString(saioak) + "]";
 	}
 
 	@Override

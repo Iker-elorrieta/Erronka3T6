@@ -1,11 +1,12 @@
 package Modelo;
 
+import java.util.Arrays;
 import java.util.Objects;
 
 public class Areto {
 	private int ID_areto;
 	private int zenbakia;
-	//private int ID_zinema;
+	private Saioa [] saioak;
 	
 	public Areto (){ 
 		this.ID_areto = 0;
@@ -13,6 +14,14 @@ public class Areto {
 	
 	}
 	
+	public Saioa[] getSaioak() {
+		return saioak;
+	}
+
+	public void setSaioak(Saioa[] saioak) {
+		this.saioak = saioak;
+	}
+
 	public int getID_areto() {
 		return ID_areto;
 	}
@@ -27,7 +36,7 @@ public class Areto {
 	}
 	@Override
 	public String toString() {
-		return "Areto [ID_areto=" + ID_areto + ", zenbakia=" + zenbakia + "]";
+		return "Areto [ID_areto=" + ID_areto + ", zenbakia=" + zenbakia + ", saioak=" + Arrays.toString(saioak) + "]";
 	}
 	@Override
 	public int hashCode() {
