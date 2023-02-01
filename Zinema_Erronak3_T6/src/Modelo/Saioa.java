@@ -63,14 +63,10 @@ public class Saioa {
 	}*/
 	@Override
 	public boolean equals(Object obj) {
-		if (this == obj)
-			return true;
 		if (obj == null)
 			return false;
-		if (getClass() != obj.getClass())
-			return false;
 		Saioa other = (Saioa) obj;
-		return ID_saioa == other.ID_saioa;
+		return Objects.equals(ID_saioa, other.ID_saioa);
 	}
 	
 	

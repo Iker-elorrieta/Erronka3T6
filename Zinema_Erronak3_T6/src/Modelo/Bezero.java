@@ -75,11 +75,7 @@ public class Bezero {
 	}*/
 	@Override
 	public boolean equals(Object obj) {
-		if (this == obj)
-			return true;
 		if (obj == null)
-			return false;
-		if (getClass() != obj.getClass())
 			return false;
 		Bezero other = (Bezero) obj;
 		return Objects.equals(DNI, other.DNI);

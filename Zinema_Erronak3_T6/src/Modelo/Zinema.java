@@ -60,13 +60,9 @@ public class Zinema {
 	}*/
 	@Override
 	public boolean equals(Object obj) {
-		if (this == obj)
-			return true;
 		if (obj == null)
 			return false;
-		if (getClass() != obj.getClass())
-			return false;
 		Zinema other = (Zinema) obj;
-		return ID_zinema == other.ID_zinema;
+		return Objects.equals(ID_zinema, other.ID_zinema);
 	}
 }

@@ -19,6 +19,8 @@ class SaioaTest {
 	int id = 1;
 	Date fecha = null;
 	Hora ordua = new Hora();
+	Hora ordua2 = new Hora();
+	Hora ordua3 = new Hora();
 	Calendar cal = Calendar.getInstance();
 	Sarrera [] sar1 = new Sarrera [1];
 	
@@ -65,6 +67,10 @@ class SaioaTest {
 		fecha = cal.getTime();
 		ordua.setHoras(11);
 		ordua.setMinutos(56);
+		ordua2.setHoras(11);
+		ordua2.setMinutos(56);
+		ordua3.setHoras(11);
+		ordua3.setMinutos(57);
 		Saioa s1 = new Saioa ();
 		Saioa s2 = new Saioa();
 		s2.setID_saioa(id);
@@ -74,6 +80,9 @@ class SaioaTest {
 		s1.setOrdua(ordua);
 		assertTrue(s1.equals(s2));
 		assertFalse(s1.equals(null));
+		assertTrue(ordua.equals(ordua2));
+		assertFalse(ordua.equals(null));
+		assertFalse(ordua.equals(ordua3));
 	}
 
 }

@@ -51,14 +51,10 @@ public class Sarrera {
 
 	@Override
 	public boolean equals(Object obj) {
-		if (this == obj)
-			return true;
 		if (obj == null)
 			return false;
-		if (getClass() != obj.getClass())
-			return false;
 		Sarrera other = (Sarrera) obj;
-		return ID_sarrera == other.ID_sarrera;
+		return Objects.equals(ID_sarrera, other.ID_sarrera);
 	}
 	
 }
