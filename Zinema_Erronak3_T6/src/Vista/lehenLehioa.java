@@ -16,6 +16,9 @@ import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
+
+import Controlador.Lehioak;
+
 import javax.swing.JTextField;
 import javax.swing.JScrollBar;
 import javax.swing.JPasswordField;
@@ -38,6 +41,7 @@ public class lehenLehioa extends JFrame {
 	private JPasswordField passwordField_2;
 	private JTable pelikulakTaula;
 	private final ButtonGroup pelikulakGroup = new ButtonGroup();
+	private JTable table;
 
 	/**
 	 * Launch the application.
@@ -177,10 +181,14 @@ public class lehenLehioa extends JFrame {
 		btnHurrengoa2.setBounds(347, 272, 127, 31);
 		pelikulak.add(btnHurrengoa2);
 		
-		JButton btnAtzera = new JButton("Atzera");
-		btnAtzera.setFont(new Font("Tahoma", Font.PLAIN, 17));
-		btnAtzera.setBounds(10, 272, 95, 31);
-		pelikulak.add(btnAtzera);
+		JButton btnAtzera1 = new JButton("Atzera");
+		btnAtzera1.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+			}
+		});
+		btnAtzera1.setFont(new Font("Tahoma", Font.PLAIN, 17));
+		btnAtzera1.setBounds(10, 272, 95, 31);
+		pelikulak.add(btnAtzera1);
 		
 		JLabel logoa2_2 = new JLabel("");
 		logoa2_2.setBounds(0, 0, 100, 80);
@@ -212,6 +220,16 @@ public class lehenLehioa extends JFrame {
 		logoa2_3.setIcon(new ImageIcon(img2));
 		pelikulakData.add(logoa2_3);
 		
+		JButton btnHurrengoa3 = new JButton("Hurrengoa");
+		btnHurrengoa3.setFont(new Font("Tahoma", Font.PLAIN, 17));
+		btnHurrengoa3.setBounds(347, 272, 127, 31);
+		pelikulakData.add(btnHurrengoa3);
+		
+		JButton btnAtzera2 = new JButton("Atzera");
+		btnAtzera2.setFont(new Font("Tahoma", Font.PLAIN, 17));
+		btnAtzera2.setBounds(10, 272, 95, 31);
+		pelikulakData.add(btnAtzera2);
+		
 		//LABURPENA
 		
 		JPanel laburpena = new JPanel();
@@ -221,36 +239,8 @@ public class lehenLehioa extends JFrame {
 		JLabel lblNewLabel = new JLabel("LABURPENA");
 		lblNewLabel.setFont(new Font("Tahoma", Font.PLAIN, 22));
 		lblNewLabel.setBounds(180, 0, 124, 27);
-		laburpena.add(lblNewLabel);
-
-		laburpenaTaula = new JTable();
-		laburpenaTaula.setEnabled(false);
-		laburpenaTaula.setToolTipText("");
-		laburpenaTaula.setModel(new DefaultTableModel(
-			new Object[][] {
-				{"Titulua", "Data", "Areto", "Prezioa"},
-				{null, null, null, null},
-				{null, null, null, null},
-				{null, null, null, null},
-				{null, null, null, null},
-				{null, null, null, null},
-				{null, null, null, null},
-				{null, null, null, null},
-				{null, null, null, null},
-				{null, null, null, null},
-				{null, null, null, null},
-				{null, null, null, null},
-				{null, null, null, null},
-				{null, null, null, null},
-				{null, null, null, null},
-			},
-			new String[] {
-				"Titulua", "Data", "Areto", "Prezioa"
-			}
-		));
-		laburpenaTaula.setBounds(82, 48, 293, 81);
-		laburpena.add(laburpenaTaula);
-		
+		laburpena.add(lblNewLabel); 
+        
 		JButton btnLaburpenaAtzera = new JButton("Atzera");
 		btnLaburpenaAtzera.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -258,10 +248,6 @@ public class lehenLehioa extends JFrame {
                 laburpena.setVisible(false);
 			}
 		});
-		
-		JScrollPane scrollPane = new JScrollPane();
-		scrollPane.setBounds(0, 0, 2, 2);
-		laburpena.add(scrollPane);
 		btnLaburpenaAtzera.setBounds(10, 280, 134, 23);
 		laburpena.add(btnLaburpenaAtzera);
 		
@@ -347,6 +333,38 @@ public class lehenLehioa extends JFrame {
 		JButton btnLaburpenaBukatuErosketa = new JButton("Bukatu erosketa");
 		btnLaburpenaBukatuErosketa.setBounds(340, 280, 134, 23);
 		laburpena.add(btnLaburpenaBukatuErosketa);
+		
+		JScrollPane scrollPane = new JScrollPane();
+		scrollPane.setBounds(41, 34, 344, 82);
+		laburpena.add(scrollPane);
+		
+		table = new JTable();
+		scrollPane.setViewportView(table);
+	    table.setEnabled(false);
+	    table.setToolTipText("");
+	    table.setModel(new DefaultTableModel(
+	          new Object[][] {
+	             {null, null, null, null},
+	             {null, null, null, null},
+	             {null, null, null, null},
+	             {null, null, null, null},
+	             {null, null, null, null},
+	             {null, null, null, null},
+	             {null, null, null, null},
+	             {null, null, null, null},
+	             {null, null, null, null},
+	             {null, null, null, null},
+	             {null, null, null, null},
+	             {null, null, null, null},
+	             {null, null, null, null},
+	             {null, null, null, null},
+	             {null, null, null, null},
+	           },
+	           new String[] {
+	                "Titulua", "Data", "Areto", "Prezioa"
+	            }
+	        ));
+		scrollPane.setViewportView(table);
 		
 		//ERREGISTRATU
 		
@@ -452,28 +470,46 @@ public class lehenLehioa extends JFrame {
 		btnInv_2.setBounds(0, 0, 484, 314);
 		bukaera.add(btnInv_2);
 		
-		btnLaburpenaBukatuErosketa.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-                ongiEtorri.setVisible(false);
-                laburpena.setVisible(false);
-                login.setVisible(true);
-			}
-		});
-		
-		//ongiEtorri panelean click egin eta 3 segundu pasa ondoren laburpen panelera pasatzeko
+		//ongiEtorri
+		//ongiEtorri panelean click egin eta 3 segundu pasa ondoren zinemaAreto panelera pasatzeko
 		btnInv.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                try {
-                    Thread.sleep(3000);
-                    } catch (InterruptedException ex) {
-                        System.out.println(e);
-                    }
-                ongiEtorri.setVisible(false);
-                laburpena.setVisible(true);
-                login.setVisible(false);
-
+                Lehioak.btn3secDelay(zinemaAreto, ongiEtorri, zinemaAreto, pelikulak, pelikulakData, laburpena, login, erregistratu, tiket, bukaera, e);
             }
 		});	
+		
+		//zinemaAreto
+		//zinemaAreto panelean "Hurrengoa" botoiari click egin eta pelikulak panelera pasatzeko
+		btnHurrengoa1.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                Lehioak.hurrengoaBtn(pelikulak, ongiEtorri, zinemaAreto, pelikulak, pelikulakData, laburpena, login, erregistratu, tiket, bukaera);
+            }
+		});
+		
+		//pelikulak
+		//pelikulak panelean "Atzera" botoiari click egin eta zinemaAreto panelera bueltatzeko
+		btnAtzera1.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                Lehioak.hurrengoaBtn(zinemaAreto, ongiEtorri, zinemaAreto, pelikulak, pelikulakData, laburpena, login, erregistratu, tiket, bukaera);
+            }
+		});
+		
+		//pelikulak panelean "Hurrengoa" botoiari click egin eta pelikulaDatak panelera pasatzeko
+		btnHurrengoa2.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                Lehioak.hurrengoaBtn(pelikulakData, ongiEtorri, zinemaAreto, pelikulak, pelikulakData, laburpena, login, erregistratu, tiket, bukaera);
+            }
+		});
+		
+		//pelikulaDatak
+		//pelikulaDatak panelean "Atzera" botoiari click egin eta pelikulak panelera bueltatzeko
+		btnAtzera2.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                Lehioak.hurrengoaBtn(pelikulak, ongiEtorri, zinemaAreto, pelikulak, pelikulakData, laburpena, login, erregistratu, tiket, bukaera);
+            }
+		});
+		
+		
 		
 	}
 }
