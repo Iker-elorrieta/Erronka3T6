@@ -14,6 +14,12 @@ public class Zinema {
 		this.izena = "";
 		this.lokalitatea = "";
 	}
+	public Zinema (int ID_zinema, String izena, String lokalitatea, Areto[] aretoak) {
+		this.ID_zinema = ID_zinema;
+		this.izena = izena;
+		this.lokalitatea = lokalitatea;
+		this.aretoak = aretoak;
+	}
 	
 	public Areto[] getAretoak() {
 		return aretoak;

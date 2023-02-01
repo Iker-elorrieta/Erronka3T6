@@ -11,7 +11,13 @@ public class Areto {
 	public Areto (){ 
 		this.ID_areto = 0;
 		this.zenbakia = 0;
+		this.saioak = null;
 	
+	}
+	public Areto (int ID_areto, int zenbakia, Saioa[] saioak) {
+		this.ID_areto= ID_areto;
+		this.zenbakia = zenbakia;
+		this.saioak = saioak;
 	}
 	
 	public Saioa[] getSaioak() {

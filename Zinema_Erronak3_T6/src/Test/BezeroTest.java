@@ -33,13 +33,7 @@ class BezeroTest {
 	}
 	@Test
 	void testToString() {
-		Bezero b1 = new Bezero();
-		b1.setAbizen_1(abizen_1);
-		b1.setAbizen_2(abizen_2);
-		b1.setDNI(DNI);
-		b1.setIzena(izena);
-		b1.setPasahitza(pasahitza);
-		b1.setSexua(sexua);
+		Bezero b1 = new Bezero(DNI, izena, abizen_1, abizen_2, sexua, pasahitza);
 		assertEquals(b1.toString(), "Bezero [DNI=" + DNI + ", izena=" + izena + ", abizen_1=" + abizen_1 + ", abizen_2=" + abizen_2
 				+ ", sexua=" + sexua + ", pasahitza=" + pasahitza + "]");
 	}

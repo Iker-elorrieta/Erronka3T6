@@ -38,12 +38,7 @@ class FilmTest {
 	}
 	@Test
 	void testToString() {
-		Film f1 = new Film();
-		f1.setID_film(id);
-		f1.setGeneroa(generoa);
-		f1.setIraupena(iraupena);
-		f1.setPrezioa(prezioa);
-		f1.setTituloa(tituloa);
+		Film f1 = new Film(id, tituloa, iraupena, generoa, prezioa, s1);
 		assertEquals(f1.toString(),"Film [ID_film=" + id + ", tituloa=" + tituloa + ", iraupena=" + iraupena + ", generoa=" + generoa + ", prezioa=" + prezioa + ", saioak=" + Arrays.toString(s1) + "]");
 	}
 	@Test

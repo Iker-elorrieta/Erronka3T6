@@ -18,6 +18,14 @@ public class Film {
 		this.generoa = "";
 		this.prezioa = 0;
 	}
+	public Film (int ID_film, String tituloa, int iraupena, String generoa, double prezioa, Saioa[] saioak) {
+		this.ID_film= ID_film;
+		this.tituloa = tituloa;
+		this.iraupena = iraupena;
+		this.generoa = generoa;
+		this.prezioa = prezioa;
+		this.saioak = saioak;
+	}
 
 	public Saioa[] getSaioak() {
 		return saioak;

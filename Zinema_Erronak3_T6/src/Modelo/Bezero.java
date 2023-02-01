@@ -18,6 +18,15 @@ public class Bezero {
 		this.pasahitza = "";
 		this.sexua = true;
 	}
+	public Bezero(String DNI, String izena, String abizen_1, String abizen_2, boolean sexua, String pasahitza) {
+		this.DNI = DNI;
+		this.izena = izena;
+		this.abizen_1 = abizen_1;
+		this.abizen_2= abizen_2;
+		this.sexua = sexua;
+		this.pasahitza= pasahitza;
+		
+	}
 	
 	public String getDNI() {
 		return DNI;

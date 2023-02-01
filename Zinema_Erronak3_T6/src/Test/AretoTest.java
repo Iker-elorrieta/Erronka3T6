@@ -2,6 +2,8 @@ package Test;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.Arrays;
 
 import org.junit.jupiter.api.Test;
@@ -30,9 +32,7 @@ class AretoTest {
 	}
 	@Test
 	void testToString() {
-		Areto ar = new Areto();
-		ar.setID_areto(id);
-		ar.setZenbakia(zenbakia);
+		Areto ar = new Areto(id, zenbakia, s1);
 		assertEquals(ar.toString(), "Areto [ID_areto=" + id + ", zenbakia=" + zenbakia + ", saioak=" + Arrays.toString(s1) + "]");
 	}
 	@Test
