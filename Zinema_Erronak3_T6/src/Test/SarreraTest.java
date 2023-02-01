@@ -29,8 +29,11 @@ class SarreraTest {
 		Sarrera s1 = new Sarrera();
 		s1.setID_sarrera(id);
 		s1.setErosketa_data(fecha);
+		s1.setErosketa_ordua(ordua);
 		assertEquals(s1.getID_sarrera(), id);
 		assertEquals(s1.getErosketa_data(), fecha);
+		assertEquals(s1.getErosketa_ordua(), ordua);
+		
 	}
 	@Test
 	void testToString() {
@@ -40,8 +43,8 @@ class SarreraTest {
 		fecha = cal.getTime();
 		ordua.setHoras(11);
 		ordua.setMinutos(56);
-		Sarrera s1 = new Sarrera(id, fecha);
-		assertEquals(s1.toString(), "Sarrera [ID_sarrera=" + id + ", erosketa_data=" + fecha + "]");
+		Sarrera s1 = new Sarrera(id, fecha, ordua);
+		assertEquals(s1.toString(), "Sarrera [ID_sarrera=" + id + ", erosketa_data=" + fecha + ", erosketa_ordua=" + ordua + "]");
 	}
 	@Test
 	void testEquals() {

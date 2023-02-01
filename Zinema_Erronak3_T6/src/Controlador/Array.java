@@ -44,7 +44,7 @@ public class Array {
 		}
 	}
 	/**
-	 * Lena el array con numeros random
+	 * Llena el array con numeros random
 	 * @param arraya el array que quieres llenar
 	 * @return el array con los numeros random
 	 */
