@@ -25,6 +25,8 @@ import javax.swing.JPasswordField;
 import javax.swing.JRadioButton;
 import javax.swing.JScrollPane;
 import javax.swing.SwingConstants;
+import javax.swing.JComboBox;
+import javax.swing.DefaultComboBoxModel;
 
 public class lehenLehioa extends JFrame {
 
@@ -114,44 +116,22 @@ public class lehenLehioa extends JFrame {
 		titulo2.setBounds(111, 11, 352, 54);
 		zinemaAreto.add(titulo2);
 		
-		JRadioButton zinema1 = new JRadioButton("Cinesa");
-		zinema1.setFont(new Font("Tahoma", Font.PLAIN, 20));
-		zinema1.setHorizontalAlignment(SwingConstants.CENTER);
-		zinemaGroup.add(zinema1);
-		zinema1.setBounds(90, 112, 109, 23);
-		zinemaAreto.add(zinema1);
-		
-		JRadioButton zinema2 = new JRadioButton("Yelmo");
-		zinema2.setFont(new Font("Tahoma", Font.PLAIN, 20));
-		zinema2.setHorizontalAlignment(SwingConstants.CENTER);
-		zinemaGroup.add(zinema2);
-		zinema2.setBounds(291, 112, 109, 23);
-		zinemaAreto.add(zinema2);
-		
-		JRadioButton zinema3 = new JRadioButton("Golem");
-		zinema3.setToolTipText("");
-		zinema3.setHorizontalAlignment(SwingConstants.CENTER);
-		zinema3.setFont(new Font("Tahoma", Font.PLAIN, 20));
-		zinemaGroup.add(zinema3);
-		zinema3.setBounds(90, 184, 109, 23);
-		zinemaAreto.add(zinema3);
-		
-		JRadioButton zinema4 = new JRadioButton("Ocine");
-		zinema4.setHorizontalAlignment(SwingConstants.CENTER);
-		zinema4.setFont(new Font("Tahoma", Font.PLAIN, 20));
-		zinemaGroup.add(zinema4);
-		zinema4.setBounds(291, 188, 109, 23);
-		zinemaAreto.add(zinema4);
-		
 		JButton btnBukatu = new JButton("Bukatu");
 		btnBukatu.setFont(new Font("Tahoma", Font.PLAIN, 17));
 		btnBukatu.setBounds(10, 276, 95, 31);
 		zinemaAreto.add(btnBukatu);
 		
 		JButton btnHurrengoa1 = new JButton("Hurrengoa");
+		btnHurrengoa1.setEnabled(false);
 		btnHurrengoa1.setFont(new Font("Tahoma", Font.PLAIN, 17));
 		btnHurrengoa1.setBounds(349, 276, 127, 31);
 		zinemaAreto.add(btnHurrengoa1);
+		
+		JComboBox zinemak = new JComboBox();
+		zinemak.setFont(new Font("Tahoma", Font.PLAIN, 20));
+		zinemak.setModel(new DefaultComboBoxModel(new String[] {"Cinesa", "Yelmo", "Golem", "Ocine"}));
+		zinemak.setBounds(129, 98, 190, 31);
+		zinemaAreto.add(zinemak);
 		
 		//PELIKULAK
 		
@@ -219,6 +199,8 @@ public class lehenLehioa extends JFrame {
 		logoa2_3.setBounds(0, 0, 100, 80);
 		logoa2_3.setIcon(new ImageIcon(img2));
 		pelikulakData.add(logoa2_3);
+		
+		//DATEPICKER
 		
 		JButton btnHurrengoa3 = new JButton("Hurrengoa");
 		btnHurrengoa3.setFont(new Font("Tahoma", Font.PLAIN, 17));
@@ -480,6 +462,12 @@ public class lehenLehioa extends JFrame {
 		
 		//zinemaAreto
 		//zinemaAreto panelean "Hurrengoa" botoiari click egin eta pelikulak panelera pasatzeko
+		zinemak.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+    			btnHurrengoa1.setEnabled(true);
+            }
+		});
+		
 		btnHurrengoa1.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 Lehioak.hurrengoaBtn(pelikulak, ongiEtorri, zinemaAreto, pelikulak, pelikulakData, laburpena, login, erregistratu, tiket, bukaera);
