@@ -24,6 +24,7 @@ class AretoTest {
 		ar.setID_areto(id);
 		ar.setZenbakia(zenbakia);
 		ar.setSaioak(s1);
+		
 		assertEquals(ar.getID_areto(), id);
 		assertEquals(ar.getZenbakia(), zenbakia);
 		assertEquals(ar.getSaioak(), s1);

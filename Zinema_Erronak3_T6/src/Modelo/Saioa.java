@@ -2,44 +2,37 @@ package Modelo;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.time.LocalDateTime;
 import java.util.Arrays;
 import java.util.Date;
 import java.util.Objects;
 
 public class Saioa {
+	private LocalDateTime locaDate;
 	private int ID_saioa;
 	private Date data;
-	private int ordua;
-	private int minutua;
 	Film [] filma = new Film [1];
+	
 	
 	public Saioa () {
 		this.ID_saioa = 0;
 		this.data = null;
-		this.ordua = 0;
-		this.minutua = 0;
 		this.filma = null;
+		this.locaDate = null;
+		
 	}
-	public Saioa (int id, Date data, int ordua, int minutua, Film[] filma) {
+	public Saioa (int id, Date data, LocalDateTime locaDate, Film[] filma) {
 		this.ID_saioa = id;
 		this.data = data;
-		this.ordua = ordua;
-		this.minutua = minutua;
 		this.filma = filma;
-	}
-
-	public int getMinutua() {
-		return minutua;
-	}
-	public void setMinutua(int minutua) {
-		this.minutua = minutua;
+		this.locaDate = locaDate;
 	}
 	
-	public int getOrdua() {
-		return ordua;
+	public LocalDateTime getLocaDate() {
+		return locaDate;
 	}
-	public void setOrdua(int ordua) {
-		this.ordua = ordua;
+	public void setLocaDate(LocalDateTime locaDate) {
+		this.locaDate = locaDate;
 	}
 	public int getID_saioa() {
 		return ID_saioa;
@@ -62,8 +55,7 @@ public class Saioa {
 	@Override
 	public String toString() {
 		DateFormat dt = new SimpleDateFormat("dd/MM/yyyy"); 
-		return "Saioa [ID_saioa=" + ID_saioa + ", data=" + dt.format(data) + ", ordua=" + ordua + ", minutua=" + minutua
-				+ ", filma=" + Arrays.toString(filma) + "]";
+		return "Saioa [ID_saioa=" + ID_saioa + ", data=" + dt.format(data) + ", filma=" + Arrays.toString(filma) + "]";
 	}
 	/*@Override
 	public int hashCode() {

@@ -34,14 +34,10 @@ class SarreraTest {
 		Sarrera s1 = new Sarrera();
 		s1.setID_sarrera(id);
 		s1.setErosketa_data(fecha);
-		s1.setOrdua(ordua);
-		s1.setMinutua(minutua);
 		s1.setSalneurria(salneurria);
 		s1.setFilma(f1);
 		assertEquals(s1.getID_sarrera(), id);
 		assertEquals(s1.getErosketa_data(), fecha);
-		assertEquals(s1.getOrdua(), ordua);
-		assertEquals(s1.getMinutua(), minutua);
 		assertEquals(s1.getSalneurria(), salneurria);
 		assertEquals(s1.getFilma(), f1);
 		
@@ -55,8 +51,7 @@ class SarreraTest {
 		fecha = cal.getTime();
 		Sarrera s1 = new Sarrera(id, fecha, 2, f1);
 		DateFormat dt = new SimpleDateFormat("dd/MM/yyyy"); 
-		assertEquals(s1.toString(), "Sarrera [ID_sarrera=" + id + ", erosketa_data=" + dt.format(fecha) + ", ordua=" + ordua
-				+ ", minutua=" + minutua + ", salneurria=" + salneurria + ", filma=" + Arrays.toString(f1) + "]");
+		assertEquals(s1.toString(), "Sarrera [locaDateH=" + locaDate.getHour() + "locaDateM="+ locaDate.getMinute() + ", ID_sarrera=" + id + ", erosketa_data=" + dt.format(fecha) + ", salneurria=" + salneurria + ", filma=" + Arrays.toString(f1) + "]");
 	}
 	@Test
 	void testEquals() {

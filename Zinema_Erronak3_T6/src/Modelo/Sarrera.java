@@ -11,38 +11,19 @@ public class Sarrera {
 	LocalDateTime locaDate = LocalDateTime.now();
 	private int ID_sarrera;
 	private Date erosketa_data;
-	private int ordua;
-	private int minutua;
 	private int salneurria;
 	private Film[] filma;
 	
 	public Sarrera () {
 		this.ID_sarrera = 0;
 		this.erosketa_data = null;
-		this.ordua = locaDate.getHour();
-		this.minutua = locaDate.getMinute();
 		this.filma = null;
 	}
 	public Sarrera (int id, Date data, int salneurria, Film[] filma) {
 		this.ID_sarrera = id;
 		this.erosketa_data = data;
-		this.ordua = locaDate.getHour();
-		this.minutua = locaDate.getMinute();
 		this.salneurria = salneurria;
 		this.filma = filma;
-	}
-	
-	public int getOrdua() {
-		return ordua;
-	}
-	public void setOrdua(int ordua) {
-		this.ordua = ordua;
-	}
-	public int getMinutua() {
-		return minutua;
-	}
-	public void setMinutua(int minutua) {
-		this.minutua = minutua;
 	}
 	public int getID_sarrera() {
 		return ID_sarrera;
@@ -72,8 +53,7 @@ public class Sarrera {
 	@Override
 	public String toString() {
 		DateFormat dt = new SimpleDateFormat("dd/MM/yyyy"); 
-		return "Sarrera [ID_sarrera=" + ID_sarrera + ", erosketa_data=" + dt.format(erosketa_data) + ", ordua=" + ordua
-				+ ", minutua=" + minutua + ", salneurria=" + salneurria + ", filma=" + Arrays.toString(filma) + "]";
+		return "Sarrera [locaDateH=" + locaDate.getHour() + "locaDateM="+ locaDate.getMinute() + ", ID_sarrera=" + ID_sarrera + ", erosketa_data=" + dt.format(erosketa_data) + ", salneurria=" + salneurria + ", filma=" + Arrays.toString(filma) + "]";
 	}
 
 	/*@Override
