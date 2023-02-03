@@ -18,6 +18,7 @@ import Modelo.Film;
 import Modelo.Saioa;
 
 class SaioaTest {
+	//ordua estatikoa jartzeko
 	LocalDateTime locaDate = LocalDateTime.of(LocalDate.now(), LocalTime.of(5, 10));
 	int id = 1;
 	Date fecha = null;
