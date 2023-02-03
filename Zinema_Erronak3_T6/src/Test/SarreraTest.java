@@ -2,20 +2,27 @@ package Test;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.time.LocalDateTime;
+import java.util.Arrays;
 import java.util.Calendar;
 import java.util.Date;
 
 import org.junit.jupiter.api.Test;
 
-import Modelo.Hora;
+import Modelo.Film;
 import Modelo.Sarrera;
 
 class SarreraTest {
-	
+	LocalDateTime locaDate = LocalDateTime.now();
 	int id = 1;
 	Date fecha = null;
-	Hora ordua = new Hora();
+	int ordua  = locaDate.getHour();
+	int minutua = locaDate.getMinute();
 	Calendar cal = Calendar.getInstance();
+	int salneurria = 2;
+	Film [] f1 = new Film[1];
 	
 
 	@Test
@@ -24,15 +31,20 @@ class SarreraTest {
 		cal.set(Calendar.MONTH, 0);
 		cal.set(Calendar.YEAR, 2023);
 		fecha = cal.getTime();
-		ordua.setHoras(11);
-		ordua.setMinutos(56);
 		Sarrera s1 = new Sarrera();
 		s1.setID_sarrera(id);
 		s1.setErosketa_data(fecha);
-		s1.setErosketa_ordua(ordua);
+		s1.setOrdua(ordua);
+		s1.setMinutua(minutua);
+		s1.setSalneurria(salneurria);
+		s1.setFilma(f1);
 		assertEquals(s1.getID_sarrera(), id);
 		assertEquals(s1.getErosketa_data(), fecha);
-		assertEquals(s1.getErosketa_ordua(), ordua);
+		assertEquals(s1.getOrdua(), ordua);
+		assertEquals(s1.getMinutua(), minutua);
+		assertEquals(s1.getSalneurria(), salneurria);
+		assertEquals(s1.getFilma(), f1);
+		
 		
 	}
 	@Test
@@ -41,10 +53,10 @@ class SarreraTest {
 		cal.set(Calendar.MONTH, 0);
 		cal.set(Calendar.YEAR, 2023);
 		fecha = cal.getTime();
-		ordua.setHoras(11);
-		ordua.setMinutos(56);
-		Sarrera s1 = new Sarrera(id, fecha, ordua);
-		assertEquals(s1.toString(), "Sarrera [ID_sarrera=" + id + ", erosketa_data=" + fecha + ", erosketa_ordua=" + ordua + "]");
+		Sarrera s1 = new Sarrera(id, fecha, 2, f1);
+		DateFormat dt = new SimpleDateFormat("dd/MM/yyyy"); 
+		assertEquals(s1.toString(), "Sarrera [ID_sarrera=" + id + ", erosketa_data=" + dt.format(fecha) + ", ordua=" + ordua
+				+ ", minutua=" + minutua + ", salneurria=" + salneurria + ", filma=" + Arrays.toString(f1) + "]");
 	}
 	@Test
 	void testEquals() {
@@ -52,8 +64,6 @@ class SarreraTest {
 		cal.set(Calendar.MONTH, 0);
 		cal.set(Calendar.YEAR, 2023);
 		fecha = cal.getTime();
-		ordua.setHoras(11);
-		ordua.setMinutos(56);
 		Sarrera s1 = new Sarrera();
 		Sarrera s2 = new Sarrera();
 		s2.setID_sarrera(id);

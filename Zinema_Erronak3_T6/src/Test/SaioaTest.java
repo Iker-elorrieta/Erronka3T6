@@ -10,21 +10,18 @@ import java.util.Date;
 
 import org.junit.jupiter.api.Test;
 
-import Modelo.Hora;
+import Modelo.Film;
+
 import Modelo.Saioa;
-import Modelo.Sarrera;
 
 class SaioaTest {
 	
 	int id = 1;
 	Date fecha = null;
-	Hora ordua = new Hora();
-	Hora ordua2 = new Hora();
-	Hora ordua3 = new Hora();
+	int ordua = 0;
+	int minutua = 0;
 	Calendar cal = Calendar.getInstance();
-	Sarrera [] sar1 = new Sarrera [1];
-	
-	
+	Film [] f1 = new Film [1];
 	
 	@Test
 	void testGetetaSet() {
@@ -33,19 +30,18 @@ class SaioaTest {
 		cal.set(Calendar.MONTH, 0);
 		cal.set(Calendar.YEAR, 2023);
 		fecha = cal.getTime();
-		ordua.setHoras(11);
-		ordua.setMinutos(56);
 		Saioa s1 = new Saioa ();
 		s1.setData(fecha);
 		s1.setID_saioa(id);
 		s1.setOrdua(ordua);
-		s1.setSarrerak(sar1);
-		
+		s1.setFilma(f1);
+		s1.setOrdua(ordua);
+		s1.setMinutua(minutua);
 		assertEquals(s1.getID_saioa(), id);
 		assertEquals(s1.getData(), fecha);
-		assertEquals(s1.getOrdua().getHoras(), 11);
-		assertEquals(s1.getOrdua().getMinutos(), 56);
-		assertEquals(s1.getSarrerak(), sar1);
+		assertEquals(s1.getOrdua(), ordua);
+		assertEquals(s1.getMinutua(), minutua);
+		assertEquals(s1.getFilma(), f1);
 	}
 	@Test
 	void testToString() {
@@ -53,11 +49,9 @@ class SaioaTest {
 		cal.set(Calendar.MONTH, 0);
 		cal.set(Calendar.YEAR, 2023);
 		fecha = cal.getTime();
-		ordua.setHoras(11);
-		ordua.setMinutos(56);
-		Saioa s1 = new Saioa(id, fecha, ordua, sar1);
+		Saioa s1 = new Saioa(id, fecha, ordua, minutua, f1);
 		DateFormat dt = new SimpleDateFormat("dd/MM/yyyy"); 
-		assertEquals(s1.toString(), "Saioa [ID_saioa=" + id + ", data=" + dt.format(fecha) + ", ordua=" + ordua + ", sarrerak=" + Arrays.toString(sar1) + "]");
+		assertEquals(s1.toString(), "Saioa [ID_saioa=" + id + ", data=" + dt.format(fecha) + ", ordua=" + ordua + ", minutua=" + minutua + ", filma=" + Arrays.toString(f1) + "]");
 	}
 	@Test
 	void testEquals() {
@@ -65,12 +59,6 @@ class SaioaTest {
 		cal.set(Calendar.MONTH, 0);
 		cal.set(Calendar.YEAR, 2023);
 		fecha = cal.getTime();
-		ordua.setHoras(11);
-		ordua.setMinutos(56);
-		ordua2.setHoras(11);
-		ordua2.setMinutos(56);
-		ordua3.setHoras(11);
-		ordua3.setMinutos(57);
 		Saioa s1 = new Saioa ();
 		Saioa s2 = new Saioa();
 		s2.setID_saioa(id);
@@ -80,9 +68,6 @@ class SaioaTest {
 		s1.setOrdua(ordua);
 		assertTrue(s1.equals(s2));
 		assertFalse(s1.equals(null));
-		assertTrue(ordua.equals(ordua2));
-		assertFalse(ordua.equals(null));
-		assertFalse(ordua.equals(ordua3));
 	}
 
 }

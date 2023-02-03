@@ -9,30 +9,38 @@ import java.util.Objects;
 public class Saioa {
 	private int ID_saioa;
 	private Date data;
-	private Hora ordua;
-	private Sarrera [] sarrerak;
+	private int ordua;
+	private int minutua;
+	Film [] filma = new Film [1];
 	
 	public Saioa () {
 		this.ID_saioa = 0;
 		this.data = null;
-		this.ordua = null;
-		this.sarrerak = null;
+		this.ordua = 0;
+		this.minutua = 0;
+		this.filma = null;
 	}
-	public Saioa (int id, Date data, Hora ordua, Sarrera [] sarrera) {
+	public Saioa (int id, Date data, int ordua, int minutua, Film[] filma) {
 		this.ID_saioa = id;
 		this.data = data;
 		this.ordua = ordua;
-		this.sarrerak = sarrera;
+		this.minutua = minutua;
+		this.filma = filma;
+	}
+
+	public int getMinutua() {
+		return minutua;
+	}
+	public void setMinutua(int minutua) {
+		this.minutua = minutua;
 	}
 	
-	public Sarrera[] getSarrerak() {
-		return sarrerak;
+	public int getOrdua() {
+		return ordua;
 	}
-
-	public void setSarrerak(Sarrera[] sarrerak) {
-		this.sarrerak = sarrerak;
+	public void setOrdua(int ordua) {
+		this.ordua = ordua;
 	}
-
 	public int getID_saioa() {
 		return ID_saioa;
 	}
@@ -45,17 +53,17 @@ public class Saioa {
 	public void setData(Date data) {
 		this.data = data;
 	}
-	public Hora getOrdua() {
-		return ordua;
+	public Film[] getFilma() {
+		return filma;
 	}
-	public void setOrdua(Hora ordua) {
-		this.ordua = ordua;
+	public void setFilma(Film[] filma) {
+		this.filma = filma;
 	}
 	@Override
 	public String toString() {
 		DateFormat dt = new SimpleDateFormat("dd/MM/yyyy"); 
-		return "Saioa [ID_saioa=" + ID_saioa + ", data=" + dt.format(data) + ", ordua=" + ordua + ", sarrerak="
-				+ Arrays.toString(sarrerak) + "]";
+		return "Saioa [ID_saioa=" + ID_saioa + ", data=" + dt.format(data) + ", ordua=" + ordua + ", minutua=" + minutua
+				+ ", filma=" + Arrays.toString(filma) + "]";
 	}
 	/*@Override
 	public int hashCode() {

@@ -9,7 +9,6 @@ public class Film {
 	private int iraupena;
 	private String generoa;
 	private double prezioa;
-	private Saioa [] saioak;
 	
 	public Film () {
 		this.ID_film = 0;
@@ -18,21 +17,12 @@ public class Film {
 		this.generoa = "";
 		this.prezioa = 0;
 	}
-	public Film (int ID_film, String tituloa, int iraupena, String generoa, double prezioa, Saioa[] saioak) {
+	public Film (int ID_film, String tituloa, int iraupena, String generoa, double prezioa) {
 		this.ID_film= ID_film;
 		this.tituloa = tituloa;
 		this.iraupena = iraupena;
 		this.generoa = generoa;
 		this.prezioa = prezioa;
-		this.saioak = saioak;
-	}
-
-	public Saioa[] getSaioak() {
-		return saioak;
-	}
-
-	public void setSaioak(Saioa[] saioak) {
-		this.saioak = saioak;
 	}
 
 	public int getID_film() {
@@ -69,7 +59,7 @@ public class Film {
 	@Override
 	public String toString() {
 		return "Film [ID_film=" + ID_film + ", tituloa=" + tituloa + ", iraupena=" + iraupena + ", generoa=" + generoa
-				+ ", prezioa=" + prezioa + ", saioak=" + Arrays.toString(saioak) + "]";
+				+ ", prezioa=" + prezioa + "]";
 	}
 
 	/*@Override

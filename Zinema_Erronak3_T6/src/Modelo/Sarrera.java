@@ -1,29 +1,48 @@
 package Modelo;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.time.LocalDateTime;
+import java.util.Arrays;
 import java.util.Date;
 import java.util.Objects;
 
 public class Sarrera {
+	LocalDateTime locaDate = LocalDateTime.now();
 	private int ID_sarrera;
 	private Date erosketa_data;
-	private Hora erosketa_ordua;
+	private int ordua;
+	private int minutua;
+	private int salneurria;
+	private Film[] filma;
 	
 	public Sarrera () {
 		this.ID_sarrera = 0;
 		this.erosketa_data = null;
-		this.erosketa_ordua = null;
+		this.ordua = locaDate.getHour();
+		this.minutua = locaDate.getMinute();
+		this.filma = null;
 	}
-	public Sarrera (int id, Date data, Hora ordua) {
+	public Sarrera (int id, Date data, int salneurria, Film[] filma) {
 		this.ID_sarrera = id;
 		this.erosketa_data = data;
-		this.erosketa_ordua = ordua;
+		this.ordua = locaDate.getHour();
+		this.minutua = locaDate.getMinute();
+		this.salneurria = salneurria;
+		this.filma = filma;
 	}
 	
-	public Hora getErosketa_ordua() {
-		return erosketa_ordua;
+	public int getOrdua() {
+		return ordua;
 	}
-	public void setErosketa_ordua(Hora erosketa_ordua) {
-		this.erosketa_ordua = erosketa_ordua;
+	public void setOrdua(int ordua) {
+		this.ordua = ordua;
+	}
+	public int getMinutua() {
+		return minutua;
+	}
+	public void setMinutua(int minutua) {
+		this.minutua = minutua;
 	}
 	public int getID_sarrera() {
 		return ID_sarrera;
@@ -38,10 +57,23 @@ public class Sarrera {
 		this.erosketa_data = erosketa_data;
 	}
 	
+	public int getSalneurria() {
+		return salneurria;
+	}
+	public void setSalneurria(int salneurria) {
+		this.salneurria = salneurria;
+	}
+	public Film[] getFilma() {
+		return filma;
+	}
+	public void setFilma(Film[] filma) {
+		this.filma = filma;
+	}
 	@Override
 	public String toString() {
-		return "Sarrera [ID_sarrera=" + ID_sarrera + ", erosketa_data=" + erosketa_data + ", erosketa_ordua="
-				+ erosketa_ordua + "]";
+		DateFormat dt = new SimpleDateFormat("dd/MM/yyyy"); 
+		return "Sarrera [ID_sarrera=" + ID_sarrera + ", erosketa_data=" + dt.format(erosketa_data) + ", ordua=" + ordua
+				+ ", minutua=" + minutua + ", salneurria=" + salneurria + ", filma=" + Arrays.toString(filma) + "]";
 	}
 
 	/*@Override
