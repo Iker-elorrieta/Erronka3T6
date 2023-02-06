@@ -12,7 +12,6 @@ import java.util.Date;
 import org.junit.jupiter.api.Test;
 
 import Modelo.Bezero;
-import Modelo.Film;
 import Modelo.Saioa;
 import Modelo.Sarrera;
 
