@@ -3,7 +3,6 @@ package Modelo;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
-import java.util.Arrays;
 import java.util.Date;
 import java.util.Objects;
 
@@ -11,7 +10,7 @@ public class Saioa {
 	private LocalDateTime locaDate;
 	private int ID_saioa;
 	private Date data;
-	Film [] filma = new Film [1];
+	Film filma = new Film();
 	
 	
 	public Saioa () {
@@ -21,7 +20,7 @@ public class Saioa {
 		this.locaDate = null;
 		
 	}
-	public Saioa (int id, Date data, LocalDateTime locaDate, Film[] filma) {
+	public Saioa (int id, Date data, LocalDateTime locaDate, Film filma) {
 		this.ID_saioa = id;
 		this.data = data;
 		this.filma = filma;
@@ -46,16 +45,16 @@ public class Saioa {
 	public void setData(Date data) {
 		this.data = data;
 	}
-	public Film[] getFilma() {
+	public Film getFilma() {
 		return filma;
 	}
-	public void setFilma(Film[] filma) {
+	public void setFilma(Film filma) {
 		this.filma = filma;
 	}
 	@Override
 	public String toString() {
 		DateFormat dt = new SimpleDateFormat("dd/MM/yyyy"); 
-		return "Saioa [ID_saioa=" + ID_saioa + ", data=" + dt.format(data) + ", filma=" + Arrays.toString(filma) + "]";
+		return "Saioa [ID_saioa=" + ID_saioa + ", data=" + dt.format(data) + ", filma=" + filma + "]";
 	}
 	/*@Override
 	public int hashCode() {

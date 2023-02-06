@@ -23,7 +23,7 @@ class SaioaTest {
 	int id = 1;
 	Date fecha = null;
 	Calendar cal = Calendar.getInstance();
-	Film [] f1 = new Film [1];
+	Film f1 = new Film();
 	
 	@Test
 	void testGetetaSet() {
@@ -54,7 +54,7 @@ class SaioaTest {
 		fecha = cal.getTime();
 		Saioa s1 = new Saioa(id, fecha, locaDate, f1);
 		DateFormat dt = new SimpleDateFormat("dd/MM/yyyy"); 
-		assertEquals(s1.toString(), "Saioa [ID_saioa=" + id + ", data=" + dt.format(fecha) + ", filma=" + Arrays.toString(f1) + "]");
+		assertEquals(s1.toString(), "Saioa [ID_saioa=" + id + ", data=" + dt.format(fecha) + ", filma=" + f1 + "]");
 	}
 	@Test
 	void testEquals() {
