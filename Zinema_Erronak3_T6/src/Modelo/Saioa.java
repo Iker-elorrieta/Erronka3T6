@@ -10,7 +10,7 @@ public class Saioa {
 	private LocalDateTime locaDate;
 	private int ID_saioa;
 	private Date data;
-	Film filma = new Film();
+	private Film filma;
 	
 	
 	public Saioa () {

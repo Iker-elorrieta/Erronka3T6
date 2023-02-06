@@ -12,22 +12,28 @@ public class Sarrera {
 	private int ID_sarrera;
 	private Date erosketa_data;
 	private int salneurria;
-	private Film[] filma;
-	private Saioa[] Saioa;
+	private Saioa [] Saioa;
+	private Bezero Bezero;
 	
 	public Sarrera () {
 		this.ID_sarrera = 0;
 		this.erosketa_data = null;
 		this.salneurria = 0;
 		this.Saioa = null;
-		this.filma = null;
+		this.Bezero = null;
 	}
-	public Sarrera (int id, Date data, int salneurria, Film[] filma, Saioa[] saioa) {
+	public Sarrera (int id, Date data, int salneurria, Saioa[] saioa, Bezero bezero) {
 		this.ID_sarrera = id;
 		this.erosketa_data = data;
 		this.salneurria = salneurria;
-		this.filma = filma;
 		this.Saioa = saioa;
+		this.Bezero = bezero;
+	}
+	public Bezero getBezero() {
+		return Bezero;
+	}
+	public void setBezero(Bezero bezero) {
+		Bezero = bezero;
 	}
 	public Saioa[] getSaioa() {
 		return Saioa;
@@ -54,18 +60,12 @@ public class Sarrera {
 	public void setSalneurria(int salneurria) {
 		this.salneurria = salneurria;
 	}
-	public Film[] getFilma() {
-		return filma;
-	}
-	public void setFilma(Film[] filma) {
-		this.filma = filma;
-	}
 	@Override
 	public String toString() {
 		DateFormat dt = new SimpleDateFormat("dd/MM/yyyy");
 		return "Sarrera [locaDateH=" + locaDate.getHour() + "locaDateM=" + locaDate.getMinute() + ", ID_sarrera=" + ID_sarrera + ", erosketa_data=" + dt.format(erosketa_data)
-				+ ", salneurria=" + salneurria + ", filma=" + Arrays.toString(filma) + ", Saioa="
-				+ Arrays.toString(Saioa) + "]";
+				+ ", salneurria=" + salneurria + ", Saioa="
+				+ Arrays.toString(Saioa) + ", Bezero=" + Bezero+"]";
 	}
 
 	/*@Override
