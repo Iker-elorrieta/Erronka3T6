@@ -43,7 +43,7 @@ import javax.swing.JComboBox;
 import javax.swing.DefaultComboBoxModel;
 
 public class lehenLehioa extends JFrame {
-
+	
 	private JPanel contentPane;
 	private final ButtonGroup zinemaGroup = new ButtonGroup();
 	private JTable laburpenaTaula;
