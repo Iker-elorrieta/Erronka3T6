@@ -2,8 +2,8 @@ package Controlador;
 
 public class Array {
 	/**
-	 * Enseña el array
-	 * @param arraya el array que quieres enseñar
+	 * Enseï¿½a el array
+	 * @param arraya el array que quieres enseï¿½ar
 	 */
 	public static void erakutsi (String [] arraya) {
 		for (int i=0;i<arraya.length;i++) {
@@ -11,8 +11,8 @@ public class Array {
 		}
 	}
 	/**
-	 * Enseña el array
-	 * @param arraya el array que quieres enseñar
+	 * Enseï¿½a el array
+	 * @param arraya el array que quieres enseï¿½ar
 	 */
 	public static void erakutsi (int [] arraya) {
 		for (int i=0;i<arraya.length;i++) {
@@ -20,8 +20,8 @@ public class Array {
 		}
 	}
 	/**
-	 * Enseña la matriz
-	 * @param arraya la matriz que quieres enseñar
+	 * Enseï¿½a la matriz
+	 * @param arraya la matriz que quieres enseï¿½ar
 	 */
 	public static void erakutsi (String [][] arraya) {
 		for (int i = 0; i<arraya.length;i++) {
@@ -32,8 +32,8 @@ public class Array {
 		}
 	}
 	/**
-	 * Enseña la matriz
-	 * @param arraya la matriz que quieres enseñar
+	 * Enseï¿½a la matriz
+	 * @param arraya la matriz que quieres enseï¿½ar
 	 */
 	public static void erakutsi (int [][] arraya) {
 		for (int i = 0; i<arraya.length;i++) {
