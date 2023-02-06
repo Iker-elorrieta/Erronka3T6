@@ -83,5 +83,14 @@ public class WindowBuilderMetodoak {
 		comboBox.setVisible(false);	
 		}
 	
+	/**
+	 * Bi botoiak desktibatuko dira
+	 * @param boton lehenengo botoia
+	 * @param boton2 bigarren botoia
+	 */
+	public static void ezkutatu (JButton boton, JButton boton2) {
+		boton.setEnabled(false);    
+		boton2.setEnabled(false);    
+		}
 	
 }

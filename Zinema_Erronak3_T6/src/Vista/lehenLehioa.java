@@ -9,6 +9,11 @@ import java.awt.Font;
 import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.Calendar;
 import java.util.Properties;
 
@@ -30,6 +35,7 @@ import org.jdatepicker.impl.UtilDateModel;
 
 
 import Controlador.WindowBuilderMetodoak;
+import Controlador.datuBase;
 import Controlador.metodoak;
 import Modelo.DateLabelFormatter;
 
@@ -41,6 +47,7 @@ import javax.swing.JScrollPane;
 import javax.swing.SwingConstants;
 import javax.swing.JComboBox;
 import javax.swing.DefaultComboBoxModel;
+import javax.swing.DebugGraphics;
 
 public class lehenLehioa extends JFrame {
 	
@@ -51,16 +58,26 @@ public class lehenLehioa extends JFrame {
 	private JTextField textBeherapena;
 	private JTextField textTotala;
 	private JPasswordField passwordField;
-	private JTextField textField_1;
+	private JTextField textFieldNan;
 	private JPasswordField passwordField_1;
 	private JTextField txtNan;
 	private JPasswordField passwordField_2;
 	private JTable pelikulakTaula;
 	private final ButtonGroup pelikulakGroup = new ButtonGroup();
 	private JTable table;
+//	private String a;
+//	public String b [] = new String [4];
+	
+	public int a;
+	public int b;
+	public int c;
+	public int d;
 	
 	//Aldagaiak
 	int pelikula_kont=0;
+	private JTextField textField;
+	private JTextField textAbizena1;
+	private JTextField textAbizena2;
 	/**
 	 * Launch the application.
 	 */
@@ -81,6 +98,33 @@ public class lehenLehioa extends JFrame {
 	 * Create the frame.
 	 */
 	public lehenLehioa() {
+		try {
+			Connection konexioa = DriverManager.getConnection("jdbc:mysql://localhost:3306/zinema", "root", "");
+			Statement komando = konexioa.createStatement();
+			System.out.println("Ondo konektatu da");
+			ResultSet registro = komando.executeQuery("SELECT * FROM zinema");
+			//konexioa.close();
+			while (registro.next() == true) {
+				
+						for(int i = 0; i < 4; i++) {
+							//a = registro.getString("zinema_izena");
+						//	b [i] = a; 
+							if (i == 0) {
+								a = registro.getInt("zinema_ID");
+							} else if (i == 1) {
+								b = registro.getInt("zinema_ID");
+							} else if (i == 2) {
+								c = registro.getInt("zinema_ID");
+							} else if (i == 3) {
+								d = registro.getInt("zinema_ID");
+							}
+						}
+			}
+			System.out.println(b);
+		} catch (SQLException ex) {
+			System.out.println("Errore datu basearekin konektatzen saiatu denean"+ex);
+		}
+		
 		Image img = new ImageIcon(this.getClass().getResource("/logo.png")).getImage();
 		Image img2 = new ImageIcon(this.getClass().getResource("/logo2.png")).getImage();
 		
@@ -119,6 +163,7 @@ public class lehenLehioa extends JFrame {
 		//ZINEMA ARETOA
 		
 		JPanel zinemaAreto = new JPanel();
+		zinemaAreto.setToolTipText("PEPE");
 		contentPane.add(zinemaAreto, "name_19385331456200");
 		zinemaAreto.setLayout(null);
 		
@@ -133,11 +178,13 @@ public class lehenLehioa extends JFrame {
 		zinemaAreto.add(titulo2);
 		
 		JButton btnBukatu = new JButton("Bukatu");
+		btnBukatu.setToolTipText("");
 		btnBukatu.setFont(new Font("Tahoma", Font.PLAIN, 17));
 		btnBukatu.setBounds(10, 276, 95, 31);
 		zinemaAreto.add(btnBukatu);
 		
 		JButton btnHurrengoa1 = new JButton("Hurrengoa");
+		btnHurrengoa1.setToolTipText("");
 		btnHurrengoa1.setEnabled(false);
 		btnHurrengoa1.setFont(new Font("Tahoma", Font.PLAIN, 17));
 		btnHurrengoa1.setBounds(349, 276, 127, 31);
@@ -145,7 +192,7 @@ public class lehenLehioa extends JFrame {
 		
 		JComboBox zinemak = new JComboBox();
 		zinemak.setFont(new Font("Tahoma", Font.PLAIN, 20));
-		zinemak.setModel(new DefaultComboBoxModel(new String[] {"Cinesa", "Yelmo", "Golem", "Ocine"}));
+		zinemak.setModel(new DefaultComboBoxModel(new String[] {}));
 		zinemak.setBounds(129, 98, 190, 31);
 		zinemaAreto.add(zinemak);
 		
@@ -271,7 +318,7 @@ public class lehenLehioa extends JFrame {
 		laburpena.add(textTotala);
 		
 		JLabel lblNewLabel_1 = new JLabel("Azkenengo prezioa");
-		lblNewLabel_1.setBounds(130, 222, 106, 14);
+		lblNewLabel_1.setBounds(129, 222, 130, 14);
 		laburpena.add(lblNewLabel_1);
 		
 		JLabel lblNewLabel_1_1 = new JLabel("Prezio beherapen gabe");
@@ -279,7 +326,7 @@ public class lehenLehioa extends JFrame {
 		laburpena.add(lblNewLabel_1_1);
 		
 		JLabel lblNewLabel_1_1_1 = new JLabel("Beherpena");
-		lblNewLabel_1_1_1.setBounds(164, 180, 86, 14);
+		lblNewLabel_1_1_1.setBounds(173, 180, 86, 14);
 		laburpena.add(lblNewLabel_1_1_1);
 		
 		//LOGIN
@@ -305,10 +352,10 @@ public class lehenLehioa extends JFrame {
 		passwordField.setBounds(191, 147, 132, 20);
 		login.add(passwordField);
 		
-		textField_1 = new JTextField();
-		textField_1.setBounds(191, 116, 131, 20);
-		login.add(textField_1);
-		textField_1.setColumns(10);
+		textFieldNan = new JTextField();
+		textFieldNan.setBounds(191, 116, 131, 20);
+		login.add(textFieldNan);
+		textFieldNan.setColumns(10);
 		
 		JLabel lblLogin = new JLabel("LOGIN");
 		lblLogin.setFont(new Font("Tahoma", Font.PLAIN, 22));
@@ -372,11 +419,14 @@ public class lehenLehioa extends JFrame {
 		textBeherapena.setText(metodoak.zenbatBeherapen(pelikula_kont));
 		laburpena.add(lblNewLabel_4);
 		
-		//ERREGISTRATU
-		
+		//ERREGISTRATU		
 		JPanel erregistratu = new JPanel();
 		erregistratu.setLayout(null);
 		contentPane.add(erregistratu, "name_359911054480700");
+		
+		JLabel lblAbizena2 = new JLabel("2. Abizena");
+		lblAbizena2.setBounds(280, 168, 62, 14);
+		erregistratu.add(lblAbizena2);
 		
 		JLabel logoa2_5 = new JLabel("");
 		logoa2_5.setBounds(0, 0, 100, 80);
@@ -384,21 +434,22 @@ public class lehenLehioa extends JFrame {
 		erregistratu.add(logoa2_5);
 		
 		JLabel lblNewLabelNAN = new JLabel("NAN");
-		lblNewLabelNAN.setBounds(138, 94, 35, 14);
+		lblNewLabelNAN.setBounds(70, 101, 35, 14);
 		erregistratu.add(lblNewLabelNAN);
 		
 		JLabel lblNewLabelPasahitza1 = new JLabel("Pasahitza");
-		lblNewLabelPasahitza1.setBounds(121, 125, 62, 14);
+		lblNewLabelPasahitza1.setBounds(53, 132, 62, 14);
 		erregistratu.add(lblNewLabelPasahitza1);
 		
 		passwordField_1 = new JPasswordField();
 		passwordField_1.setToolTipText("");
-		passwordField_1.setBounds(183, 122, 132, 20);
+		passwordField_1.setBounds(115, 129, 132, 20);
 		erregistratu.add(passwordField_1);
 		
 		txtNan = new JTextField();
+		txtNan.setToolTipText("");
 		txtNan.setColumns(10);
-		txtNan.setBounds(183, 91, 131, 20);
+		txtNan.setBounds(115, 98, 131, 20);
 		erregistratu.add(txtNan);
 		
 		JLabel lblErregistratu = new JLabel("ERREGISTRATU");
@@ -415,21 +466,44 @@ public class lehenLehioa extends JFrame {
 		erregistratu.add(btnBukatuErregistratu3);
 		
 		passwordField_2 = new JPasswordField();
-		passwordField_2.setBounds(183, 155, 132, 20);
+		passwordField_2.setBounds(115, 162, 132, 20);
 		erregistratu.add(passwordField_2);
 		
 		JLabel lblNewLabelPasahitza2 = new JLabel("Errepikatu pasahitza");
-		lblNewLabelPasahitza2.setBounds(78, 158, 105, 14);
+		lblNewLabelPasahitza2.setBounds(10, 165, 105, 14);
 		erregistratu.add(lblNewLabelPasahitza2);
 		
 		JLabel lblNewLabelSexua = new JLabel("Sexua");
-		lblNewLabelSexua.setBounds(138, 196, 35, 14);
+		lblNewLabelSexua.setBounds(158, 218, 46, 14);
 		erregistratu.add(lblNewLabelSexua);
 		
 		JComboBox comboSexua = new JComboBox();
 		comboSexua.setModel(new DefaultComboBoxModel(new String[] {"Gizona", "Emakumea"}));
-		comboSexua.setBounds(183, 192, 132, 22);
+		comboSexua.setBounds(214, 214, 132, 22);
 		erregistratu.add(comboSexua);
+		
+		JLabel lblIzena = new JLabel("Izena");
+		lblIzena.setBounds(297, 101, 35, 14);
+		erregistratu.add(lblIzena);
+		
+		textField = new JTextField();
+		textField.setColumns(10);
+		textField.setBounds(342, 98, 131, 20);
+		erregistratu.add(textField);
+		
+		JLabel lblAbizena1 = new JLabel("1. Abizena");
+		lblAbizena1.setBounds(280, 132, 62, 14);
+		erregistratu.add(lblAbizena1);
+		
+		textAbizena1 = new JTextField();
+		textAbizena1.setColumns(10);
+		textAbizena1.setBounds(343, 129, 131, 20);
+		erregistratu.add(textAbizena1);
+		
+		textAbizena2 = new JTextField();
+		textAbizena2.setColumns(10);
+		textAbizena2.setBounds(343, 165, 131, 20);
+		erregistratu.add(textAbizena2);
 		
 		//TIKET
 		
@@ -545,8 +619,7 @@ public class lehenLehioa extends JFrame {
 		btnAtzera2.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 WindowBuilderMetodoak.hurrengoaBtn(pelikulak, ongiEtorri, zinemaAreto, pelikulak, pelikulakData, laburpena, login, erregistratu, tiket, bukaera);
-    			btnHurrengoa1.setEnabled(false);
-    			btnHurrengoa2.setEnabled(false);
+                WindowBuilderMetodoak.ezkutatu(btnHurrengoa1, btnHurrengoa2);
             }
 		});
 		
@@ -557,31 +630,40 @@ public class lehenLehioa extends JFrame {
                 WindowBuilderMetodoak.hurrengoaBtn(zinemaAreto, ongiEtorri, zinemaAreto, pelikulak, pelikulakData, laburpena, login, erregistratu, tiket, bukaera);
                 pelikula_kont++;
                 System.out.println(pelikula_kont);
-    			btnHurrengoa1.setEnabled(false);
-    			btnHurrengoa2.setEnabled(false);
-                
+                WindowBuilderMetodoak.ezkutatu(btnHurrengoa1, btnHurrengoa2);
             }
 		});
 		
 		//DATEPICKER
-		//Zinemara joan ahal izetako restrikzio batzuk daude, adibidez larubatetan ezin da joan. Aukeratutako egunean 
+		//Zinemara joan ahal izetako restrikzio batzuk daude, adibidez astelehenetan ezin da joan. Aukeratutako egunean 
 		// ezin bada ikusi pelikula hori showMesasgeDialog bat agertuko da eta "hurrengo" botoia desabilitatuko da
 		datePicker.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 Calendar selectedDate = Calendar.getInstance();
                 selectedDate.setTime(model.getValue());
-                Calendar tomorrow = Calendar.getInstance();
-                tomorrow.add(Calendar.DATE, -1);
+                //Gaurko egunaren aurreko egunak hartzen dira
+                Calendar before = Calendar.getInstance();
+                before.add(Calendar.DATE, -1);
+                //Gaurko eguna hartzen da
                 Calendar today = Calendar.getInstance();
                 today.add(Calendar.DATE, 0);
+                //Bi hilbete eta geroko egunak hartzen dira
+                Calendar month = Calendar.getInstance();
+                month.add(Calendar.MONTH, +2);
                 
-                if (selectedDate.before(tomorrow) || selectedDate.get(Calendar.DAY_OF_WEEK) == Calendar.SUNDAY) {
-                    model.setValue(tomorrow.getTime());
-                    JOptionPane.showMessageDialog(null, "Egun hori ezin da aukeratu");
+                if (selectedDate.before(before)) {
+                    model.setValue(before.getTime());
+                    JOptionPane.showMessageDialog(null, "Ezin da aukeratu igaro den egun bat");
                     WindowBuilderMetodoak.ezkutatu(btnHurrengoa3, comboSesioak);
+                }else if(selectedDate.get(Calendar.DAY_OF_WEEK) == Calendar.MONDAY){
+                    JOptionPane.showMessageDialog(null, "Astelehenetan zinema itxita dago");
+                    WindowBuilderMetodoak.ezkutatu(btnHurrengoa3, comboSesioak);	
                 }else if(selectedDate.before(today)) {
                     JOptionPane.showMessageDialog(null, "Gaur bakrarrik lehiatilan erosi ahal dira");
+                    WindowBuilderMetodoak.ezkutatu(btnHurrengoa3, comboSesioak);
+                }else if(selectedDate.after(month)){
+                    JOptionPane.showMessageDialog(null, "Ez daukagu zinemarako sarrerarik hain urruneko data baterako");
                     WindowBuilderMetodoak.ezkutatu(btnHurrengoa3, comboSesioak);
                 		}else {
                 			WindowBuilderMetodoak.erakutsi(btnHurrengoa3, comboSesioak); 
@@ -672,6 +754,5 @@ public class lehenLehioa extends JFrame {
                 WindowBuilderMetodoak.btn3secDelay(bukaera, 2, ongiEtorri, zinemaAreto, pelikulak, pelikulakData, laburpena, login, erregistratu, tiket, bukaera, e);
             }
 		});
-		
 	}
 }
