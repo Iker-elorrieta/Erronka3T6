@@ -38,6 +38,7 @@ import Controlador.WindowBuilderMetodoak;
 import Controlador.datuBase;
 import Controlador.metodoak;
 import Modelo.DateLabelFormatter;
+import Modelo.Zinema;
 
 import javax.swing.JTextField;
 import javax.swing.JScrollBar;
@@ -68,19 +69,20 @@ public class lehenLehioa extends JFrame {
 //	private String a;
 //	public String b [] = new String [4];
 	
-	public int a;
-	public int b;
-	public int c;
-	public int d;
+
 	
 	//Aldagaiak
 	int pelikula_kont=0;
 	private JTextField textField;
 	private JTextField textAbizena1;
 	private JTextField textAbizena2;
+	private int ID_zinema;
+	private String izena;
+	private String zinema_helbide;
 	/**
 	 * Launch the application.
 	 */
+	
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
@@ -93,38 +95,37 @@ public class lehenLehioa extends JFrame {
 			}
 		});
 	}
-
+	
+	
 	/**
 	 * Create the frame.
 	 */
-	public lehenLehioa() {
-		try {
-			Connection konexioa = DriverManager.getConnection("jdbc:mysql://localhost:3306/zinema", "root", "");
-			Statement komando = konexioa.createStatement();
-			System.out.println("Ondo konektatu da");
-			ResultSet registro = komando.executeQuery("SELECT * FROM zinema");
-			//konexioa.close();
-			while (registro.next() == true) {
-				
-						for(int i = 0; i < 4; i++) {
-							//a = registro.getString("zinema_izena");
-						//	b [i] = a; 
-							if (i == 0) {
-								a = registro.getInt("zinema_ID");
-							} else if (i == 1) {
-								b = registro.getInt("zinema_ID");
-							} else if (i == 2) {
-								c = registro.getInt("zinema_ID");
-							} else if (i == 3) {
-								d = registro.getInt("zinema_ID");
-							}
-						}
-			}
-			System.out.println(b);
-		} catch (SQLException ex) {
-			System.out.println("Errore datu basearekin konektatzen saiatu denean"+ex);
+	public lehenLehioa() {	
+		int i = 0;
+		Zinema [] zinemak = null;
+ 		try {
+		   Statement stmt_p = datuBase.konektatuDB().createStatement();
+		   ResultSet rs = stmt_p.executeQuery("SELECT * FROM Zinema");
+		   rs.last();
+		   int length = rs.getRow();
+		   zinemak = new Zinema[length];
+		   while (rs.next()) {   
+		      Zinema myZinema = new Zinema();
+		      int ID_zinema = rs.getInt(1);
+		      String izena = rs.getString(2);
+		      String zinema_helbide = rs.getString(3);
+		      myZinema.setID_zinema(ID_zinema);
+		      myZinema.setIzena(izena); 
+		      myZinema.setLokalitatea(zinema_helbide);
+		      System.out.println(myZinema.getIzena());
+		      zinemak[i++] = myZinema;
+		   }
+		  
+		} catch (SQLException e) {
+		   e.printStackTrace();
 		}
-		
+		System.out.println(zinemak.length);
+		 
 		Image img = new ImageIcon(this.getClass().getResource("/logo.png")).getImage();
 		Image img2 = new ImageIcon(this.getClass().getResource("/logo2.png")).getImage();
 		
@@ -190,11 +191,11 @@ public class lehenLehioa extends JFrame {
 		btnHurrengoa1.setBounds(349, 276, 127, 31);
 		zinemaAreto.add(btnHurrengoa1);
 		
-		JComboBox zinemak = new JComboBox();
-		zinemak.setFont(new Font("Tahoma", Font.PLAIN, 20));
-		zinemak.setModel(new DefaultComboBoxModel(new String[] {}));
-		zinemak.setBounds(129, 98, 190, 31);
-		zinemaAreto.add(zinemak);
+		JComboBox CBZinemak = new JComboBox();
+		CBZinemak.setModel(new DefaultComboBoxModel(zinemak));
+		CBZinemak.setFont(new Font("Tahoma", Font.PLAIN, 20));
+		CBZinemak.setBounds(129, 98, 190, 31);
+		zinemaAreto.add(CBZinemak);
 		
 		//PELIKULAK
 		
@@ -571,7 +572,7 @@ public class lehenLehioa extends JFrame {
 		
 		//zinemaAreto
 		//zinemaAreto panelean "Hurrengoa" botoiari click egin eta pelikulak panelera pasatzeko
-		zinemak.addActionListener(new ActionListener() {
+		CBZinemak.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
     			btnHurrengoa1.setEnabled(true);
             }

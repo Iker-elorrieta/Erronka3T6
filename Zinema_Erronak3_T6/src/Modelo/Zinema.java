@@ -6,18 +6,18 @@ import java.util.Objects;
 public class Zinema {
 	private int ID_zinema;
 	private String izena;
-	private String lokalitatea;
+	private String zinema_helbide;
 	private Areto [] aretoak;
 	
 	public Zinema () {
 		this.ID_zinema = 0;
 		this.izena = "";
-		this.lokalitatea = "";
+		this.zinema_helbide = "";
 	}
 	public Zinema (int ID_zinema, String izena, String lokalitatea, Areto[] aretoak) {
 		this.ID_zinema = ID_zinema;
 		this.izena = izena;
-		this.lokalitatea = lokalitatea;
+		this.zinema_helbide = lokalitatea;
 		this.aretoak = aretoak;
 	}
 	
@@ -42,16 +42,17 @@ public class Zinema {
 		this.izena = izena;
 	}
 	public String getLokalitatea() {
-		return lokalitatea;
+		return zinema_helbide;
 	}
 	public void setLokalitatea(String lokalitatea) {
-		this.lokalitatea = lokalitatea;
+		this.zinema_helbide = lokalitatea;
 	}
 	
 	@Override
 	public String toString() {
-		return "Zinema [ID_zinema=" + ID_zinema + ", izena=" + izena + ", lokalitatea=" + lokalitatea + ", aretoak="
-				+ Arrays.toString(aretoak) + "]";
+		return izena;
+		/*return "Zinema [ID_zinema=" + ID_zinema + ", izena=" + izena + ", lokalitatea=" + zinema_helbide + ", aretoak="
+		+ Arrays.toString(aretoak) + "]";*/
 	}
 	
 	/*@Override
