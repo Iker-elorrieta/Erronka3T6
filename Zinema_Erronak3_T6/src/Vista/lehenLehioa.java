@@ -49,6 +49,9 @@ import javax.swing.SwingConstants;
 import javax.swing.JComboBox;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.DebugGraphics;
+import javax.swing.ListSelectionModel;
+import javax.swing.DropMode;
+import java.awt.Cursor;
 
 public class lehenLehioa extends JFrame {
 	
@@ -66,8 +69,6 @@ public class lehenLehioa extends JFrame {
 	private JTable pelikulakTaula;
 	private final ButtonGroup pelikulakGroup = new ButtonGroup();
 	private JTable table;
-//	private String a;
-//	public String b [] = new String [4];
 	
 
 	
@@ -209,6 +210,8 @@ public class lehenLehioa extends JFrame {
 		pelikulak.add(scrollPanePelikulak);
 		
 		pelikulakTaula = new JTable();
+		pelikulakTaula.setCursor(Cursor.getPredefinedCursor(Cursor.DEFAULT_CURSOR));
+		pelikulakTaula.setEnabled(false);
 		pelikulakTaula.setModel(new DefaultTableModel(
 			new Object[][] {
 				{null, null, null},
@@ -245,6 +248,7 @@ public class lehenLehioa extends JFrame {
 		comboPelikula.setModel(new DefaultComboBoxModel(new String[] {"Avatar", "Handia"}));
 		comboPelikula.setBounds(10, 108, 135, 22);
 		pelikulak.add(comboPelikula);
+		
 		//PELIKULAK DATA
 		JPanel pelikulakData = new JPanel();
 		contentPane.add(pelikulakData, "name_3591189006900");
@@ -285,9 +289,7 @@ public class lehenLehioa extends JFrame {
 		comboSesioak.setBounds(138, 182, 213, 22);
 		pelikulakData.add(comboSesioak);
 		
-		
 		//LABURPENA
-		
 		JPanel laburpena = new JPanel();
 		contentPane.add(laburpena, "name_357675593712100");
 		laburpena.setLayout(null);
@@ -332,7 +334,6 @@ public class lehenLehioa extends JFrame {
 		laburpena.add(lblNewLabel_1_1_1);
 		
 		//LOGIN
-		
 		JPanel login = new JPanel();
 		contentPane.add(login, "name_359351979134700");
 		login.setLayout(null);
@@ -508,7 +509,6 @@ public class lehenLehioa extends JFrame {
 		erregistratu.add(textAbizena2);
 		
 		//TIKET
-		
 		JPanel tiket = new JPanel();
 		contentPane.add(tiket, "name_360289319246600");
 		tiket.setLayout(null);
@@ -532,7 +532,6 @@ public class lehenLehioa extends JFrame {
 		tiket.add(btnEz);
 		
 		//BUKAERA
-		
 		JPanel bukaera = new JPanel();
 		bukaera.setLayout(null);
 		contentPane.add(bukaera, "name_4579996000400");
