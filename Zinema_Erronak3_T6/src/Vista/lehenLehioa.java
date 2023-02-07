@@ -79,6 +79,7 @@ public class lehenLehioa extends JFrame {
 	private int ID_zinema;
 	private String izena;
 	private String zinema_helbide;
+	private Zinema [] zinemak;
 	/**
 	 * Launch the application.
 	 */
@@ -102,24 +103,24 @@ public class lehenLehioa extends JFrame {
 	 */
 	public lehenLehioa() {	
 		int i = 0;
-		Zinema [] zinemak = null;
- 		try {
-		   Statement stmt_p = datuBase.konektatuDB().createStatement();
-		   ResultSet rs = stmt_p.executeQuery("SELECT * FROM Zinema");
-		   rs.last();
-		   int length = rs.getRow();
-		   zinemak = new Zinema[length];
-		   while (rs.next()) {   
-		      Zinema myZinema = new Zinema();
-		      int ID_zinema = rs.getInt(1);
-		      String izena = rs.getString(2);
-		      String zinema_helbide = rs.getString(3);
-		      myZinema.setID_zinema(ID_zinema);
-		      myZinema.setIzena(izena); 
-		      myZinema.setLokalitatea(zinema_helbide);
-		      System.out.println(myZinema.getIzena());
-		      zinemak[i++] = myZinema;
-		   }
+		try (Statement stmt_p = datuBase.konektatuDB().createStatement();
+		     ResultSet rs = stmt_p.executeQuery("SELECT * FROM Zinema")) {
+		    rs.last();
+		    int length = rs.getRow();
+		    zinemak = new Zinema[length];
+		    rs.beforeFirst();
+		    while (rs.next()) {   
+		        Zinema myZinema = new Zinema();
+		        int ID_zinema = rs.getInt(1);
+		        String izena = rs.getString(2);
+		        String zinema_helbide = rs.getString(3);
+		        myZinema.setID_zinema(ID_zinema);
+		        myZinema.setIzena(izena); 
+		        myZinema.setLokalitatea(zinema_helbide);
+		        System.out.println(myZinema.getIzena());
+		        zinemak[i] = myZinema;
+		        i++;
+		    }
 		  
 		} catch (SQLException e) {
 		   e.printStackTrace();
