@@ -35,7 +35,6 @@ class SaioaTest {
 		s1.setID_saioa(id);
 		s1.setFilma(f1);
 		s1.setLocaDate(locaDate);
-		s1.setLocaDate(locaDate);
 		assertEquals(s1.getID_saioa(), id);
 		assertEquals(s1.getData(), fecha);
 		assertEquals(s1.getLocaDate().getHour(), 5);
