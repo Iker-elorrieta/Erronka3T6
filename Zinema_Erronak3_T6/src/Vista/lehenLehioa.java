@@ -15,6 +15,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.Properties;
 
 import javax.swing.AbstractButton;
@@ -37,7 +38,11 @@ import org.jdatepicker.impl.UtilDateModel;
 import Controlador.WindowBuilderMetodoak;
 import Controlador.datuBase;
 import Controlador.metodoak;
+import Modelo.Areto;
+import Modelo.Bezero;
 import Modelo.DateLabelFormatter;
+import Modelo.Eskaria;
+import Modelo.Film;
 import Modelo.Zinema;
 
 import javax.swing.JTextField;
@@ -81,6 +86,10 @@ public class lehenLehioa extends JFrame {
 	private String izena;
 	private String zinema_helbide;
 	private Zinema [] zinemak;
+	private Areto [] aretoak;
+	private Film [] filmak;
+	private Bezero [] bezeroak;
+	private Eskaria [] eskariak;
 	/**
 	 * Launch the application.
 	 */
@@ -102,10 +111,37 @@ public class lehenLehioa extends JFrame {
 	/**
 	 * Create the frame.
 	 */
+	Connection con = datuBase.konektatuDB();
 	public lehenLehioa() {	
-		int i = 0;
-		try (Statement stmt_p = datuBase.konektatuDB().createStatement();
-		     ResultSet rs = stmt_p.executeQuery("SELECT * FROM Zinema")) {
+		//Film
+		try (Statement stmt_p = con.createStatement();
+		    ResultSet rs = stmt_p.executeQuery("SELECT * FROM Film")) {
+			int i = 0;
+		    rs.last();
+		    int length = rs.getRow();
+		    filmak = new Film[length];
+		    rs.beforeFirst();
+		    while (rs.next()) {   
+		        Film myFilm = new Film();
+		        int ID_zinema = rs.getInt(1);
+		        String tituloa = rs.getString(2);
+		        int iraupena = rs.getInt(3);
+		        String generoa = rs.getString(4);
+		        myFilm.setID_film(ID_zinema);
+		        myFilm.setTituloa(tituloa); 
+		        myFilm.setIraupena(iraupena);
+		        myFilm.setGeneroa(generoa);
+		        filmak[i] = myFilm;
+		        i++;
+		    }
+		  
+		} catch (SQLException e) {
+		   e.printStackTrace();
+		} 
+		//Zinemak
+		try (Statement stmt_p = con.createStatement();
+		    ResultSet rs = stmt_p.executeQuery("SELECT * FROM Zinema")) {
+			int i = 0;
 		    rs.last();
 		    int length = rs.getRow();
 		    zinemak = new Zinema[length];
@@ -118,16 +154,97 @@ public class lehenLehioa extends JFrame {
 		        myZinema.setID_zinema(ID_zinema);
 		        myZinema.setIzena(izena); 
 		        myZinema.setLokalitatea(zinema_helbide);
-		        System.out.println(myZinema.getIzena());
+		        //myZinema.setAretoak();
+		        // System.out.println(myZinema.getIzena());
 		        zinemak[i] = myZinema;
 		        i++;
 		    }
 		  
 		} catch (SQLException e) {
 		   e.printStackTrace();
-		}
-		System.out.println(zinemak.length);
-		 
+		} 
+		//Bezero
+        try(Statement stmt_p = con.createStatement();
+                ResultSet rs = stmt_p.executeQuery("SELECT * FROM Bezero")) {
+                int i = 0;
+                rs.last();
+                int length = rs.getRow();
+                bezeroak = new Bezero[length];
+                rs.beforeFirst();
+                while (rs.next()) {   
+                    Bezero myBezero = new Bezero();
+                    String dni = rs.getString(1);
+                    String izena_bezero = rs.getString(2);
+                    String abizen_1 = rs.getString(3);
+                    String abizen_2 = rs.getString(4);
+                    Boolean sexua = rs.getBoolean(5);
+                    String pasahitza = rs.getString(6);
+
+                    myBezero.setDNI(dni);
+                    myBezero.setIzena(izena_bezero);
+                    myBezero.setAbizen_1(abizen_1);
+                    myBezero.setAbizen_2(abizen_2);
+                    myBezero.setSexua(sexua);
+                    myBezero.setPasahitza(pasahitza);
+                    
+                    bezeroak[i] = myBezero;
+                    i++;
+                }
+        } catch (SQLException e) {
+               e.printStackTrace();
+            }
+        
+        //Eskaria
+        try(Statement stmt_p = con.createStatement();
+                ResultSet rs = stmt_p.executeQuery("SELECT * FROM Bezero")) {
+                int i = 0;
+                rs.last();
+                int length = rs.getRow();
+                eskariak = new Eskaria[length];
+                rs.beforeFirst();
+                while (rs.next()) {   
+                    Eskaria myEskaria = new Eskaria();
+                    int id_eskari = rs.getInt(1);
+                    double prezio_totala=rs.getDouble(2);
+                    Date erosketa_date=rs.getDate(3);
+                    Bezero bezeroa=(Bezero) rs.getArray(4);
+                    
+                    myEskaria.setId_eskari(id_eskari);
+                    myEskaria.setPrezio_totala(prezio_totala);
+                    myEskaria.setErosketa_data(erosketa_date);
+                    myEskaria.setBezeroa(bezeroa);
+                    
+                    eskariak[i] = myEskaria;
+                    i++;
+                }
+        } catch (SQLException e) {
+               e.printStackTrace();
+            }
+		/*try (Statement stmt_p = con.createStatement();
+			    ResultSet rs = stmt_p.executeQuery("SELECT * FROM Areto")) {
+				int i = 0;
+			    rs.last();
+			    int length = rs.getRow();
+			    aretoak = new Areto[length];
+			    rs.beforeFirst();
+			    while (rs.next()) {   
+			        Areto myAreto = new Areto();
+			        int ID_areto = rs.getInt(1);
+			        int areto_zbk = rs.getInt(2);
+			        int id_zinema = rs.getInt(3);
+			        myAreto.setID_zinema(ID_zinema);
+			        myAreto.setIzena(izena); 
+			      //  myAreto.setLokalitatea(zinema_helbide);
+			        // System.out.println(myZinema.getIzena());
+			        zinemak[i] = myZinema;
+			        i++;
+			    }
+			  
+			} catch (SQLException e) {
+			   e.printStackTrace();
+			} 
+		*/
+		
 		Image img = new ImageIcon(this.getClass().getResource("/logo.png")).getImage();
 		Image img2 = new ImageIcon(this.getClass().getResource("/logo2.png")).getImage();
 		
@@ -570,10 +687,13 @@ public class lehenLehioa extends JFrame {
             }
 		});	
 		
-		//zinemaAreto
-		//zinemaAreto panelean "Hurrengoa" botoiari click egin eta pelikulak panelera pasatzeko
+		//zinemaAreto (zinema aukeratu)
+		//zinemaAreto (zinema aukeratu) panelean "Hurrengoa" botoiari click egin eta pelikulak panelera pasatzeko
 		CBZinemak.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
+            	int zinema_aukera = CBZinemak.getSelectedIndex();
+        		System.out.println(zinema_aukera);
+        		//zinemak[zinema_aukera].get
     			btnHurrengoa1.setEnabled(true);
             }
 		});
