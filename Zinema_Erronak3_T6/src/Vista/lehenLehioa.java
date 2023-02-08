@@ -412,6 +412,8 @@ public class lehenLehioa extends JFrame {
 		pelikulak.add(scrollPanePelikulak);
 		
 		pelikulakTaula = new JTable();
+		pelikulakTaula.getTableHeader().setReorderingAllowed(false);
+		pelikulakTaula.getTableHeader().setResizingAllowed(false);
 		pelikulakTaula.setCursor(Cursor.getPredefinedCursor(Cursor.DEFAULT_CURSOR));
 		pelikulakTaula.setEnabled(false);
 		pelikulakTaula.setModel(new DefaultTableModel(
@@ -592,6 +594,8 @@ public class lehenLehioa extends JFrame {
 		laburpena.add(scrollPane);
 		
 		table = new JTable();
+		table.getTableHeader().setReorderingAllowed(false);
+		table.getTableHeader().setResizingAllowed(false);
 		scrollPane.setViewportView(table);
 	    table.setEnabled(false);
 	    table.setToolTipText("");
