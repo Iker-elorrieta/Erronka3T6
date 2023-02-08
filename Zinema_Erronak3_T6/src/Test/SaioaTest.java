@@ -24,7 +24,6 @@ class SaioaTest {
 	Date fecha = null;
 	Calendar cal = Calendar.getInstance();
 	Film f1 = new Film();
-	Areto a1 = new Areto();
 	
 	@Test
 	void testGetetaSet() {
@@ -37,13 +36,11 @@ class SaioaTest {
 		s1.setID_saioa(id);
 		s1.setFilma(f1);
 		s1.setOrdua(ordua);
-		s1.setAretoa(a1);
 		assertEquals(s1.getID_saioa(), id);
 		assertEquals(s1.getData(), fecha);
 		assertEquals(s1.getOrdua().getHour(), 5);
 		assertEquals(s1.getOrdua().getMinute(), 10);
 		assertEquals(s1.getFilma(), f1);
-		assertEquals(s1.getAretoa(), a1);
 	}
 	@Test
 	void testToString() {
@@ -51,9 +48,9 @@ class SaioaTest {
 		cal.set(Calendar.MONTH, 0);
 		cal.set(Calendar.YEAR, 2023);
 		fecha = cal.getTime();
-		Saioa s1 = new Saioa(id, fecha, ordua, f1, a1);
+		Saioa s1 = new Saioa(id, fecha, ordua, f1);
 		DateFormat dt = new SimpleDateFormat("dd/MM/yyyy"); 
-		assertEquals(s1.toString(), "Saioa [ID_saioa=" + id + ", data=" + dt.format(fecha) + ", filma=" + f1 + ", 'ordua=" + ordua + ", aretoa=" +  a1+"]");
+		assertEquals(s1.toString(), "Saioa [ID_saioa=" + id + ", data=" + dt.format(fecha) + ", filma=" + f1 + ", 'ordua=" + ordua +"]");
 	}
 	@Test
 	void testEquals() {

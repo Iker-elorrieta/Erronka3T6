@@ -12,22 +12,19 @@ public class Saioa {
 	private int ID_saioa;
 	private Date data;
 	private Film filma;
-	private Areto aretoa;
 	
 	public Saioa () {
 		this.ID_saioa = 0;
 		this.data = null;
 		this.filma = null;
 		this.ordua = null;
-		this.aretoa = null;
 		
 	}
-	public Saioa (int id, Date data, LocalTime ordua, Film filma, Areto aretoa) {
+	public Saioa (int id, Date data, LocalTime ordua, Film filma) {
 		this.ID_saioa = id;
 		this.data = data;
 		this.filma = filma;
 		this.ordua = ordua;
-		this.aretoa = aretoa;
 	}
 	public int getID_saioa() {
 		return ID_saioa;
@@ -54,16 +51,10 @@ public class Saioa {
 	public void setOrdua(LocalTime ordua) {
 		this.ordua = ordua;
 	}
-	public Areto getAretoa() {
-		return aretoa;
-	}
-	public void setAretoa(Areto aretoa) {
-		this.aretoa = aretoa;
-	}
 	@Override
 	public String toString() {
 		DateFormat dt = new SimpleDateFormat("dd/MM/yyyy"); 
-		return "Saioa [ID_saioa=" + ID_saioa + ", data=" + dt.format(data) + ", filma=" + filma + ", 'ordua=" + ordua + ", aretoa=" +  aretoa+"]";
+		return "Saioa [ID_saioa=" + ID_saioa + ", data=" + dt.format(data) + ", filma=" + filma + ", 'ordua=" + ordua +"]";
 	}
 	/*@Override
 	public int hashCode() {

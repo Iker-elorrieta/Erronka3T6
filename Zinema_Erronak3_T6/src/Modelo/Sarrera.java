@@ -1,10 +1,27 @@
 package Modelo;
 
+import java.time.LocalTime;
 import java.util.Arrays;
+import java.util.Date;
 import java.util.Objects;
 
 public class Sarrera {
 	private int ID_sarrera;
+	private LocalTime ordua;
+	public LocalTime getOrdua() {
+		return ordua;
+	}
+	public void setOrdua(LocalTime ordua) {
+		this.ordua = ordua;
+	}
+	public Date getData() {
+		return data;
+	}
+	public void setData(Date data) {
+		this.data = data;
+	}
+
+	private Date data;
 	private Saioa [] Saioa;
 	private Eskaria [] Eskariak;
 	
@@ -13,8 +30,10 @@ public class Sarrera {
 		this.Saioa = null;
 		this.Eskariak = null;
 	}
-	public Sarrera (int id, Saioa[] saioa, Eskaria [] eskaria) {
+	public Sarrera (int id, Date data, LocalTime ordua, Saioa[] saioa, Eskaria [] eskaria) {
 		this.ID_sarrera = id;
+		this.data = data;
+		this.ordua = ordua;
 		this.Saioa = saioa;
 		this.Eskariak = eskaria;
 	}
@@ -38,8 +57,8 @@ public class Sarrera {
 	}
 	@Override
 	public String toString() {
-		return "Sarrera [ID_sarrera=" + ID_sarrera + ", Saioa=" + Arrays.toString(Saioa) + ", Eskariak="
-				+ Arrays.toString(Eskariak) + "]";
+		return "Sarrera [ID_sarrera=" + ID_sarrera + ", ordua=" + ordua + ", data=" + data + ", Saioa="
+				+ Arrays.toString(Saioa) + ", Eskariak=" + Arrays.toString(Eskariak) + "]";
 	}
 
 	/*@Override

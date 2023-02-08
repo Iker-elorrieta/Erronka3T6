@@ -6,15 +6,18 @@ import java.util.Objects;
 public class Areto {
 	private int ID_areto;
 	private int zenbakia;
+	private Saioa [] saioak;
 	
 	public Areto (){ 
 		this.ID_areto = 0;
 		this.zenbakia = 0;
+		this.saioak = null;
 	
 	}
-	public Areto (int ID_areto, int zenbakia) {
+	public Areto (int ID_areto, int zenbakia, Saioa [] saioak) {
 		this.ID_areto= ID_areto;
 		this.zenbakia = zenbakia;
+		this.saioak = saioak;
 	}
 
 	public int getID_areto() {
@@ -29,9 +32,15 @@ public class Areto {
 	public void setZenbakia(int zenbakia) {
 		this.zenbakia = zenbakia;
 	}
+	public Saioa[] getSaioak() {
+		return saioak;
+	}
+	public void setSaioak(Saioa[] saioak) {
+		this.saioak = saioak;
+	}
 	@Override
 	public String toString() {
-		return "Areto [ID_areto=" + ID_areto + ", zenbakia=" + zenbakia + "]";
+		return "Areto [ID_areto=" + ID_areto + ", zenbakia=" + zenbakia + ", saioak=" + Arrays.toString(saioak) + "]";
 	}
 	/*@Override
 	public int hashCode() {

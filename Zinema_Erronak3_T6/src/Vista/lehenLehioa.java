@@ -47,6 +47,7 @@ import Modelo.DateLabelFormatter;
 import Modelo.Eskaria;
 import Modelo.Film;
 import Modelo.Saioa;
+import Modelo.Sarrera;
 import Modelo.Zinema;
 
 import javax.swing.JTextField;
@@ -95,6 +96,7 @@ public class lehenLehioa extends JFrame {
 	private Bezero [] bezeroak;
 	private Eskaria [] eskariak;
 	private Saioa [] saioak;
+	private Sarrera [] sarrerak;
 	LocalDateTime locaDate;
 	/**
 	 * Launch the application.
@@ -120,8 +122,8 @@ public class lehenLehioa extends JFrame {
 	Connection con = datuBase.konektatuDB();
 	public lehenLehioa() {	
 		//Film
-		try (Statement stmt_p = con.createStatement();
-		    ResultSet rs = stmt_p.executeQuery("SELECT * FROM Film")) {
+		try (Statement stmt = con.createStatement();
+		    ResultSet rs = stmt.executeQuery("SELECT * FROM Film")) {
 			int i = 0;
 		    rs.last();
 		    int length = rs.getRow();
@@ -145,8 +147,8 @@ public class lehenLehioa extends JFrame {
 		   e.printStackTrace();
 		} 
 		//Bezero
-        try(Statement stmt_p = con.createStatement();
-                ResultSet rs = stmt_p.executeQuery("SELECT * FROM Bezero")) {
+        try(Statement stmt = con.createStatement();
+                ResultSet rs = stmt.executeQuery("SELECT * FROM Bezero")) {
                 int i = 0;
                 rs.last();
                 int length = rs.getRow();
@@ -174,33 +176,9 @@ public class lehenLehioa extends JFrame {
         } catch (SQLException e) {
                e.printStackTrace();
             }
-        //Areto
-      		try (Statement stmt_p = con.createStatement();
-      			    ResultSet rs = stmt_p.executeQuery("SELECT * FROM Areto")) {
-      				int i = 0;
-      			    rs.last();
-      			    int length = rs.getRow();
-      			    aretoak = new Areto[length];
-      			    rs.beforeFirst();
-      			    while (rs.next()) {   
-      			        Areto myAreto = new Areto();
-      			        int ID_areto = rs.getInt(1);
-      			        int areto_zbk = rs.getInt(2);
-      			        int id_zinema = rs.getInt(3);
-      			        
-      			        myAreto.setID_areto(ID_areto);
-      			        myAreto.setZenbakia(areto_zbk); 
-      			        aretoak[i] = myAreto;
-      			        i++;
-      			    }
-      			  
-      			} catch (SQLException e) {
-      			   e.printStackTrace();
-      			} 
-      		
-      //Saioa
-        try(Statement stmt_p = con.createStatement();
-                ResultSet rs = stmt_p.executeQuery("SELECT * FROM Saioa")) {
+        //Saioa
+        try(Statement stmt = con.createStatement();
+                ResultSet rs = stmt.executeQuery("SELECT * FROM Saioa")) {
                 int i = 0;
                 rs.last();
                 int length = rs.getRow();
@@ -212,30 +190,48 @@ public class lehenLehioa extends JFrame {
                     Date data = rs.getDate(2);
                     Time ordua_time = rs.getTime(3);
                     LocalTime ordua = ordua_time.toLocalTime();
-                    int id_areto = rs.getInt(4);
                     int id_filma  = rs.getInt(5);
                     Film f1 = new Film();
                     f1 = filmak[id_filma-1];
-                    Areto a1 = new Areto();
-                    a1 = aretoak[id_areto-1];
                     mySaioa.setID_saioa(id_saioa);
                     mySaioa.setData(data);
                     mySaioa.setOrdua(ordua);
                     mySaioa.setFilma(f1);
-                    mySaioa.setAretoa(a1);
                     saioak[i] = mySaioa;
                     i++;
-                    System.out.println(mySaioa.toString());
                 }
         } catch (SQLException e) {
                e.printStackTrace();
             }
+        //Areto
+      		try (Statement stmt = con.createStatement();
+      			    ResultSet rs = stmt.executeQuery("SELECT * FROM Areto")) {
+      				int i = 0;
+      			    rs.last();
+      			    int length = rs.getRow();
+      			    aretoak = new Areto[length];
+      			    rs.beforeFirst();
+      			    while (rs.next()) {   
+      			        Areto myAreto = new Areto();
+      			        int ID_areto = rs.getInt(1);
+      			        int areto_zbk = rs.getInt(2);
+      			        myAreto.setID_areto(ID_areto);
+      			        myAreto.setZenbakia(areto_zbk); 
+      			        aretoak[i] = myAreto;
+      			        i++;
+      			      
+      			    }			
+  			    } catch (SQLException e) {
+      			   e.printStackTrace();
+      			} 
+      		
+     
       
         
 
 		//Zinemak
-		try (Statement stmt_p = con.createStatement();
-		    ResultSet rs = stmt_p.executeQuery("SELECT * FROM Zinema")) {
+		try (Statement stmt = con.createStatement();
+		    ResultSet rs = stmt.executeQuery("SELECT * FROM Zinema")) {
 			int i = 0;
 		    rs.last();
 		    int length = rs.getRow();
@@ -249,19 +245,40 @@ public class lehenLehioa extends JFrame {
 		        myZinema.setID_zinema(ID_zinema);
 		        myZinema.setIzena(izena); 
 		        myZinema.setLokalitatea(zinema_helbide);
-		        myZinema.setAretoak(aretoak);
-		        zinemak[i] = myZinema;
-		        i++;
-		    }
-		  
+		        
+		        try (Statement stmt2 = con.createStatement();
+      			    ResultSet rs2 = stmt2.executeQuery("SELECT ID_areto, areto_zbk FROM Areto JOIN zinema ON areto.Id_zinema = zinema.ID_zinema WHERE areto.ID_zinema = +" +ID_zinema +";")) {
+  			    	int j = 0;
+      			    rs2.last();
+      			    int length2 = rs2.getRow();
+      			    Areto aretoak_fk[] = new Areto[length2];
+      			    rs2.beforeFirst();
+      			    while (rs2.next()) {   
+      			        Areto myAreto = new Areto();
+	      			        int ID_areto= rs2.getInt(1);
+	      			        int areto_zbk = rs2.getInt(2);
+	      			        myAreto.setID_areto(ID_areto);
+	      			        myAreto.setZenbakia(areto_zbk); 
+	      			        aretoak_fk[j] = myAreto;
+	      			        j++;
+	      			    }
+      			myZinema.setAretoak(aretoak_fk);
+  		        zinemak[i] = myZinema;
+  		        i++;
+		        }
+		        
+		        
+		    } 
+		    System.out.println(zinemak[0].getAretoak()[2].getID_areto());
 		} catch (SQLException e) {
-		   e.printStackTrace();
-		} 
+	    	e.printStackTrace();
+	    }
+			
 		
         
         //Eskaria
-        try(Statement stmt_p = con.createStatement();
-                ResultSet rs = stmt_p.executeQuery("SELECT * FROM Eskaria")) {
+        try(Statement stmt = con.createStatement();
+                ResultSet rs = stmt.executeQuery("SELECT * FROM Eskaria")) {
                 int i = 0;
                 rs.last();
                 int length = rs.getRow();
@@ -285,30 +302,27 @@ public class lehenLehioa extends JFrame {
                e.printStackTrace();
             }
       //Sarrera
-        try(Statement stmt_p = con.createStatement();
-                ResultSet rs = stmt_p.executeQuery("SELECT * FROM Sarrera")) {
+        try(Statement stmt = con.createStatement();
+                ResultSet rs = stmt.executeQuery("SELECT * FROM Sarrera")) {
                 int i = 0;
                 rs.last();
                 int length = rs.getRow();
-                bezeroak = new Bezero[length];
+                sarrerak = new Sarrera[length];
                 rs.beforeFirst();
-                while (rs.next()) {   
-                    Bezero myBezero = new Bezero();
-                    String dni = rs.getString(1);
-                    String izena_bezero = rs.getString(2);
-                    String abizen_1 = rs.getString(3);
-                    String abizen_2 = rs.getString(4);
-                    Boolean sexua = rs.getBoolean(5);
-                    String pasahitza = rs.getString(6);
-
-                    myBezero.setDNI(dni);
-                    myBezero.setIzena(izena_bezero);
-                    myBezero.setAbizen_1(abizen_1);
-                    myBezero.setAbizen_2(abizen_2);
-                    myBezero.setSexua(sexua);
-                    myBezero.setPasahitza(pasahitza);
+                while (rs.next()) {  
+                	Sarrera mySarrera = new Sarrera();
+                    int id_sarrera = rs.getInt(1);
+                    Date data = rs.getDate(2);
+                    Time ordua_time = rs.getTime(3);
+                    LocalTime ordua = ordua_time.toLocalTime();
                     
-                    bezeroak[i] = myBezero;
+                    mySarrera.setID_sarrera(id_sarrera);
+                    mySarrera.setData(data);
+                    mySarrera.setOrdua(ordua);
+                    mySarrera.setSaioa(saioak);
+                    mySarrera.setEskariak(eskariak);
+               
+                    sarrerak[i] = mySarrera;
                     i++;
                 }
         } catch (SQLException e) {

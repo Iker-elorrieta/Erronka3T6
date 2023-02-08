@@ -3,11 +3,12 @@ package Modelo;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.util.Date;
 import java.util.Objects;
 
 public class Eskaria {
-	LocalDateTime locaDate;
+	LocalTime erosketa_ordua;
 	private int id_eskari;
 	private double prezio_totala;
 	private Date erosketa_data;
@@ -19,14 +20,14 @@ public class Eskaria {
 		this.erosketa_data = null;
 		this.bezeroa = null;
 		this.prezio_totala = 0;
-		this.locaDate = null;
+		this.erosketa_ordua = null;
 	}
-	public Eskaria (int id, Date erosketa_data, double prezio_totala, Bezero bezeroa, LocalDateTime locaDate) {
+	public Eskaria (int id, Date erosketa_data, double prezio_totala, Bezero bezeroa, LocalTime ordua) {
 		this.id_eskari = id;
 		this.erosketa_data = erosketa_data;
 		this.prezio_totala = prezio_totala;
 		this.bezeroa = bezeroa;
-		this.locaDate = locaDate;
+		this.erosketa_ordua = ordua;
 	}
 	public int getId_eskari() {
 		return id_eskari;
@@ -46,11 +47,11 @@ public class Eskaria {
 	public void setErosketa_data(Date erosketa_data) {
 		this.erosketa_data = erosketa_data;
 	}
-	public LocalDateTime getLocaDate() {
-		return locaDate;
+	public LocalTime getOrdua() {
+		return erosketa_ordua;
 	}
-	public void setLocaDate(LocalDateTime locaDate) {
-		this.locaDate = locaDate;
+	public void setOrdua(LocalTime ordua) {
+		this.erosketa_ordua = ordua;
 	}
 	public Bezero getBezeroa() {
 		return bezeroa;
@@ -61,7 +62,7 @@ public class Eskaria {
 	@Override
 	public String toString() {
 		DateFormat dt = new SimpleDateFormat("dd/MM/yyyy");
-		return "Eskaria [locaDateH=" + locaDate.getHour() + "locaDateM=" + locaDate.getMinute() + ", id_eskari=" + id_eskari + ", prezio_totala=" + prezio_totala
+		return "Eskaria [localDateH=" + erosketa_ordua + ", id_eskari=" + id_eskari + ", prezio_totala=" + prezio_totala
 				+ ", erosketa_data=" + dt.format(erosketa_data) + ", bezeroa=" + bezeroa + "]";
 	}
 	@Override
