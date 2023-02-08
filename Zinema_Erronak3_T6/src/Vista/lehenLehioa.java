@@ -14,6 +14,8 @@ import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.sql.Time;
+import java.time.LocalDateTime;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.Properties;
@@ -43,6 +45,7 @@ import Modelo.Bezero;
 import Modelo.DateLabelFormatter;
 import Modelo.Eskaria;
 import Modelo.Film;
+import Modelo.Saioa;
 import Modelo.Zinema;
 
 import javax.swing.JTextField;
@@ -89,6 +92,8 @@ public class lehenLehioa extends JFrame {
 	private Film [] filmak;
 	private Bezero [] bezeroak;
 	private Eskaria [] eskariak;
+	private Saioa [] saioak;
+	LocalDateTime locaDate;
 	/**
 	 * Launch the application.
 	 */
@@ -192,6 +197,32 @@ public class lehenLehioa extends JFrame {
         } catch (SQLException e) {
                e.printStackTrace();
             }
+        try(Statement stmt_p = con.createStatement();
+                ResultSet rs = stmt_p.executeQuery("SELECT * FROM Saioa")) {
+                int i = 0;
+                rs.last();
+                int length = rs.getRow();
+                saioak = new Saioa[length];
+                rs.beforeFirst();
+                while (rs.next()) {   
+                    Saioa mySaioa = new Saioa();
+                    int  id_saioa = rs.getInt(1);
+                    Date data = rs.getDate(2);
+                    Time ordua_time = rs.getTime(3);
+                    LocalTime ordua = ordua_time.toLocalTime();
+                    int id_filma  = rs.getInt(4);
+                    Film f1 = new Film();
+                    f1 = filmak[id_filma-1];
+                    mySaioa.setID_saioa(id_saioa);
+                    mySaioa.setData(data);
+                    mySaioa.setLocaDate(ordua);
+                    mySaioa.setFilma(f1);
+                    saioak[i] = mySaioa;
+                    i++;
+                }
+        } catch (SQLException e) {
+               e.printStackTrace();
+            }
         
         //Eskaria
         try(Statement stmt_p = con.createStatement();
@@ -206,8 +237,7 @@ public class lehenLehioa extends JFrame {
                     int id_eskari = rs.getInt(1);
                     double prezio_totala=rs.getDouble(2);
                     Date erosketa_date=rs.getDate(3);
-                    Bezero bezeroa=(Bezero) rs.getArray(4);
-                    
+                    Bezero bezeroa=(Bezero) rs.getArray(4); 
                     myEskaria.setId_eskari(id_eskari);
                     myEskaria.setPrezio_totala(prezio_totala);
                     myEskaria.setErosketa_data(erosketa_date);
@@ -219,7 +249,7 @@ public class lehenLehioa extends JFrame {
         } catch (SQLException e) {
                e.printStackTrace();
             }
-		/*try (Statement stmt_p = con.createStatement();
+		try (Statement stmt_p = con.createStatement();
 			    ResultSet rs = stmt_p.executeQuery("SELECT * FROM Areto")) {
 				int i = 0;
 			    rs.last();
@@ -231,18 +261,17 @@ public class lehenLehioa extends JFrame {
 			        int ID_areto = rs.getInt(1);
 			        int areto_zbk = rs.getInt(2);
 			        int id_zinema = rs.getInt(3);
-			        myAreto.setID_zinema(ID_zinema);
-			        myAreto.setIzena(izena); 
-			      //  myAreto.setLokalitatea(zinema_helbide);
-			        // System.out.println(myZinema.getIzena());
-			        zinemak[i] = myZinema;
+			        myAreto.setID_areto(ID_zinema);
+			        myAreto.setZenbakia(areto_zbk); 
+			        myAreto.setSaioak(null);
+			        aretoak[i] = myAreto;
 			        i++;
 			    }
 			  
 			} catch (SQLException e) {
 			   e.printStackTrace();
 			} 
-		*/
+		
 		
 		Image img = new ImageIcon(this.getClass().getResource("/logo.png")).getImage();
 		Image img2 = new ImageIcon(this.getClass().getResource("/logo2.png")).getImage();
