@@ -12,17 +12,19 @@ import java.util.Date;
 
 import org.junit.jupiter.api.Test;
 
+import Modelo.Areto;
 import Modelo.Film;
 
 import Modelo.Saioa;
 
 class SaioaTest {
 	//ordua estatikoa jartzeko
-	LocalDateTime locaDate = LocalDateTime.of(LocalDate.now(), LocalTime.of(5, 10));
+	LocalTime ordua = LocalTime.of(5, 10);
 	int id = 1;
 	Date fecha = null;
 	Calendar cal = Calendar.getInstance();
 	Film f1 = new Film();
+	Areto a1 = new Areto();
 	
 	@Test
 	void testGetetaSet() {
@@ -34,15 +36,14 @@ class SaioaTest {
 		s1.setData(fecha);
 		s1.setID_saioa(id);
 		s1.setFilma(f1);
-		s1.setLocaDate(locaDate);
+		s1.setOrdua(ordua);
+		s1.setAretoa(a1);
 		assertEquals(s1.getID_saioa(), id);
 		assertEquals(s1.getData(), fecha);
-		assertEquals(s1.getLocaDate().getHour(), 5);
-		assertEquals(s1.getLocaDate().getMinute(), 10);
-		System.out.println(s1.getLocaDate());
-		
-		
+		assertEquals(s1.getOrdua().getHour(), 5);
+		assertEquals(s1.getOrdua().getMinute(), 10);
 		assertEquals(s1.getFilma(), f1);
+		assertEquals(s1.getAretoa(), a1);
 	}
 	@Test
 	void testToString() {
@@ -50,9 +51,9 @@ class SaioaTest {
 		cal.set(Calendar.MONTH, 0);
 		cal.set(Calendar.YEAR, 2023);
 		fecha = cal.getTime();
-		Saioa s1 = new Saioa(id, fecha, locaDate, f1);
+		Saioa s1 = new Saioa(id, fecha, ordua, f1, a1);
 		DateFormat dt = new SimpleDateFormat("dd/MM/yyyy"); 
-		assertEquals(s1.toString(), "Saioa [ID_saioa=" + id + ", data=" + dt.format(fecha) + ", filma=" + f1 + "]");
+		assertEquals(s1.toString(), "Saioa [ID_saioa=" + id + ", data=" + dt.format(fecha) + ", filma=" + f1 + ", 'ordua=" + ordua + ", aretoa=" +  a1+"]");
 	}
 	@Test
 	void testEquals() {

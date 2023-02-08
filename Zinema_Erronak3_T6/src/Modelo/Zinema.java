@@ -51,8 +51,6 @@ public class Zinema {
 	@Override
 	public String toString() {
 		return izena;
-		/*return "Zinema [ID_zinema=" + ID_zinema + ", izena=" + izena + ", lokalitatea=" + zinema_helbide + ", aretoak="
-		+ Arrays.toString(aretoak) + "]";*/
 	}
 	
 	/*@Override
