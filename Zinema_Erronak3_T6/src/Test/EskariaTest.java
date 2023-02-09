@@ -4,8 +4,6 @@ import static org.junit.jupiter.api.Assertions.*;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
-import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.util.Calendar;
 import java.util.Date;
@@ -34,13 +32,14 @@ class EskariaTest {
 		e1.setErosketa_data(fecha);
 		e1.setPrezio_totala(prezio_totala);
 		e1.setBezeroa(b1);
-		e1.setOrdua(ordua);
+		e1.setErosketa_ordua(ordua);
 		assertEquals(e1.getId_eskari(), id);
 		assertEquals(e1.getErosketa_data(), fecha);
 		assertEquals(e1.getPrezio_totala(), prezio_totala);
 		assertEquals(e1.getBezeroa(), b1);
-		assertEquals(e1.getOrdua().getHour(), 5);
-		assertEquals(e1.getOrdua().getMinute(), 10);
+		assertEquals(e1.getErosketa_ordua().getHour(), 5);
+		assertEquals(e1.getErosketa_ordua().getMinute(), 10);
+		
 	}
 	@Test
 	void testToString() {

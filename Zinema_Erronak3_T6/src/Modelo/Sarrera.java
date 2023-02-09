@@ -8,6 +8,10 @@ import java.util.Objects;
 public class Sarrera {
 	private int ID_sarrera;
 	private LocalTime ordua;
+	private Date data;
+	private Saioa [] Saioa;
+	private Eskaria [] Eskariak;
+	
 	public LocalTime getOrdua() {
 		return ordua;
 	}
@@ -21,10 +25,6 @@ public class Sarrera {
 		this.data = data;
 	}
 
-	private Date data;
-	private Saioa [] Saioa;
-	private Eskaria [] Eskariak;
-	
 	public Sarrera () {
 		this.ID_sarrera = 0;
 		this.Saioa = null;

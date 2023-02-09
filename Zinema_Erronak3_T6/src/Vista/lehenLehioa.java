@@ -190,16 +190,17 @@ public class lehenLehioa extends JFrame {
                     Date data = rs.getDate(2);
                     Time ordua_time = rs.getTime(3);
                     LocalTime ordua = ordua_time.toLocalTime();
-                    int id_filma  = rs.getInt(5);
-                    Film f1 = new Film();
-                    f1 = filmak[id_filma-1];
                     mySaioa.setID_saioa(id_saioa);
                     mySaioa.setData(data);
                     mySaioa.setOrdua(ordua);
+                    int id_filma  = rs.getInt(5);
+                    Film f1 = new Film();
+                    f1 = filmak[id_filma-1];
                     mySaioa.setFilma(f1);
                     saioak[i] = mySaioa;
                     i++;
                 }
+                System.out.println(saioak[56].getFilma());
         } catch (SQLException e) {
                e.printStackTrace();
             }
@@ -218,17 +219,46 @@ public class lehenLehioa extends JFrame {
       			        myAreto.setID_areto(ID_areto);
       			        myAreto.setZenbakia(areto_zbk); 
       			        aretoak[i] = myAreto;
-      			        i++;
-      			      
-      			    }			
+      			       
+      			     	try (Statement stmt2 = con.createStatement();
+      			     		ResultSet rs2 = stmt2.executeQuery("SELECT ID_saioa, data, ordua, ID_film, bukaera_ordua FROM saioa JOIN areto ON saioa.ID_areto = areto.ID_areto WHERE saioa.ID_areto = "+ ID_areto + ";")) {
+      			     		int j = 0;
+      			     		rs2.last();
+      	      			    int length2 = rs2.getRow();
+      	      			    Saioa saioak_fk[] = new Saioa[length2];
+      	      			    rs2.beforeFirst();
+      	      			    while (rs2.next()) {   
+      	      			    	Saioa mySaioa = new Saioa();
+      	      			    		int ID_saioa = rs2.getInt(1);
+      		      			        Date data = rs2.getDate(2);
+      		      			        Time ordua_time = rs2.getTime(3);
+      		      			        LocalTime ordua = ordua_time.toLocalTime();
+	      		      			    int id_filma  = rs2.getInt(4);
+	      		                    Film f1 = new Film();
+	      		                    f1 = filmak[id_filma-1];
+	      		                    Time buk_ordua_time = rs2.getTime(5);
+	      		                    LocalTime bukaera_ordua = buk_ordua_time.toLocalTime();
+	      		                    mySaioa.setID_saioa(ID_saioa);
+	      		                    mySaioa.setOrdua(ordua);
+	      		                    mySaioa.setFilma(f1);
+	      		                    mySaioa.setData(data);
+	      		                    mySaioa.setBuk_ordua(bukaera_ordua);
+      		      			        saioak_fk[j] = mySaioa;
+      		      			        j++;
+      		      			}
+      	      			myAreto.setSaioak(saioak_fk);
+      	  		        aretoak[i] = myAreto;
+      	  		        i++;
+      			        }
+      			    }	
+      			  for (int k = 0;k<aretoak[6].getSaioak().length;k++) {
+      				System.out.println(aretoak[4].getSaioak()[k].getID_saioa());
+      			  }
+      			  
   			    } catch (SQLException e) {
       			   e.printStackTrace();
       			} 
-      		
-     
-      
-        
-
+ 
 		//Zinemak
 		try (Statement stmt = con.createStatement();
 		    ResultSet rs = stmt.executeQuery("SELECT * FROM Zinema")) {
@@ -269,7 +299,6 @@ public class lehenLehioa extends JFrame {
 		        
 		        
 		    } 
-		    System.out.println(zinemak[0].getAretoak()[2].getID_areto());
 		} catch (SQLException e) {
 	    	e.printStackTrace();
 	    }

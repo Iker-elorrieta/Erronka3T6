@@ -2,7 +2,6 @@ package Modelo;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
-import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.util.Date;
 import java.util.Objects;
@@ -12,6 +11,7 @@ public class Saioa {
 	private int ID_saioa;
 	private Date data;
 	private Film filma;
+	private LocalTime Buk_ordua;
 	
 	public Saioa () {
 		this.ID_saioa = 0;
@@ -50,6 +50,12 @@ public class Saioa {
 	}
 	public void setOrdua(LocalTime ordua) {
 		this.ordua = ordua;
+	}
+	public LocalTime getBuk_ordua() {
+		return Buk_ordua;
+	}
+	public void setBuk_ordua(LocalTime buk_ordua) {
+		Buk_ordua = buk_ordua;
 	}
 	@Override
 	public String toString() {

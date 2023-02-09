@@ -7,20 +7,29 @@ public class Film {
 	private String tituloa;
 	private int iraupena;
 	private String generoa;
+	private double prezioa;
 	
 	public Film () {
 		this.ID_film = 0;
 		this.tituloa = "";
 		this.iraupena = 0;
 		this.generoa = "";
+		this.prezioa = 0;
 	}
-	public Film (int ID_film, String tituloa, int iraupena, String generoa) {
+	public Film (int ID_film, String tituloa, int iraupena, String generoa, double prezioa) {
 		this.ID_film= ID_film;
 		this.tituloa = tituloa;
 		this.iraupena = iraupena;
 		this.generoa = generoa;
+		this.prezioa = prezioa;
 	}
 
+	public double getPrezioa() {
+		return prezioa;
+	}
+	public void setPrezioa(double prezioa) {
+		this.prezioa = prezioa;
+	}
 	public int getID_film() {
 		return ID_film;
 	}
@@ -48,7 +57,7 @@ public class Film {
 	@Override
 	public String toString() {
 		return "Film [ID_film=" + ID_film + ", tituloa=" + tituloa + ", iraupena=" + iraupena + ", generoa=" + generoa
-				+ "]";
+				+ ", prezioa=" + prezioa + "]";
 	}
 
 	/*@Override

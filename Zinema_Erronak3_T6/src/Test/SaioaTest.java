@@ -4,8 +4,6 @@ import static org.junit.jupiter.api.Assertions.*;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
-import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.util.Calendar;
 import java.util.Date;
@@ -20,6 +18,7 @@ import Modelo.Saioa;
 class SaioaTest {
 	//ordua estatikoa jartzeko
 	LocalTime ordua = LocalTime.of(5, 10);
+	LocalTime buk_ordua = LocalTime.of(10, 25);
 	int id = 1;
 	Date fecha = null;
 	Calendar cal = Calendar.getInstance();
@@ -36,11 +35,13 @@ class SaioaTest {
 		s1.setID_saioa(id);
 		s1.setFilma(f1);
 		s1.setOrdua(ordua);
+		s1.setBuk_ordua(buk_ordua);
 		assertEquals(s1.getID_saioa(), id);
 		assertEquals(s1.getData(), fecha);
 		assertEquals(s1.getOrdua().getHour(), 5);
 		assertEquals(s1.getOrdua().getMinute(), 10);
 		assertEquals(s1.getFilma(), f1);
+		assertEquals(s1.getBuk_ordua(), buk_ordua);
 	}
 	@Test
 	void testToString() {

@@ -2,7 +2,6 @@ package Modelo;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
-import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.util.Date;
 import java.util.Objects;
@@ -29,6 +28,12 @@ public class Eskaria {
 		this.bezeroa = bezeroa;
 		this.erosketa_ordua = ordua;
 	}
+	public LocalTime getErosketa_ordua() {
+		return erosketa_ordua;
+	}
+	public void setErosketa_ordua(LocalTime erosketa_ordua) {
+		this.erosketa_ordua = erosketa_ordua;
+	}
 	public int getId_eskari() {
 		return id_eskari;
 	}
@@ -46,12 +51,6 @@ public class Eskaria {
 	}
 	public void setErosketa_data(Date erosketa_data) {
 		this.erosketa_data = erosketa_data;
-	}
-	public LocalTime getOrdua() {
-		return erosketa_ordua;
-	}
-	public void setOrdua(LocalTime ordua) {
-		this.erosketa_ordua = ordua;
 	}
 	public Bezero getBezeroa() {
 		return bezeroa;
