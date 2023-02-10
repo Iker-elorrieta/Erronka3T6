@@ -200,7 +200,7 @@ public class lehenLehioa extends JFrame {
                     saioak[i] = mySaioa;
                     i++;
                 }
-                System.out.println(saioak[56].getFilma());
+                //System.out.println(saioak[56].getFilma());
         } catch (SQLException e) {
                e.printStackTrace();
             }
@@ -251,9 +251,9 @@ public class lehenLehioa extends JFrame {
       	  		        i++;
       			        }
       			    }	
-      			  for (int k = 0;k<aretoak[6].getSaioak().length;k++) {
+      			  /*for (int k = 0;k<aretoak[6].getSaioak().length;k++) {
       				System.out.println(aretoak[4].getSaioak()[k].getID_saioa());
-      			  }
+      			  }*/
       			  
   			    } catch (SQLException e) {
       			   e.printStackTrace();
@@ -288,13 +288,26 @@ public class lehenLehioa extends JFrame {
 	      			        int ID_areto= rs2.getInt(1);
 	      			        int areto_zbk = rs2.getInt(2);
 	      			        myAreto.setID_areto(ID_areto);
+	      			        //System.out.println(myAreto.getID_areto());
 	      			        myAreto.setZenbakia(areto_zbk); 
 	      			        aretoak_fk[j] = myAreto;
 	      			        j++;
 	      			    }
       			myZinema.setAretoak(aretoak_fk);
   		        zinemak[i] = myZinema;
+  		        /*System.out.println(myZinema.getAretoak()[0]);
+  		        System.out.println(myZinema.getAretoak()[1]);
+  		        System.out.println(myZinema.getAretoak()[2]);
+  		    	System.out.println(myZinema.getAretoak().length);
+
+  		        System.out.println(zinemak[0].getID_zinema());
+
+  		        System.out.println(zinemak[2].getID_zinema());*/
   		        i++;
+  		        
+	  		       /*for(i = 0; i<aretoak_fk.length;i++) {
+	  		        	System.out.println(zinemak[i].getID_zinema());
+	  		        }*/
 		        }
 		        
 		        
@@ -819,8 +832,25 @@ public class lehenLehioa extends JFrame {
 		btnHurrengoa1.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 WindowBuilderMetodoak.hurrengoaBtn(pelikulak, ongiEtorri, zinemaAreto, pelikulak, pelikulakData, laburpena, login, erregistratu, tiket, bukaera);
+            
+              //CBZinemak-en zein zinema aukeratu den gordetzen du.
+                Zinema aukeratutakoZinema = (Zinema) CBZinemak.getSelectedItem();
+                System.out.println(aukeratutakoZinema);
+                System.out.println(aukeratutakoZinema.getID_zinema());
+                int s1[][] = new int [zinemak[aukeratutakoZinema.getID_zinema()].getAretoak().length][aretoak[aukeratutakoZinema.getID_zinema()].getSaioak().length];
+                for(int i = 0; i < aukeratutakoZinema.getAretoak().length;i++) {
+            		for (int j = 0;j<aretoak[i].getSaioak().length;j++) {
+          				System.out.println(aretoak[i].getSaioak()[j].getID_saioa());
+          	
+          				s1[i][j] =  aretoak[i].getSaioak()[j].getID_saioa();
+
+            		}
+
+                }
             }
+            
 		});
+		
 		btnBukatu.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
             	if(pelikula_kont>0) {
