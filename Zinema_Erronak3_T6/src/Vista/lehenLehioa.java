@@ -94,6 +94,8 @@ public class lehenLehioa extends JFrame {
 	private Bezero [] bezeroak;
 	private Eskaria [] eskariak;
 	private Sarrera [] sarrerak;
+	private Saioa [] saioak;
+	private Areto [] aretoak;
 	LocalDateTime locaDate;
 	/**
 	 * Launch the application.
@@ -116,35 +118,12 @@ public class lehenLehioa extends JFrame {
 	/**
 	 * Create the frame.
 	 */
-	Connection con = datuBase.konektatuDB();
+	
 	public lehenLehioa() {	
-		//Film
-	/*	try (Statement stmt = con.createStatement();
-		    ResultSet rs = stmt.executeQuery("SELECT * FROM Film")) {
-			int i = 0;
-		    rs.last();
-		    int length = rs.getRow();
-		    filmak = new Film[length];
-		    rs.beforeFirst();
-		    while (rs.next()) {   
-		        Film myFilm = new Film();
-		        int ID_zinema = rs.getInt(1);
-		        String tituloa = rs.getString(2);
-		        int iraupena = rs.getInt(3);
-		        String generoa = rs.getString(4);
-		        myFilm.setID_film(ID_zinema);
-		        myFilm.setTituloa(tituloa); 
-		        myFilm.setIraupena(iraupena);
-		        myFilm.setGeneroa(generoa);
-		     
-		        filmak[i] = myFilm;
-		        i++;
-		    }
-		  
-		} catch (SQLException e) {
-		   e.printStackTrace();
-		} 
-		*/
+		String[] filmGordeta = new String [15];
+		Connection con = datuBase.konektatuDB();
+		zinemak = datuBase.ZinemakKarga();
+
 		//Bezero
         try(Statement stmt = con.createStatement();
                 ResultSet rs = stmt.executeQuery("SELECT * FROM Bezero")) {
@@ -175,165 +154,7 @@ public class lehenLehioa extends JFrame {
         } catch (SQLException e) {
                e.printStackTrace();
             }
-        //Saioa
-     /*   try(Statement stmt = con.createStatement();
-                ResultSet rs = stmt.executeQuery("SELECT * FROM Saioa")) {
-                int i = 0;
-                rs.last();
-                int length = rs.getRow();
-                saioak = new Saioa[length];
-                rs.beforeFirst();
-                while (rs.next()) {   
-                    Saioa mySaioa = new Saioa();
-                    int  id_saioa = rs.getInt(1);
-                    Date data = rs.getDate(2);
-                    Time ordua_time = rs.getTime(3);
-                    LocalTime ordua = ordua_time.toLocalTime();
-                    mySaioa.setID_saioa(id_saioa);
-                    mySaioa.setData(data);
-                    mySaioa.setOrdua(ordua);
-                    int id_filma  = rs.getInt(5);
-                    Film f1 = new Film();
-                    f1 = filmak[id_filma-1];
-                    mySaioa.setFilma(f1);
-                    saioak[i] = mySaioa;
-                    i++;
-                }
-                //System.out.println(saioak[56].getFilma());
-        } catch (SQLException e) {
-               e.printStackTrace();
-            }*/
-        //Areto
-//      		try (Statement stmt = con.createStatement();
-//      			    ResultSet rs = stmt.executeQuery("SELECT * FROM Areto")) {
-//      				int i = 0;
-//      			    rs.last();
-//      			    int length = rs.getRow();
-//      			    aretoak = new Areto[length];
-//      			    rs.beforeFirst();
-//      			    while (rs.next()) {   
-//      			        Areto myAreto = new Areto();
-//      			        int ID_areto = rs.getInt(1);
-//      			        int areto_zbk = rs.getInt(2);
-//      			        myAreto.setID_areto(ID_areto);
-//      			        myAreto.setZenbakia(areto_zbk); 
-//      			        aretoak[i] = myAreto;
-//      			       
-//      			     	try (Statement stmt2 = con.createStatement();
-//      			     		ResultSet rs2 = stmt2.executeQuery("SELECT ID_saioa, data, ordua, ID_film, bukaera_ordua FROM saioa JOIN areto ON saioa.ID_areto = areto.ID_areto WHERE saioa.ID_areto = "+ ID_areto + ";")) {
-//      			     		int j = 0;
-//      			     		rs2.last();
-//      	      			    int length2 = rs2.getRow();
-//      	      			    Saioa saioak_fk[] = new Saioa[length2];
-//      	      			    rs2.beforeFirst();
-//      	      			    while (rs2.next()) {   
-//      	      			    	Saioa mySaioa = new Saioa();
-//      	      			    		int ID_saioa = rs2.getInt(1);
-//      		      			        Date data = rs2.getDate(2);
-//      		      			        Time ordua_time = rs2.getTime(3);
-//      		      			        LocalTime ordua = ordua_time.toLocalTime();
-//	      		      			    int id_filma  = rs2.getInt(4);
-//	      		                    Film f1 = new Film();
-//	      		                    f1 = filmak[id_filma-1];
-//	      		                    Time buk_ordua_time = rs2.getTime(5);
-//	      		                    LocalTime bukaera_ordua = buk_ordua_time.toLocalTime();
-//	      		                    mySaioa.setID_saioa(ID_saioa);
-//	      		                    mySaioa.setOrdua(ordua);
-//	      		                    mySaioa.setFilma(f1);
-//	      		                    mySaioa.setData(data);
-//	      		                    mySaioa.setBuk_ordua(bukaera_ordua);
-//      		      			        saioak_fk[j] = mySaioa;
-//      		      			        j++;
-//      		      			}
-//      	      			myAreto.setSaioak(saioak_fk);
-//      	  		        aretoak[i] = myAreto;
-//      	  		        i++;
-//      			        }
-//      			    }	
-//      			  /*for (int k = 0;k<aretoak[6].getSaioak().length;k++) {
-//      				System.out.println(aretoak[4].getSaioak()[k].getID_saioa());
-//      			  }*/
-//      			  
-//  			    } catch (SQLException e) {
-//      			   e.printStackTrace();
-//      			} 
- 
-		//Zinemak
-		try (Statement stmt = con.createStatement();
-		    ResultSet rs = stmt.executeQuery("SELECT * FROM Zinema")) {
-			int i = 0;
-		    rs.last();
-		    int length = rs.getRow();
-		    zinemak = new Zinema[length];
-		    rs.beforeFirst();
-		    while (rs.next()) {   
-		        Zinema myZinema = new Zinema();
-		        int ID_zinema = rs.getInt(1);
-		        String izena = rs.getString(2);
-		        String zinema_helbide = rs.getString(3);
-		        myZinema.setID_zinema(ID_zinema);
-		        myZinema.setIzena(izena); 
-		        myZinema.setLokalitatea(zinema_helbide);
-		        
-		        try (Statement stmt2 = con.createStatement();
-      			    ResultSet rs2 = stmt2.executeQuery("SELECT ID_areto, areto_zbk FROM Areto JOIN zinema ON areto.Id_zinema = zinema.ID_zinema WHERE areto.ID_zinema = +" +ID_zinema +";")) {
-  			    	int j = 0;
-      			    rs2.last();
-      			    int length2 = rs2.getRow();
-      			    Areto aretoak_fk[] = new Areto[length2];
-      			    rs2.beforeFirst();
-      			    while (rs2.next()) {   
-      			        Areto myAreto = new Areto();
-	      			        int ID_areto= rs2.getInt(1);
-	      			        int areto_zbk = rs2.getInt(2);
-	      			        myAreto.setID_areto(ID_areto);
-	      			        myAreto.setZenbakia(areto_zbk); 
-	      			        
-	      			        try (Statement stmt3 = con.createStatement();
-	      			        		 ResultSet rs3 = stmt2.executeQuery("SELECT ID_saioa, data, ordua, ID_film FROM Areto JOIN zinema ON areto.Id_zinema = zinema.ID_zinema WHERE areto.ID_zinema = +" +ID_zinema +";")) {
-	      			        	Saioa mySaioa = new Saioa();
-	      	                    int  id_saioa = rs.getInt(1);
-	      	                    Date data = rs.getDate(2);
-	      	                    Time ordua_time = rs.getTime(3);
-	      	                    LocalTime ordua = ordua_time.toLocalTime();
-	      	                    mySaioa.setID_saioa(id_saioa);
-	      	                    mySaioa.setData(data);
-	      	                    mySaioa.setOrdua(ordua);
-	      	                    int id_filma  = rs.getInt(5);
-	      	                    saioak[i] = mySaioa;
-	      	                    i++;
-	      			        }
-	      			       //SQL SAIOAK ARETO
-	      			      // myAreto.setSaioak(saioak);
-	      			        
-	      			        aretoak_fk[j] = myAreto;
-	      			        j++;
-	      			    }
-      			myZinema.setAretoak(aretoak_fk);
-  		        zinemak[i] = myZinema;
-  		        /*System.out.println(myZinema.getAretoak()[0]);
-  		        System.out.println(myZinema.getAretoak()[1]);
-  		        System.out.println(myZinema.getAretoak()[2]);
-  		    	System.out.println(myZinema.getAretoak().length);
-
-  		        System.out.println(zinemak[0].getID_zinema());
-
-  		        System.out.println(zinemak[2].getID_zinema());*/
-  		        i++;
-  		        
-	  		       /*for(i = 0; i<aretoak_fk.length;i++) {
-	  		        	System.out.println(zinemak[i].getID_zinema());
-	  		        }*/
-		        }
-		        
-		        
-		    } 
-		} catch (SQLException e) {
-	    	e.printStackTrace();
-	    }
-			
-		
-        
+     
         //Eskaria
         try(Statement stmt = con.createStatement();
                 ResultSet rs = stmt.executeQuery("SELECT * FROM Eskaria")) {
@@ -385,7 +206,6 @@ public class lehenLehioa extends JFrame {
         } catch (SQLException e) {
                e.printStackTrace();
             }
-       
 		
 		Image img = new ImageIcon(this.getClass().getResource("/logo.png")).getImage();
 		Image img2 = new ImageIcon(this.getClass().getResource("/logo2.png")).getImage();
@@ -506,7 +326,7 @@ public class lehenLehioa extends JFrame {
 		pelikulak.add(logoa2_2);
 		
 		JComboBox comboPelikula = new JComboBox();
-		comboPelikula.setModel(new DefaultComboBoxModel(new String[] {"Avatar", "Handia"}));
+		
 		comboPelikula.setBounds(10, 108, 135, 22);
 		pelikulak.add(comboPelikula);
 		
@@ -838,8 +658,6 @@ public class lehenLehioa extends JFrame {
 		CBZinemak.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
             	int zinema_aukera = CBZinemak.getSelectedIndex();
-        		//System.out.println(zinema_aukera);
-        		//zinemak[zinema_aukera].get
     			btnHurrengoa1.setEnabled(true);
             }
 		});
@@ -850,29 +668,28 @@ public class lehenLehioa extends JFrame {
             
               //CBZinemak-en zein zinema aukeratu den gordetzen du.
                 Zinema aukeratutakoZinema = (Zinema) CBZinemak.getSelectedItem();
-                System.out.println(aukeratutakoZinema);
-                System.out.println(aukeratutakoZinema.getID_zinema());
-                
-                /*int s1[][] = new int [zinemak[aukeratutakoZinema.getID_zinema()].getAretoak().length][aretoak[aukeratutakoZinema.getID_zinema()].getSaioak().length];
-                for(int i = 0; i < aukeratutakoZinema.getAretoak().length;i++) {
-            		for (int j = 0;j<aretoak[i].getSaioak().length;j++) {
-          				System.out.println(aretoak[i].getSaioak()[j].getID_saioa());
-          	
-          				s1[i][j] =  aretoak[i].getSaioak()[j].getID_saioa();
-
-            		}
-            		
-
-                }*/
-                
-
-                //Areto[] s1 = new Areto[aretoak.length+1];
-                for(int i = 0; i < aukeratutakoZinema.getAretoak().length;i++) {
-            		for (int j = 0;j<aukeratutakoZinema.getAretoak()[i].getSaioak().length;j++) {
-
-            			System.out.println(aukeratutakoZinema.getAretoak()[i].getSaioak()[j].getFilma().getTituloa());
-            		}
+                /*System.out.println(aukeratutakoZinema);
+                System.out.println(aukeratutakoZinema.getID_zinema());*/    
+                 
+                int filmGordetaI = 0;
+                for (int i = 0; i < aukeratutakoZinema.getAretoak().length; i++) {
+                    for (int j = 0; j < aukeratutakoZinema.getAretoak()[i].getSaioak().length; j++) {
+                        String titulo = aukeratutakoZinema.getAretoak()[i].getSaioak()[j].getFilma().getTituloa();
+                        boolean encontrado = false;
+                        for (int k = 0; k < filmGordetaI; k++) {
+                            if (filmGordeta[k].equals(titulo)) {
+                                encontrado = true;
+                                //break;
+                            }
+                        }
+                        if (!encontrado) {
+                            filmGordeta[filmGordetaI++] = titulo;
+                        }
+                    }
                 }
+
+                //Aukeratutako zineman dauden Saioetako pelikulak aktualizatzen ditu.
+                comboPelikula.setModel(new DefaultComboBoxModel(filmGordeta));
 
 
 

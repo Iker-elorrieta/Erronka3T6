@@ -73,4 +73,6 @@ public class metodoak {
 	    }
 	    return minuskulaDauka && mayuskulaDauka && zenbakiakDauka;
 	}
+	
+	
 }
