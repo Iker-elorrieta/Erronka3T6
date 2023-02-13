@@ -63,7 +63,6 @@ public class datuBase {
 				while(rs.next()) {
 					Zinema zinema = new Zinema();
 					
-					
 					zinema.setID_zinema(Integer.parseInt(rs.getString(1)));
 					zinema.setIzena(rs.getString(2));
 					zinema.setLokalitatea(rs.getString(3));
@@ -71,7 +70,7 @@ public class datuBase {
 					
 					try {	
 						Statement stmt2 = (Statement) connection.createStatement();	
-						ResultSet rs2 = stmt2.executeQuery("Select ID_areto, areto_zbk from areto join zinema ON areto.ID_zinema=zinema.ID_zinema WHERE areto.ID_zinema="+ID_zinema+";");		
+						ResultSet rs2 = stmt2.executeQuery("SELECT ID_areto, areto_zbk FROM areto join zinema ON areto.ID_zinema=zinema.ID_zinema WHERE areto.ID_zinema="+ID_zinema+";");		
 						aretoak= new Areto[0];
 						//Zinema bakoitzeko aretoak
 						while(rs2.next()) {
@@ -120,10 +119,6 @@ public class datuBase {
 										e.printStackTrace();
 									}	
 									
-										
-										
-									
-									
 									saioak[i] = mySaioa;
 									i++;
 								}
@@ -160,81 +155,5 @@ public class datuBase {
 			}
 			return zinemak;
 	 }
-	 
-	 
-	 /*public static Saioa[] SaioaKarga() {
-			Saioa[] saioak = new Saioa[0];
-			
-			Connection connection = null;					
-			try {
-				String url = "jdbc:mysql://localhost:3306/zinema";
-				connection = (Connection) DriverManager.getConnection (url, "root","");
-				Statement stmt = (Statement) connection.createStatement();	
-				ResultSet rs = stmt.executeQuery("Select ID_saioa, Data, Ordua, film.ID_film,tituloa, iraupena, generoa,  prezioa from saioa JOIN film ON saioa.ID_film=film.ID_film JOIN areto ON saioa.ID_areto=areto.ID_areto order by data,ordua;");
-				
-				while(rs.next()) {
-					Saioa saio = new Saioa();
-					
-					saio.setID_saioa(Integer.parseInt(rs.getString(1)));
-					
-					//Data
-					Date data = rs.getDate(2);
-					
-					//Ordua
-					Time ordua_time = rs.getTime(3);
-					LocalTime ordua = ordua_time.toLocalTime();
-	
-					//Filma
-					Film filma = new Film(Integer.parseInt(rs.getString(4)),rs.getString(5),Integer.parseInt(rs.getString(6)),rs.getString(7),Double.parseDouble(rs.getString(8)));
-					saio.setFilma(filma);
-
-					//Saioen array-a berridazten du
-					Saioa[] saio_prov = new Saioa[saioak.length+1];
-					for(int i = 0; i < saioak.length; i++){
-						saio_prov[i] = saioak[i];
-					}
-					saio_prov[saioak.length] = saio;
-					saioak = saio_prov;
-				}
-				connection.close();
-			}catch(SQLException e) {
-				e.printStackTrace();
-			}
-			return saioak;
-		}
-	 
-	 
-		public static Areto[] AretoakKarga() {
-			Areto[] aretoak = new Areto[0];
-			
-			Connection connection = null;				
-			try {
-				String url = "jdbc:mysql://localhost:3306/zinema";
-				connection = (Connection) DriverManager.getConnection (url, "root","");
-				Statement stmt = (Statement) connection.createStatement();	
-				ResultSet rs = stmt.executeQuery("SELECT ID_areto, areto_zbk FROM areto;");
-				
-				//Zinema bakoitzean dauden aretoen informazioa gorde
-				while(rs.next()) {
-					Areto areto = new Areto();
-					
-					areto.setID_areto(Integer.parseInt(rs.getString(1)));
-					areto.setZenbakia(2);
-					
-					//Aretoen array-a berridazten du
-					Areto[] areto0 = new Areto[aretoak.length+1];
-					for(int i = 0; i < aretoak.length; i++){
-						areto0[i] = aretoak[i];
-					}
-					areto0[aretoak.length] = areto;
-					aretoak = areto0;
-				}
-				connection.close();
-			}catch(SQLException e) {
-				e.printStackTrace();
-			}		
-			return aretoak;
-		}*/
-	
 
 }

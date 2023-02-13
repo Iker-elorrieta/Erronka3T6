@@ -120,7 +120,7 @@ public class lehenLehioa extends JFrame {
 	 */
 	
 	public lehenLehioa() {	
-		String[] filmGordeta = new String [15];
+		//String[] filmGordeta = new String [15];
 		Connection con = datuBase.konektatuDB();
 		zinemak = datuBase.ZinemakKarga();
 
@@ -245,7 +245,7 @@ public class lehenLehioa extends JFrame {
 		//ZINEMA ARETOA
 		
 		JPanel zinemaAreto = new JPanel();
-		zinemaAreto.setToolTipText("PEPE");
+		zinemaAreto.setToolTipText("");
 		contentPane.add(zinemaAreto, "name_19385331456200");
 		zinemaAreto.setLayout(null);
 		
@@ -283,28 +283,7 @@ public class lehenLehioa extends JFrame {
 		JPanel pelikulak = new JPanel();
 		contentPane.add(pelikulak, "name_2894301677400");
 		pelikulak.setLayout(null);
-		
-		JScrollPane scrollPanePelikulak = new JScrollPane();
-		scrollPanePelikulak.setBounds(155, 90, 319, 124);
-		pelikulak.add(scrollPanePelikulak);
-		
-		pelikulakTaula = new JTable();
-		pelikulakTaula.getTableHeader().setReorderingAllowed(false);
-		pelikulakTaula.getTableHeader().setResizingAllowed(false);
-		pelikulakTaula.setCursor(Cursor.getPredefinedCursor(Cursor.DEFAULT_CURSOR));
-		pelikulakTaula.setEnabled(false);
-		pelikulakTaula.setModel(new DefaultTableModel(
-			new Object[][] {
-				{null, null, null},
-				{null, null, null},
-				{null, null, null},
-			},
-			new String[] {
-				"Durazioa", "Pelikula", "///////"
-			}
-		));
-		scrollPanePelikulak.setViewportView(pelikulakTaula);
-		
+
 		JButton btnHurrengoa2 = new JButton("Hurrengoa");
 		btnHurrengoa2.setEnabled(false);
 		btnHurrengoa2.setFont(new Font("Tahoma", Font.PLAIN, 17));
@@ -327,7 +306,7 @@ public class lehenLehioa extends JFrame {
 		
 		JComboBox comboPelikula = new JComboBox();
 		
-		comboPelikula.setBounds(10, 108, 135, 22);
+		comboPelikula.setBounds(19, 98, 445, 22);
 		pelikulak.add(comboPelikula);
 		
 		//PELIKULAK DATA
@@ -668,28 +647,12 @@ public class lehenLehioa extends JFrame {
             
               //CBZinemak-en zein zinema aukeratu den gordetzen du.
                 Zinema aukeratutakoZinema = (Zinema) CBZinemak.getSelectedItem();
+                String [] filmAukerak = metodoak.tituluaEzErrepikatu(aukeratutakoZinema);
                 /*System.out.println(aukeratutakoZinema);
                 System.out.println(aukeratutakoZinema.getID_zinema());*/    
-                 
-                int filmGordetaI = 0;
-                for (int i = 0; i < aukeratutakoZinema.getAretoak().length; i++) {
-                    for (int j = 0; j < aukeratutakoZinema.getAretoak()[i].getSaioak().length; j++) {
-                        String titulo = aukeratutakoZinema.getAretoak()[i].getSaioak()[j].getFilma().getTituloa();
-                        boolean encontrado = false;
-                        for (int k = 0; k < filmGordetaI; k++) {
-                            if (filmGordeta[k].equals(titulo)) {
-                                encontrado = true;
-                                //break;
-                            }
-                        }
-                        if (!encontrado) {
-                            filmGordeta[filmGordetaI++] = titulo;
-                        }
-                    }
-                }
 
                 //Aukeratutako zineman dauden Saioetako pelikulak aktualizatzen ditu.
-                comboPelikula.setModel(new DefaultComboBoxModel(filmGordeta));
+                comboPelikula.setModel(new DefaultComboBoxModel(filmAukerak));
 
 
 

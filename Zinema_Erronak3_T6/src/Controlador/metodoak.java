@@ -2,6 +2,7 @@ package Controlador;
 
 import javax.swing.JButton;
 import javax.swing.JComboBox;
+import Modelo.Zinema;
 
 public class metodoak {
 
@@ -74,5 +75,32 @@ public class metodoak {
 	    return minuskulaDauka && mayuskulaDauka && zenbakiakDauka;
 	}
 	
+	/**
+	 * 
+	 * @param aukeratutakoZin
+	 * @return
+	 */
+	public static String[] tituluaEzErrepikatu (Zinema aukeratutakoZinema) {
+		String[] filmGordeta = new String [15];
+		int filmGordetaI = 0;
+		
+        for (int i = 0; i < aukeratutakoZinema.getAretoak().length; i++) {
+            for (int j = 0; j < aukeratutakoZinema.getAretoak()[i].getSaioak().length; j++) {
+                String titulo = aukeratutakoZinema.getAretoak()[i].getSaioak()[j].getFilma().getTituloa();
+                boolean encontrado = false;
+                for (int k = 0; k < filmGordetaI; k++) {
+                    if (filmGordeta[k].equals(titulo)) {
+                        encontrado = true;
+                        //break;
+                    }
+                }
+                if (!encontrado) {
+                    filmGordeta[filmGordetaI++] = titulo;
+                }
+            }
+        }
+        
+		return filmGordeta;
+	}
 	
 }
