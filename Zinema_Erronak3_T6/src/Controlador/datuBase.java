@@ -156,4 +156,89 @@ public class datuBase {
 			return zinemak;
 	 }
 
+
+//		//Bezero
+//     try(Statement stmt = con.createStatement();
+//             ResultSet rs = stmt.executeQuery("SELECT * FROM Bezero")) {
+//             int i = 0;
+//             rs.last();
+//             int length = rs.getRow();
+//             bezeroak = new Bezero[length];
+//             rs.beforeFirst();
+//             while (rs.next()) {   
+//                 Bezero myBezero = new Bezero();
+//                 String dni = rs.getString(1);
+//                 String izena_bezero = rs.getString(2);
+//                 String abizen_1 = rs.getString(3);
+//                 String abizen_2 = rs.getString(4);
+//                 Boolean sexua = rs.getBoolean(5);
+//                 String pasahitza = rs.getString(6);
+//
+//                 myBezero.setDNI(dni);
+//                 myBezero.setIzena(izena_bezero);
+//                 myBezero.setAbizen_1(abizen_1);
+//                 myBezero.setAbizen_2(abizen_2);
+//                 myBezero.setSexua(sexua);
+//                 myBezero.setPasahitza(pasahitza);
+//                 
+//                 bezeroak[i] = myBezero;
+//                 i++;
+//             }
+//     } catch (SQLException e) {
+//            e.printStackTrace();
+//         }
+  
+//     //Eskaria
+//     try(Statement stmt = con.createStatement();
+//             ResultSet rs = stmt.executeQuery("SELECT * FROM Eskaria")) {
+//             int i = 0;
+//             rs.last();
+//             int length = rs.getRow();
+//             eskariak = new Eskaria[length];
+//             rs.beforeFirst();
+//             while (rs.next()) {   
+//                 Eskaria myEskaria = new Eskaria();
+//                 int id_eskari = rs.getInt(1);
+//                 double prezio_totala=rs.getDouble(2);
+//                 Date erosketa_date=rs.getDate(3);
+//                 Bezero bezeroa=(Bezero) rs.getArray(4); 
+//                 myEskaria.setId_eskari(id_eskari);
+//                 myEskaria.setPrezio_totala(prezio_totala);
+//                 myEskaria.setErosketa_data(erosketa_date);
+//                 myEskaria.setBezeroa(bezeroa);
+//                 
+//                 eskariak[i] = myEskaria;
+//                 i++;
+//             }
+//     } catch (SQLException e) {
+//            e.printStackTrace();
+//         }
+//   //Sarrera
+//     try(Statement stmt = con.createStatement();
+//             ResultSet rs = stmt.executeQuery("SELECT * FROM Sarrera")) {
+//             int i = 0;
+//             rs.last();
+//             int length = rs.getRow();
+//             sarrerak = new Sarrera[length];
+//             rs.beforeFirst();
+//             while (rs.next()) {  
+//             	Sarrera mySarrera = new Sarrera();
+//                 int id_sarrera = rs.getInt(1);
+//                 Date data = rs.getDate(2);
+//                 Time ordua_time = rs.getTime(3);
+//                 LocalTime ordua = ordua_time.toLocalTime();
+//                 
+//                 mySarrera.setID_sarrera(id_sarrera);
+//                 mySarrera.setData(data);
+//                 mySarrera.setOrdua(ordua);
+//                 mySarrera.setEskariak(eskariak);
+//            
+//                 sarrerak[i] = mySarrera;
+//                 i++;
+//             }
+//     } catch (SQLException e) {
+//            e.printStackTrace();
+//         }
+		
+	 
 }

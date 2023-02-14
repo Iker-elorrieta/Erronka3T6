@@ -37,6 +37,7 @@ import org.jdatepicker.impl.JDatePanelImpl;
 import org.jdatepicker.impl.JDatePickerImpl;
 import org.jdatepicker.impl.UtilDateModel;
 
+import com.toedter.calendar.JDateChooser;
 
 import Controlador.WindowBuilderMetodoak;
 import Controlador.datuBase;
@@ -124,89 +125,6 @@ public class lehenLehioa extends JFrame {
 		Connection con = datuBase.konektatuDB();
 		zinemak = datuBase.ZinemakKarga();
 
-		//Bezero
-        try(Statement stmt = con.createStatement();
-                ResultSet rs = stmt.executeQuery("SELECT * FROM Bezero")) {
-                int i = 0;
-                rs.last();
-                int length = rs.getRow();
-                bezeroak = new Bezero[length];
-                rs.beforeFirst();
-                while (rs.next()) {   
-                    Bezero myBezero = new Bezero();
-                    String dni = rs.getString(1);
-                    String izena_bezero = rs.getString(2);
-                    String abizen_1 = rs.getString(3);
-                    String abizen_2 = rs.getString(4);
-                    Boolean sexua = rs.getBoolean(5);
-                    String pasahitza = rs.getString(6);
-
-                    myBezero.setDNI(dni);
-                    myBezero.setIzena(izena_bezero);
-                    myBezero.setAbizen_1(abizen_1);
-                    myBezero.setAbizen_2(abizen_2);
-                    myBezero.setSexua(sexua);
-                    myBezero.setPasahitza(pasahitza);
-                    
-                    bezeroak[i] = myBezero;
-                    i++;
-                }
-        } catch (SQLException e) {
-               e.printStackTrace();
-            }
-     
-        //Eskaria
-        try(Statement stmt = con.createStatement();
-                ResultSet rs = stmt.executeQuery("SELECT * FROM Eskaria")) {
-                int i = 0;
-                rs.last();
-                int length = rs.getRow();
-                eskariak = new Eskaria[length];
-                rs.beforeFirst();
-                while (rs.next()) {   
-                    Eskaria myEskaria = new Eskaria();
-                    int id_eskari = rs.getInt(1);
-                    double prezio_totala=rs.getDouble(2);
-                    Date erosketa_date=rs.getDate(3);
-                    Bezero bezeroa=(Bezero) rs.getArray(4); 
-                    myEskaria.setId_eskari(id_eskari);
-                    myEskaria.setPrezio_totala(prezio_totala);
-                    myEskaria.setErosketa_data(erosketa_date);
-                    myEskaria.setBezeroa(bezeroa);
-                    
-                    eskariak[i] = myEskaria;
-                    i++;
-                }
-        } catch (SQLException e) {
-               e.printStackTrace();
-            }
-      //Sarrera
-        try(Statement stmt = con.createStatement();
-                ResultSet rs = stmt.executeQuery("SELECT * FROM Sarrera")) {
-                int i = 0;
-                rs.last();
-                int length = rs.getRow();
-                sarrerak = new Sarrera[length];
-                rs.beforeFirst();
-                while (rs.next()) {  
-                	Sarrera mySarrera = new Sarrera();
-                    int id_sarrera = rs.getInt(1);
-                    Date data = rs.getDate(2);
-                    Time ordua_time = rs.getTime(3);
-                    LocalTime ordua = ordua_time.toLocalTime();
-                    
-                    mySarrera.setID_sarrera(id_sarrera);
-                    mySarrera.setData(data);
-                    mySarrera.setOrdua(ordua);
-                    mySarrera.setEskariak(eskariak);
-               
-                    sarrerak[i] = mySarrera;
-                    i++;
-                }
-        } catch (SQLException e) {
-               e.printStackTrace();
-            }
-		
 		Image img = new ImageIcon(this.getClass().getResource("/logo.png")).getImage();
 		Image img2 = new ImageIcon(this.getClass().getResource("/logo2.png")).getImage();
 		
@@ -319,16 +237,19 @@ public class lehenLehioa extends JFrame {
 		logoa2_3.setIcon(new ImageIcon(img2));
 		pelikulakData.add(logoa2_3);
 		
-		//DATEPICKER
-        UtilDateModel model = new UtilDateModel();
+		//JDateChooser
+        JDateChooser dateChooser = new JDateChooser();
+        dateChooser.setDateFormatString("yyyy-MM-dd"); // Formatoa
+        dateChooser.setDate(new Date()); // Lehen eguna, gaurko eguna
         Calendar calendar = Calendar.getInstance();
-        model.setDate(calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH), calendar.get(Calendar.DATE));
-        model.setSelected(true);
-
-        JDatePanelImpl datePanel = new JDatePanelImpl(model, new Properties());
-        final JDatePickerImpl datePicker = new JDatePickerImpl(datePanel, new DateLabelFormatter());
-        datePicker.setBounds(138, 37, 213, 20);
-        pelikulakData.add(datePicker);
+        calendar.set(Calendar.DAY_OF_WEEK, Calendar.SATURDAY); // Azken eguna, aste bereko larunbata.
+        calendar.set(Calendar.HOUR_OF_DAY, 23);
+        calendar.set(Calendar.MINUTE, 59);
+        calendar.set(Calendar.SECOND, 59);
+        Date fechaMaxima = calendar.getTime();
+        dateChooser.getJCalendar().setSelectableDateRange(new Date(), fechaMaxima); // Daten rangoa aplikatzen du.
+        dateChooser.setBounds(138, 37, 213, 20);
+        pelikulakData.add(dateChooser);
         
 		
 		JButton btnHurrengoa3 = new JButton("Hurrengoa");
@@ -707,44 +628,7 @@ public class lehenLehioa extends JFrame {
                 WindowBuilderMetodoak.ezkutatu(btnHurrengoa1, btnHurrengoa2);
             }
 		});
-		
-		//DATEPICKER
-		//Zinemara joan ahal izetako restrikzio batzuk daude, adibidez astelehenetan ezin da joan. Aukeratutako egunean 
-		// ezin bada ikusi pelikula hori showMesasgeDialog bat agertuko da eta "hurrengo" botoia desabilitatuko da
-		datePicker.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                Calendar selectedDate = Calendar.getInstance();
-                selectedDate.setTime(model.getValue());
-                //Gaurko egunaren aurreko egunak hartzen dira
-                Calendar before = Calendar.getInstance();
-                before.add(Calendar.DATE, -1);
-                //Gaurko eguna hartzen da
-                Calendar today = Calendar.getInstance();
-                today.add(Calendar.DATE, 0);
-                //Bi hilbete eta geroko egunak hartzen dira
-                Calendar month = Calendar.getInstance();
-                month.add(Calendar.MONTH, +2);
-                
-                if (selectedDate.before(before)) {
-                    model.setValue(before.getTime());
-                    JOptionPane.showMessageDialog(null, "Ezin da aukeratu igaro den egun bat");
-                    WindowBuilderMetodoak.ezkutatu(btnHurrengoa3, comboSesioak);
-                }else if(selectedDate.get(Calendar.DAY_OF_WEEK) == Calendar.MONDAY){
-                    JOptionPane.showMessageDialog(null, "Astelehenetan zinema itxita dago");
-                    WindowBuilderMetodoak.ezkutatu(btnHurrengoa3, comboSesioak);	
-                }else if(selectedDate.before(today)) {
-                    JOptionPane.showMessageDialog(null, "Gaur bakrarrik lehiatilan erosi ahal dira");
-                    WindowBuilderMetodoak.ezkutatu(btnHurrengoa3, comboSesioak);
-                }else if(selectedDate.after(month)){
-                    JOptionPane.showMessageDialog(null, "Ez daukagu zinemarako sarrerarik hain urruneko data baterako");
-                    WindowBuilderMetodoak.ezkutatu(btnHurrengoa3, comboSesioak);
-                		}else {
-                			WindowBuilderMetodoak.erakutsi(btnHurrengoa3, comboSesioak); 
-                		}
-            }
-        });
-		
+
 		//Bukaera
 		//Pantailan kilkatzean 2 segundu itxaroten du eta berriro ongiEtorri panelara doa
 		btnAmaitu.addActionListener(new ActionListener() {
