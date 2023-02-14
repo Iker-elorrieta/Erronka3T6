@@ -389,7 +389,7 @@ public class lehenLehioa extends JFrame {
 		lblNewLabel_1_1.setBounds(106, 142, 131, 14);
 		laburpena.add(lblNewLabel_1_1);
 		
-		JLabel lblNewLabel_1_1_1 = new JLabel("Beherpena");
+		JLabel lblNewLabel_1_1_1 = new JLabel("Beherpena:");
 		lblNewLabel_1_1_1.setBounds(173, 180, 86, 14);
 		laburpena.add(lblNewLabel_1_1_1);
 		
@@ -647,14 +647,10 @@ public class lehenLehioa extends JFrame {
             
               //CBZinemak-en zein zinema aukeratu den gordetzen du.
                 Zinema aukeratutakoZinema = (Zinema) CBZinemak.getSelectedItem();
-                String [] filmAukerak = metodoak.tituluaEzErrepikatu(aukeratutakoZinema);
-                /*System.out.println(aukeratutakoZinema);
-                System.out.println(aukeratutakoZinema.getID_zinema());*/    
+                String [] filmAukerak = metodoak.filmErakutsi(aukeratutakoZinema);  
 
                 //Aukeratutako zineman dauden Saioetako pelikulak aktualizatzen ditu.
                 comboPelikula.setModel(new DefaultComboBoxModel(filmAukerak));
-
-
 
             }
             

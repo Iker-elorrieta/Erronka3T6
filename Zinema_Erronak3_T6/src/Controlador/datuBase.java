@@ -76,7 +76,6 @@ public class datuBase {
 						while(rs2.next()) {
 							Areto areto = new Areto();
 							
-							
 							int ID_areto = rs2.getInt(1);
 							areto.setID_areto(ID_areto);
 							areto.setZenbakia(rs2.getInt(2));
@@ -84,7 +83,7 @@ public class datuBase {
 							//Saioa
 							try {
 								Statement stmt3 = (Statement) connection.createStatement();	
-								ResultSet rs3 = stmt3.executeQuery("SELECT ID_saioa, data, ordua, ID_film FROM saioa JOIN areto ON saioa.ID_areto=areto.ID_areto WHERE saioa.ID_areto="+ID_areto+";");
+								ResultSet rs3 = stmt3.executeQuery("SELECT ID_saioa, data, ordua, ID_film FROM saioa JOIN areto ON saioa.ID_areto=areto.ID_areto WHERE saioa.ID_areto="+ID_areto+" ORDER BY data, ordua;");
 								int i = 0;
 								rs3.last();
 								int length = rs3.getRow();
@@ -98,6 +97,7 @@ public class datuBase {
 									LocalTime ordua = ordua_time.toLocalTime();
 									mySaioa.setOrdua(ordua);
 									int ID_film_fk = rs3.getInt(4);
+									//Film
 									try {
 										Statement stmt4 = (Statement) connection.createStatement();	
 										ResultSet rs4 = stmt4.executeQuery("SELECT * FROM film WHERE ID_film="+ID_film_fk+";");
@@ -128,12 +128,12 @@ public class datuBase {
 							}			
 							
 							//Aretoen array-a berridazten du
-							Areto[] areto0 = new Areto[aretoak.length+1];
+							Areto[] aretoBerriak = new Areto[aretoak.length+1];
 							for(int i = 0; i < aretoak.length; i++){
-								areto0[i] = aretoak[i];
+								aretoBerriak[i] = aretoak[i];
 							}
-							areto0[aretoak.length] = areto;
-							aretoak = areto0;
+							aretoBerriak[aretoak.length] = areto;
+							aretoak = aretoBerriak;
 						}
 					}catch(SQLException e) {
 						e.printStackTrace();
@@ -141,12 +141,12 @@ public class datuBase {
 					zinema.setAretoak(aretoak);
 					
 					//Zinemen array-a berridazten du
-					Zinema[] zinemak0 = new Zinema[zinemak.length+1];				
+					Zinema[] zinemaBerriak = new Zinema[zinemak.length+1];				
 					for(int i = 0; i < zinemak.length; i++) {
-						zinemak0[i] = zinemak[i];					
+						zinemaBerriak[i] = zinemak[i];					
 					}	
-					zinemak0[zinemak.length] = zinema;				
-					zinemak=zinemak0;
+					zinemaBerriak[zinemak.length] = zinema;				
+					zinemak=zinemaBerriak;
 					ID_zinema++;
 				}			
 				connection.close();

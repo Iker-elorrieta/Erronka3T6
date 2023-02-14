@@ -77,29 +77,36 @@ public class metodoak {
 	
 	/**
 	 * 
-	 * @param aukeratutakoZin
-	 * @return
+	 * @param aukeratutakoZinema
+	 * @return Zinema horretan dauden saioetako filmak bueltatuko ditu errepikatu gabe.
 	 */
-	public static String[] tituluaEzErrepikatu (Zinema aukeratutakoZinema) {
-		String[] filmGordeta = new String [15];
-		int filmGordetaI = 0;
+	public static String[] filmErakutsi (Zinema aukeratutakoZinema) {
+		String[] filmGordeta = new String[0];
 		
+		int filmGordetaI = 0;
+
         for (int i = 0; i < aukeratutakoZinema.getAretoak().length; i++) {
             for (int j = 0; j < aukeratutakoZinema.getAretoak()[i].getSaioak().length; j++) {
                 String titulo = aukeratutakoZinema.getAretoak()[i].getSaioak()[j].getFilma().getTituloa();
-                boolean encontrado = false;
+                boolean bilatuta = false;
                 for (int k = 0; k < filmGordetaI; k++) {
                     if (filmGordeta[k].equals(titulo)) {
-                        encontrado = true;
+                    	bilatuta = true;
                         //break;
                     }
                 }
-                if (!encontrado) {
-                    filmGordeta[filmGordetaI++] = titulo;
+                if (!bilatuta) {
+                	//filmGordeta array-a berridazten du
+                	 if (filmGordetaI == filmGordeta.length) {
+                         String[] filmGordetaBerria = new String[filmGordeta.length+1];
+                         System.arraycopy(filmGordeta, 0, filmGordetaBerria, 0, filmGordeta.length);
+                         filmGordeta = filmGordetaBerria;
+                     }
+                	filmGordeta[filmGordetaI++] = titulo;
+            		  }
                 }
             }
-        }
-        
+
 		return filmGordeta;
 	}
 	
