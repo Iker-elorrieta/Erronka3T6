@@ -2,6 +2,9 @@ package Controlador;
 
 import javax.swing.JButton;
 import javax.swing.JComboBox;
+
+import Modelo.Film;
+import Modelo.Saioa;
 import Modelo.Zinema;
 
 public class metodoak {
@@ -81,33 +84,53 @@ public class metodoak {
 	 * @return Zinema horretan dauden saioetako filmak bueltatuko ditu errepikatu gabe.
 	 */
 	public static String[] filmErakutsi (Zinema aukeratutakoZinema) {
+
 		String[] filmGordeta = new String[0];
-		
 		int filmGordetaI = 0;
-
-        for (int i = 0; i < aukeratutakoZinema.getAretoak().length; i++) {
-            for (int j = 0; j < aukeratutakoZinema.getAretoak()[i].getSaioak().length; j++) {
-                String titulo = aukeratutakoZinema.getAretoak()[i].getSaioak()[j].getFilma().getTituloa();
-                boolean bilatuta = false;
-                for (int k = 0; k < filmGordetaI; k++) {
-                    if (filmGordeta[k].equals(titulo)) {
-                    	bilatuta = true;
-                        //break;
-                    }
-                }
-                if (!bilatuta) {
-                	//filmGordeta array-a berridazten du
-                	 if (filmGordetaI == filmGordeta.length) {
-                         String[] filmGordetaBerria = new String[filmGordeta.length+1];
-                         System.arraycopy(filmGordeta, 0, filmGordetaBerria, 0, filmGordeta.length);
-                         filmGordeta = filmGordetaBerria;
-                     }
-                	filmGordeta[filmGordetaI++] = titulo;
-            		  }
-                }
-            }
-
+		for (int i = 0; i < aukeratutakoZinema.getAretoak().length; i++) {
+			for (int j = 0; j < aukeratutakoZinema.getAretoak()[i].getSaioak().length; j++) {
+				String titulo = aukeratutakoZinema.getAretoak()[i].getSaioak()[j].getFilma().getTituloa();
+				boolean bilatuta = false;
+				for (int k = 0; k < filmGordetaI; k++) {
+					if (filmGordeta[k].equals(titulo)) {
+						bilatuta = true;
+						//break;
+					}
+				}
+				if (!bilatuta) {
+					//filmGordeta array-a berridazten du
+					if (filmGordetaI == filmGordeta.length) {
+						String[] filmGordetaBerria = new String[filmGordeta.length+1];
+						System.arraycopy(filmGordeta, 0, filmGordetaBerria, 0, filmGordeta.length);
+						filmGordeta = filmGordetaBerria;
+					}
+					filmGordeta[filmGordetaI++] = titulo;
+				}
+			}
+		}
 		return filmGordeta;
 	}
-	
+	public static Saioa[] saioakBete (Zinema aukeratutakoZinema, String aukeratutakoFilm) {
+		Saioa[] beharSaioa = new Saioa [0];
+		int beharSaioaI = 0;
+		for (int i = 0; i < aukeratutakoZinema.getAretoak().length; i++) {
+			for (int j = 0; j < aukeratutakoZinema.getAretoak()[i].getSaioak().length; j++) {
+				if (aukeratutakoZinema.getAretoak()[i].getSaioak()[j].getFilma().getTituloa().equals(aukeratutakoFilm)) {
+		        	
+					//aukeratutakoZinema.getAretoak()[i].getSaioak()[j]
+		        	//Gehitu saio bat gure saioko array-an
+					
+					if (beharSaioaI == beharSaioa.length) {
+						Saioa[] beharSaioaBerria = new Saioa[beharSaioa.length+1];
+						System.arraycopy(beharSaioa, 0, beharSaioaBerria, 0, beharSaioa.length);
+						beharSaioa = beharSaioaBerria;
+					}
+					beharSaioa[beharSaioaI++] = aukeratutakoZinema.getAretoak()[i].getSaioak()[j];
+					}
+				}
+			}
+		
+		return beharSaioa;
+	}
+
 }

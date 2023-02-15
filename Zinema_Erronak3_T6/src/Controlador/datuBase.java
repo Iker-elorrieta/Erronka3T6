@@ -108,10 +108,12 @@ public class datuBase {
 									        String tituloa = rs4.getString(2);
 									        int iraupena = rs4.getInt(3);
 									        String generoa = rs4.getString(4);
-									        myFilm.setID_film(ID_zinema);
+									        double prezioa = rs4.getDouble(5);
+									        myFilm.setID_film(ID_film);
 									        myFilm.setTituloa(tituloa); 
 									        myFilm.setIraupena(iraupena);
 									        myFilm.setGeneroa(generoa);
+									        myFilm.setPrezioa(prezioa);
 									        filma = myFilm;
 									    }
 									mySaioa.setFilma(filma);

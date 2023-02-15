@@ -97,7 +97,11 @@ public class lehenLehioa extends JFrame {
 	private Sarrera [] sarrerak;
 	private Saioa [] saioak;
 	private Areto [] aretoak;
+	String [] filmAukerak;
+	Zinema aukeratutakoZinema;
+	Film aukeratutakoFilm;
 	LocalDateTime locaDate;
+	Saioa[] beharSaioa;
 	/**
 	 * Launch the application.
 	 */
@@ -124,6 +128,7 @@ public class lehenLehioa extends JFrame {
 		//String[] filmGordeta = new String [15];
 		Connection con = datuBase.konektatuDB();
 		zinemak = datuBase.ZinemakKarga();
+		
 
 		Image img = new ImageIcon(this.getClass().getResource("/logo.png")).getImage();
 		Image img2 = new ImageIcon(this.getClass().getResource("/logo2.png")).getImage();
@@ -222,10 +227,9 @@ public class lehenLehioa extends JFrame {
 		logoa2_2.setIcon(new ImageIcon(img2));
 		pelikulak.add(logoa2_2);
 		
-		JComboBox comboPelikula = new JComboBox();
-		
-		comboPelikula.setBounds(19, 98, 445, 22);
-		pelikulak.add(comboPelikula);
+		JComboBox CBFilm = new JComboBox();
+		CBFilm.setBounds(19, 98, 445, 22);
+		pelikulak.add(CBFilm);
 		
 		//PELIKULAK DATA
 		JPanel pelikulakData = new JPanel();
@@ -241,12 +245,17 @@ public class lehenLehioa extends JFrame {
         JDateChooser dateChooser = new JDateChooser();
         dateChooser.setDateFormatString("yyyy-MM-dd"); // Formatoa
         dateChooser.setDate(new Date()); // Lehen eguna, gaurko eguna
-        Calendar calendar = Calendar.getInstance();
-        calendar.set(Calendar.DAY_OF_WEEK, Calendar.SATURDAY); // Azken eguna, aste bereko larunbata.
-        calendar.set(Calendar.HOUR_OF_DAY, 23);
-        calendar.set(Calendar.MINUTE, 59);
-        calendar.set(Calendar.SECOND, 59);
-        Date fechaMaxima = calendar.getTime();
+        Calendar maxDate = Calendar.getInstance();
+        maxDate.set(Calendar.YEAR, Calendar.getInstance().get(Calendar.YEAR));
+        maxDate.set(Calendar.MONTH, Calendar.APRIL);
+        maxDate.set(Calendar.DATE, 1);
+        maxDate.set(Calendar.HOUR_OF_DAY, 23);
+        maxDate.set(Calendar.MINUTE, 59);
+        maxDate.set(Calendar.SECOND, 59);
+        if (maxDate.get(Calendar.DAY_OF_WEEK) == Calendar.SUNDAY) {
+            maxDate.add(Calendar.DATE, -1);
+        }
+        Date fechaMaxima = maxDate.getTime();
         dateChooser.getJCalendar().setSelectableDateRange(new Date(), fechaMaxima); // Daten rangoa aplikatzen du.
         dateChooser.setBounds(138, 37, 213, 20);
         pelikulakData.add(dateChooser);
@@ -567,11 +576,11 @@ public class lehenLehioa extends JFrame {
                 WindowBuilderMetodoak.hurrengoaBtn(pelikulak, ongiEtorri, zinemaAreto, pelikulak, pelikulakData, laburpena, login, erregistratu, tiket, bukaera);
             
               //CBZinemak-en zein zinema aukeratu den gordetzen du.
-                Zinema aukeratutakoZinema = (Zinema) CBZinemak.getSelectedItem();
-                String [] filmAukerak = metodoak.filmErakutsi(aukeratutakoZinema);  
+                aukeratutakoZinema = (Zinema) CBZinemak.getSelectedItem();
+                filmAukerak = metodoak.filmErakutsi(aukeratutakoZinema);  
 
                 //Aukeratutako zineman dauden Saioetako pelikulak aktualizatzen ditu.
-                comboPelikula.setModel(new DefaultComboBoxModel(filmAukerak));
+                CBFilm.setModel(new DefaultComboBoxModel(filmAukerak));
 
             }
             
@@ -598,7 +607,7 @@ public class lehenLehioa extends JFrame {
 		});
 		
 		//pelikulak panelean "Hurrengoa" botoiari click egin eta pelikulaDatak panelera pasatzeko
-		comboPelikula.addActionListener(new ActionListener() {
+		CBFilm.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
     			btnHurrengoa2.setEnabled(true);
             }
@@ -606,6 +615,14 @@ public class lehenLehioa extends JFrame {
 		btnHurrengoa2.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 WindowBuilderMetodoak.hurrengoaBtn(pelikulakData, ongiEtorri, zinemaAreto, pelikulak, pelikulakData, laburpena, login, erregistratu, tiket, bukaera);
+                String  aukeratutakoFilm = (String) CBFilm.getSelectedItem();	
+        		beharSaioa = metodoak.saioakBete(aukeratutakoZinema, aukeratutakoFilm);	
+                for (int i = 0;i<beharSaioa.length;i++) {
+                	System.out.println(beharSaioa[i]);
+                }
+                
+                System.out.println(aukeratutakoFilm);
+//                System.out.println(aukeratutakoFilm.getTituloa());
             }
 		});
 		
