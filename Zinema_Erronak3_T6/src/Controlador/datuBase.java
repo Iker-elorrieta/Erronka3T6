@@ -21,7 +21,7 @@ import Modelo.Zinema;
 
 public class datuBase {
 	
-	public static Connection konektatuDB() {
+	/*public static Connection konektatuDB() {
         Connection connection = null;
         try {  
           // Datu-basearekin konektatzea
@@ -41,7 +41,7 @@ public class datuBase {
 	        } catch (SQLException e) {
 	          e.printStackTrace();
 	        }
-	      }
+	      }*/
 	 
 	 
 

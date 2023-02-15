@@ -126,7 +126,6 @@ public class lehenLehioa extends JFrame {
 	
 	public lehenLehioa() {	
 		//String[] filmGordeta = new String [15];
-		Connection con = datuBase.konektatuDB();
 		zinemak = datuBase.ZinemakKarga();
 		
 
