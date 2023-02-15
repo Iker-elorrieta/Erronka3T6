@@ -9,12 +9,17 @@ import java.awt.Font;
 import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.beans.PropertyChangeEvent;
+import java.beans.PropertyChangeListener;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.sql.Time;
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.util.Calendar;
@@ -97,11 +102,13 @@ public class lehenLehioa extends JFrame {
 	private Sarrera [] sarrerak;
 	private Saioa [] saioak;
 	private Areto [] aretoak;
+	LocalTime [] saioOrduak;
 	String [] filmAukerak;
 	Zinema aukeratutakoZinema;
 	Film aukeratutakoFilm;
 	LocalDateTime locaDate;
 	Saioa[] beharSaioa;
+	
 	/**
 	 * Launch the application.
 	 */
@@ -128,6 +135,67 @@ public class lehenLehioa extends JFrame {
 		//String[] filmGordeta = new String [15];
 		zinemak = datuBase.ZinemakKarga();
 		
+		Film f1 = new Film();
+		Zinema z1 = new Zinema();
+		Areto [] a1 = new Areto[2];
+		Saioa [] s1 = new Saioa[2];
+		int ID_film = 1;
+		String tituloa = "Handia";
+		int iraupena = 110;
+		String generoa = "Drama";
+		double prezioa = 7.5;
+		LocalTime ordua = null;
+		LocalTime buk_ordua = null;
+		int ID_saioa = 1;
+		Date data = null;
+		int ID_areto = 1;
+		int zenbakia = 1;
+		int ID_zinema = 1;
+		String izena = "Golem";
+		String lokalitatea = "Bilbao";
+
+
+			f1.setGeneroa(generoa);
+			f1.setID_film(ID_film);
+			f1.setIraupena(iraupena);
+			f1.setPrezioa(prezioa);
+			f1.setTituloa(tituloa);
+			
+			s1[0] = new Saioa();
+		 s1[0].setID_saioa(ID_saioa);
+		 s1[0].setBuk_ordua(buk_ordua);
+		 s1[0].setData(data);
+		 s1[0].setFilma(f1);
+		 s1[0].setOrdua(ordua);
+		 s1[1] = new Saioa();
+		 s1[1].setBuk_ordua(buk_ordua);
+		 s1[1].setData(data);
+		 s1[1].setFilma(f1);
+		 s1[1].setID_saioa(ID_saioa+1);
+		 s1[1].setOrdua(ordua);
+		 a1[0] = new Areto();
+		 a1[0].setID_areto(ID_areto);
+		 a1[0].setZenbakia(zenbakia);
+		 a1[0].setSaioak(s1);
+		 a1[1] = new Areto();
+		 a1[1].setID_areto(ID_areto+1);
+		 a1[1].setZenbakia(zenbakia);
+		 a1[1].setSaioak(s1);
+		
+			z1.setAretoak(a1);
+			z1.setID_zinema(ID_zinema);
+			z1.setIzena(izena);
+			z1.setLokalitatea(lokalitatea);
+
+
+        String  aukeratutakoFilm = (String) "Million Dolar Baby";	
+		beharSaioa = metodoak.saioakBete(z1, aukeratutakoFilm);	
+        for (int i = 0;i<beharSaioa.length;i++) {
+        	beharSaioa[0].getData();
+        	System.out.println(beharSaioa[0].getData());
+//        	System.out.print(beharSaioa[i].getData());
+//        	System.out.println(" // " + beharSaioa[i].getOrdua());
+        }
 
 		Image img = new ImageIcon(this.getClass().getResource("/logo.png")).getImage();
 		Image img2 = new ImageIcon(this.getClass().getResource("/logo2.png")).getImage();
@@ -272,11 +340,7 @@ public class lehenLehioa extends JFrame {
 		pelikulakData.add(btnAtzera2);	
 		
 		JComboBox comboSesioak = new JComboBox();
-		comboSesioak.setVisible(false);
-		comboSesioak.setEnabled(false);
-		comboSesioak.setModel(new DefaultComboBoxModel(new String[] {"18:00", "20:00", "22:00"}));
 		comboSesioak.setBounds(138, 182, 213, 22);
-		pelikulakData.add(comboSesioak);
 		
 		//LABURPENA
 		JPanel laburpena = new JPanel();
@@ -617,11 +681,13 @@ public class lehenLehioa extends JFrame {
                 String  aukeratutakoFilm = (String) CBFilm.getSelectedItem();	
         		beharSaioa = metodoak.saioakBete(aukeratutakoZinema, aukeratutakoFilm);	
                 for (int i = 0;i<beharSaioa.length;i++) {
-                	System.out.println(beharSaioa[i]);
+//                	beharSaioa[0].getData();
+//                	System.out.println(beharSaioa[0].getData());
+                	System.out.print(beharSaioa[i].getData());
+                	System.out.println(" // " + beharSaioa[i].getOrdua());
                 }
-                
-                System.out.println(aukeratutakoFilm);
-//                System.out.println(aukeratutakoFilm.getTituloa());
+                comboSesioak.setVisible(false);
+	    		comboSesioak.setEnabled(false);
             }
 		});
 		
@@ -633,6 +699,41 @@ public class lehenLehioa extends JFrame {
                 WindowBuilderMetodoak.ezkutatu(btnHurrengoa1, btnHurrengoa2);
             }
 		});
+		
+		//DATECHOOSER
+		dateChooser.getDateEditor().addPropertyChangeListener((PropertyChangeListener) new PropertyChangeListener(){ 
+	        public void propertyChange(PropertyChangeEvent e) {
+	        	comboSesioak.setVisible(true);
+	        	comboSesioak.setEnabled(true);
+	        	DateFormat dt = new SimpleDateFormat("yyyy-MM-dd");
+	        	Date selectedDate = dateChooser.getDate();
+	        	String formattedDate = dt.format(selectedDate);
+	        	System.out.println(formattedDate);
+
+	        	for (int i = 0; i < beharSaioa.length; i++) {
+	        	    System.out.print(beharSaioa[i].getData());
+	        	    System.out.println(" // " + beharSaioa[i].getOrdua());
+	        	    try {
+						if (beharSaioa[i].getData().equals(dt.parse(formattedDate))) {
+							int saioOrduaI= 0;
+							if(saioOrduaI == saioOrduak.length) {
+								LocalTime [] saioOrduaBerria = new LocalTime[saioOrduak.length+1];
+								
+							}
+							saioOrduak[0] = beharSaioa[i].getOrdua();
+						}
+					} catch (ParseException e1) {
+						// TODO Auto-generated catch block
+						e1.printStackTrace();
+					}
+	        	}
+
+	    		
+	    		comboSesioak.setModel(new DefaultComboBoxModel(new Object[] {saioOrduak}));
+	    		pelikulakData.add(comboSesioak);
+	        }
+	});
+		
 		
 		//pelikulaDatak panelean "Hurrengoa" botoiari click egin eta zinemaAreto panelera pasatzeko
 		btnHurrengoa3.addActionListener(new ActionListener() {
