@@ -140,7 +140,7 @@ public class lehenLehioa extends JFrame {
 		Areto [] a1 = new Areto[2];
 		Saioa [] s1 = new Saioa[2];
 		int ID_film = 1;
-		String tituloa = "Handia";
+		String tituloa = "";
 		int iraupena = 110;
 		String generoa = "Drama";
 		double prezioa = 7.5;
@@ -193,8 +193,6 @@ public class lehenLehioa extends JFrame {
         for (int i = 0;i<beharSaioa.length;i++) {
         	beharSaioa[0].getData();
         	System.out.println(beharSaioa[0].getData());
-//        	System.out.print(beharSaioa[i].getData());
-//        	System.out.println(" // " + beharSaioa[i].getOrdua());
         }
 
 		Image img = new ImageIcon(this.getClass().getResource("/logo.png")).getImage();
@@ -680,12 +678,7 @@ public class lehenLehioa extends JFrame {
                 WindowBuilderMetodoak.hurrengoaBtn(pelikulakData, ongiEtorri, zinemaAreto, pelikulak, pelikulakData, laburpena, login, erregistratu, tiket, bukaera);
                 String  aukeratutakoFilm = (String) CBFilm.getSelectedItem();	
         		beharSaioa = metodoak.saioakBete(aukeratutakoZinema, aukeratutakoFilm);	
-                for (int i = 0;i<beharSaioa.length;i++) {
-//                	beharSaioa[0].getData();
-//                	System.out.println(beharSaioa[0].getData());
-                	System.out.print(beharSaioa[i].getData());
-                	System.out.println(" // " + beharSaioa[i].getOrdua());
-                }
+                
                 comboSesioak.setVisible(false);
 	    		comboSesioak.setEnabled(false);
             }
@@ -708,28 +701,29 @@ public class lehenLehioa extends JFrame {
 	        	DateFormat dt = new SimpleDateFormat("yyyy-MM-dd");
 	        	Date selectedDate = dateChooser.getDate();
 	        	String formattedDate = dt.format(selectedDate);
-	        	System.out.println(formattedDate);
-
+	        	LocalTime [] saioOrduak = new LocalTime [0];
+	        	int saioOrduaI= 0;
+//	        	System.out.println(formattedDate);
+	        	
 	        	for (int i = 0; i < beharSaioa.length; i++) {
-	        	    System.out.print(beharSaioa[i].getData());
-	        	    System.out.println(" // " + beharSaioa[i].getOrdua());
+//	        	    System.out.print(beharSaioa[i].getData());
+//	        	    System.out.println(" // " + beharSaioa[i].getOrdua());
 	        	    try {
 						if (beharSaioa[i].getData().equals(dt.parse(formattedDate))) {
-							int saioOrduaI= 0;
 							if(saioOrduaI == saioOrduak.length) {
 								LocalTime [] saioOrduaBerria = new LocalTime[saioOrduak.length+1];
-								
+								System.arraycopy(saioOrduak, 0, saioOrduaBerria, 0, saioOrduak.length);
+								saioOrduak = saioOrduaBerria;
 							}
-							saioOrduak[0] = beharSaioa[i].getOrdua();
+							saioOrduak[saioOrduaI++] = beharSaioa[i].getOrdua();
+							//saioOrduak[0] = beharSaioa[i].getOrdua();
 						}
 					} catch (ParseException e1) {
 						// TODO Auto-generated catch block
 						e1.printStackTrace();
 					}
-	        	}
-
-	    		
-	    		comboSesioak.setModel(new DefaultComboBoxModel(new Object[] {saioOrduak}));
+	        	}	
+	    		comboSesioak.setModel(new DefaultComboBoxModel(saioOrduak));
 	    		pelikulakData.add(comboSesioak);
 	        }
 	});
