@@ -110,6 +110,29 @@ public class metodoak {
 		}
 		return filmGordeta;
 	}
+	public static Saioa[] saioakBete (Zinema aukeratutakoZinema, Film aukeratutakoFilm) {
+		Saioa[] beharSaioa = new Saioa [0];
+		int beharSaioaI = 0;
+		for (int i = 0; i < aukeratutakoZinema.getAretoak().length; i++) {
+			for (int j = 0; j < aukeratutakoZinema.getAretoak()[i].getSaioak().length; j++) {
+				if (aukeratutakoZinema.getAretoak()[i].getSaioak()[j].getFilma().getTituloa().equals(aukeratutakoFilm.getTituloa())) {
+		        	
+					//aukeratutakoZinema.getAretoak()[i].getSaioak()[j]
+		        	//Gehitu saio bat gure saioko array-an
+					
+					if (beharSaioaI == beharSaioa.length) {
+						Saioa[] beharSaioaBerria = new Saioa[beharSaioa.length+1];
+						System.arraycopy(beharSaioa, 0, beharSaioaBerria, 0, beharSaioa.length);
+						beharSaioa = beharSaioaBerria;
+					}
+					beharSaioa[beharSaioaI++] = aukeratutakoZinema.getAretoak()[i].getSaioak()[j];
+					}
+				}
+			}
+		
+		return beharSaioa;
+	}
+	
 	public static Saioa[] saioakBete (Zinema aukeratutakoZinema, String aukeratutakoFilm) {
 		Saioa[] beharSaioa = new Saioa [0];
 		int beharSaioaI = 0;

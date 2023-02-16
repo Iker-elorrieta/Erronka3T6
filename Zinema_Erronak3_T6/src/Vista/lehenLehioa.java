@@ -68,6 +68,8 @@ import javax.swing.DebugGraphics;
 import javax.swing.ListSelectionModel;
 import javax.swing.DropMode;
 import java.awt.Cursor;
+import javax.swing.JSplitPane;
+import javax.swing.JTabbedPane;
 
 public class lehenLehioa extends JFrame {
 	
@@ -102,12 +104,16 @@ public class lehenLehioa extends JFrame {
 	private Sarrera [] sarrerak;
 	private Saioa [] saioak;
 	private Areto [] aretoak;
-	LocalTime [] saioOrduak;
+	Film aukeratutakoFilm = new Film();
+	String aukeratutakoData;
+	LocalTime aukeratutakoOrdua; 
 	String [] filmAukerak;
 	Zinema aukeratutakoZinema;
-	Film aukeratutakoFilm;
+	Film aukeratutakoPelikula;
+	Saioa aukeratutakoSaioa;
 	LocalDateTime locaDate;
 	Saioa[] beharSaioa;
+	private JTable tablePelData;
 	
 	/**
 	 * Launch the application.
@@ -188,8 +194,8 @@ public class lehenLehioa extends JFrame {
 			z1.setLokalitatea(lokalitatea);
 
 
-        String  aukeratutakoFilm = (String) "Million Dolar Baby";	
-		beharSaioa = metodoak.saioakBete(z1, aukeratutakoFilm);	
+        String  aukeratutakoPelikula = (String) "Million Dolar Baby";	
+		beharSaioa = metodoak.saioakBete(z1, aukeratutakoPelikula);	
         for (int i = 0;i<beharSaioa.length;i++) {
         	beharSaioa[0].getData();
         	System.out.println(beharSaioa[0].getData());
@@ -335,10 +341,20 @@ public class lehenLehioa extends JFrame {
 		JButton btnAtzera2 = new JButton("Atzera");
 		btnAtzera2.setFont(new Font("Tahoma", Font.PLAIN, 17));
 		btnAtzera2.setBounds(10, 272, 95, 31);
-		pelikulakData.add(btnAtzera2);	
+		pelikulakData.add(btnAtzera2);
 		
-		JComboBox comboSesioak = new JComboBox();
-		comboSesioak.setBounds(138, 182, 213, 22);
+		JScrollPane scrollPanePelData = new JScrollPane();
+		scrollPanePelData.setBounds(10, 166, 464, 39);
+		scrollPanePelData.setEnabled(false);
+		scrollPanePelData.setVisible(false);
+		pelikulakData.add(scrollPanePelData);
+		
+		tablePelData = new JTable();
+		
+		JComboBox CBSesioak = new JComboBox();
+		CBSesioak.setBounds(138, 100, 213, 22);
+		CBSesioak.setEnabled(false);
+		CBSesioak.setVisible(false);
 		
 		//LABURPENA
 		JPanel laburpena = new JPanel();
@@ -673,14 +689,21 @@ public class lehenLehioa extends JFrame {
     			btnHurrengoa2.setEnabled(true);
             }
 		});
+		
+		//
 		btnHurrengoa2.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 WindowBuilderMetodoak.hurrengoaBtn(pelikulakData, ongiEtorri, zinemaAreto, pelikulak, pelikulakData, laburpena, login, erregistratu, tiket, bukaera);
-                String  aukeratutakoFilm = (String) CBFilm.getSelectedItem();	
+                String aukeratutakoTiltulo = (String) CBFilm.getSelectedItem();
+                aukeratutakoFilm.setTituloa(aukeratutakoTiltulo);	
+                aukeratutakoFilm.setGeneroa("a");
+                aukeratutakoFilm.setID_film(1);
+                aukeratutakoFilm.setIraupena(1);
+                aukeratutakoFilm.setPrezioa(1);
         		beharSaioa = metodoak.saioakBete(aukeratutakoZinema, aukeratutakoFilm);	
                 
-                comboSesioak.setVisible(false);
-	    		comboSesioak.setEnabled(false);
+        		CBSesioak.setVisible(false);
+        		CBSesioak.setEnabled(false);
             }
 		});
 		
@@ -690,17 +713,21 @@ public class lehenLehioa extends JFrame {
             public void actionPerformed(ActionEvent e) {
                 WindowBuilderMetodoak.hurrengoaBtn(pelikulak, ongiEtorri, zinemaAreto, pelikulak, pelikulakData, laburpena, login, erregistratu, tiket, bukaera);
                 WindowBuilderMetodoak.ezkutatu(btnHurrengoa1, btnHurrengoa2);
+        		CBSesioak.setEnabled(false);
+        		CBSesioak.setVisible(false);
+        		scrollPanePelData.setEnabled(false);
+        		scrollPanePelData.setVisible(false);
             }
 		});
 		
 		//DATECHOOSER
 		dateChooser.getDateEditor().addPropertyChangeListener((PropertyChangeListener) new PropertyChangeListener(){ 
 	        public void propertyChange(PropertyChangeEvent e) {
-	        	comboSesioak.setVisible(true);
-	        	comboSesioak.setEnabled(true);
+	        	CBSesioak.setVisible(true);
+	        	CBSesioak.setEnabled(true);
 	        	DateFormat dt = new SimpleDateFormat("yyyy-MM-dd");
 	        	Date selectedDate = dateChooser.getDate();
-	        	String formattedDate = dt.format(selectedDate);
+	        	aukeratutakoData = dt.format(selectedDate);
 	        	LocalTime [] saioOrduak = new LocalTime [0];
 	        	int saioOrduaI= 0;
 //	        	System.out.println(formattedDate);
@@ -709,7 +736,7 @@ public class lehenLehioa extends JFrame {
 //	        	    System.out.print(beharSaioa[i].getData());
 //	        	    System.out.println(" // " + beharSaioa[i].getOrdua());
 	        	    try {
-						if (beharSaioa[i].getData().equals(dt.parse(formattedDate))) {
+						if (beharSaioa[i].getData().equals(dt.parse(aukeratutakoData))) {
 							if(saioOrduaI == saioOrduak.length) {
 								LocalTime [] saioOrduaBerria = new LocalTime[saioOrduak.length+1];
 								System.arraycopy(saioOrduak, 0, saioOrduaBerria, 0, saioOrduak.length);
@@ -723,10 +750,50 @@ public class lehenLehioa extends JFrame {
 						e1.printStackTrace();
 					}
 	        	}	
-	    		comboSesioak.setModel(new DefaultComboBoxModel(saioOrduak));
-	    		pelikulakData.add(comboSesioak);
+	        	CBSesioak.setModel(new DefaultComboBoxModel(saioOrduak));
+	    		pelikulakData.add(CBSesioak);
 	        }
 	});
+		
+		//pelikulak panelean "Hurrengoa" botoiari click egin eta pelikulaDatak panelera pasatzeko
+		CBSesioak.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+            	tablePelData.getTableHeader().setReorderingAllowed(false);
+            	tablePelData.getTableHeader().setResizingAllowed(false);
+            	aukeratutakoOrdua = (LocalTime) CBSesioak.getSelectedItem();	
+        		CBSesioak.setEnabled(true);
+        		CBSesioak.setVisible(true);
+        		scrollPanePelData.setEnabled(true);
+        		scrollPanePelData.setVisible(true);
+        		aukeratutakoSaioa = new Saioa();
+        		for (int i = 0; i < aukeratutakoZinema.getAretoak().length; i++) {
+        			for (int j = 0; j< aukeratutakoZinema.getAretoak()[i].getSaioak().length; j++) {
+        				if (aukeratutakoZinema.getAretoak()[i].getSaioak()[j].getFilma().getTituloa().equals(aukeratutakoFilm.getTituloa())) {
+        					aukeratutakoSaioa = aukeratutakoZinema.getAretoak()[i].getSaioak()[j];
+        					if (aukeratutakoSaioa.getOrdua().equals(aukeratutakoOrdua)) {
+        						System.out.println("a");
+        					}
+        					
+        				}
+        			}
+        				
+        			
+        		}
+        		System.out.println();
+        //		System.out.println(aukeratutakoZinema.getAretoak()[]);
+        		tablePelData.setModel(new DefaultTableModel(
+        				new Object[][] {
+        					{aukeratutakoFilm.getTituloa(), aukeratutakoData + " / " + aukeratutakoOrdua, null, null},
+        				},
+        				new String[] {
+        					"Izenburua", "Data", "Areto", "Prezio"
+        				}
+        			));
+        			tablePelData.getColumnModel().getColumn(0).setPreferredWidth(186);
+        			tablePelData.getColumnModel().getColumn(1).setPreferredWidth(102);
+        			scrollPanePelData.setViewportView(tablePelData);
+            }
+		});
 		
 		
 		//pelikulaDatak panelean "Hurrengoa" botoiari click egin eta zinemaAreto panelera pasatzeko
