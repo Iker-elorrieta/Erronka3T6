@@ -1,5 +1,11 @@
 package Controlador;
 
+import java.sql.Date;
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.time.LocalTime;
+
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 
@@ -155,5 +161,30 @@ public class metodoak {
 		
 		return beharSaioa;
 	}
+	
+	public static LocalTime[] orduakLortu (Saioa [] beharSaioa, Date selectedDate) {
+		DateFormat dt = new SimpleDateFormat("yyyy-MM-dd");
+	
+	String formattedDate = dt.format(selectedDate);
+	LocalTime [] saioOrduak = new LocalTime [0];
+	int saioOrduaI= 0;
+	
+	for (int i = 0; i < beharSaioa.length; i++) {
+	 try {
+				if (beharSaioa[i].getData().equals(dt.parse(formattedDate))) {
+					if(saioOrduaI == saioOrduak.length) {
+						LocalTime [] saioOrduaBerria = new LocalTime[saioOrduak.length+1];
+						System.arraycopy(saioOrduak, 0, saioOrduaBerria, 0, saioOrduak.length);
+						saioOrduak = saioOrduaBerria;
+					}
+					saioOrduak[saioOrduaI++] = beharSaioa[i].getOrdua();
+				}
+			} catch (ParseException e1) {
+				e1.printStackTrace();
+			}
+	}
+	return saioOrduak;
+	}
+
 
 }
