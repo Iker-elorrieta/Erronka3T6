@@ -105,8 +105,9 @@ public class lehenLehioa extends JFrame {
 	private Saioa [] saioak;
 	private Areto [] aretoak;
 	Film aukeratutakoFilm = new Film();
-	String aukeratutakoData;
+	Date aukeratutakoData;
 	LocalTime aukeratutakoOrdua; 
+	int aretoZbk;
 	String [] filmAukerak;
 	Zinema aukeratutakoZinema;
 	Film aukeratutakoPelikula;
@@ -132,7 +133,6 @@ public class lehenLehioa extends JFrame {
 		});
 	}
 	
-	
 	/**
 	 * Create the frame.
 	 */
@@ -141,59 +141,7 @@ public class lehenLehioa extends JFrame {
 		//String[] filmGordeta = new String [15];
 		zinemak = datuBase.ZinemakKarga();
 		
-		Film f1 = new Film();
-		Zinema z1 = new Zinema();
-		Areto [] a1 = new Areto[2];
-		Saioa [] s1 = new Saioa[2];
-		int ID_film = 1;
-		String tituloa = "";
-		int iraupena = 110;
-		String generoa = "Drama";
-		double prezioa = 7.5;
-		LocalTime ordua = null;
-		LocalTime buk_ordua = null;
-		int ID_saioa = 1;
-		Date data = null;
-		int ID_areto = 1;
-		int zenbakia = 1;
-		int ID_zinema = 1;
-		String izena = "Golem";
-		String lokalitatea = "Bilbao";
-
-
-			f1.setGeneroa(generoa);
-			f1.setID_film(ID_film);
-			f1.setIraupena(iraupena);
-			f1.setPrezioa(prezioa);
-			f1.setTituloa(tituloa);
-			
-			s1[0] = new Saioa();
-		 s1[0].setID_saioa(ID_saioa);
-		 s1[0].setBuk_ordua(buk_ordua);
-		 s1[0].setData(data);
-		 s1[0].setFilma(f1);
-		 s1[0].setOrdua(ordua);
-		 s1[1] = new Saioa();
-		 s1[1].setBuk_ordua(buk_ordua);
-		 s1[1].setData(data);
-		 s1[1].setFilma(f1);
-		 s1[1].setID_saioa(ID_saioa+1);
-		 s1[1].setOrdua(ordua);
-		 a1[0] = new Areto();
-		 a1[0].setID_areto(ID_areto);
-		 a1[0].setZenbakia(zenbakia);
-		 a1[0].setSaioak(s1);
-		 a1[1] = new Areto();
-		 a1[1].setID_areto(ID_areto+1);
-		 a1[1].setZenbakia(zenbakia);
-		 a1[1].setSaioak(s1);
-		
-			z1.setAretoak(a1);
-			z1.setID_zinema(ID_zinema);
-			z1.setIzena(izena);
-			z1.setLokalitatea(lokalitatea);
-
-
+		Zinema z1 = datuBase.kargaHutsa();
         String  aukeratutakoPelikula = (String) "Million Dolar Baby";	
 		beharSaioa = metodoak.saioakBete(z1, aukeratutakoPelikula);	
         for (int i = 0;i<beharSaioa.length;i++) {
@@ -353,8 +301,6 @@ public class lehenLehioa extends JFrame {
 		
 		JComboBox CBSesioak = new JComboBox();
 		CBSesioak.setBounds(138, 100, 213, 22);
-		CBSesioak.setEnabled(false);
-		CBSesioak.setVisible(false);
 		
 		//LABURPENA
 		JPanel laburpena = new JPanel();
@@ -463,27 +409,38 @@ public class lehenLehioa extends JFrame {
 	    table.setEnabled(false);
 	    table.setToolTipText("");
 	    table.setModel(new DefaultTableModel(
-	          new Object[][] {
-	             {null, null, null, null},
-	             {null, null, null, null},
-	             {null, null, null, null},
-	             {null, null, null, null},
-	             {null, null, null, null},
-	             {null, null, null, null},
-	             {null, null, null, null},
-	             {null, null, null, null},
-	             {null, null, null, null},
-	             {null, null, null, null},
-	             {null, null, null, null},
-	             {null, null, null, null},
-	             {null, null, null, null},
-	             {null, null, null, null},
-	             {null, null, null, null},
-	           },
-	           new String[] {
-	                "Titulua", "Data", "Areto", "Prezioa"
-	            }
-	        ));
+	    	new Object[][] {
+	    		{null, null, null, null},
+	    		{null, null, null, null},
+	    		{null, null, null, null},
+	    		{null, null, null, null},
+	    		{null, null, null, null},
+	    		{null, null, null, null},
+	    		{null, null, null, null},
+	    		{null, null, null, null},
+	    		{null, null, null, null},
+	    		{null, null, null, null},
+	    		{null, null, null, null},
+	    		{null, null, null, null},
+	    		{null, null, null, null},
+	    		{null, null, null, null},
+	    		{null, null, null, null},
+	    	},
+	    	new String[] {
+	    		"Titulua", "Data", "Areto", "Prezioa"
+	    	}
+	    ) {
+	    	boolean[] columnEditables = new boolean[] {
+	    		false, false, false, false
+	    	};
+	    	public boolean isCellEditable(int row, int column) {
+	    		return columnEditables[column];
+	    	}
+	    });
+	    table.getColumnModel().getColumn(0).setResizable(false);
+	    table.getColumnModel().getColumn(1).setResizable(false);
+	    table.getColumnModel().getColumn(2).setResizable(false);
+	    table.getColumnModel().getColumn(3).setResizable(false);
 		scrollPane.setViewportView(table);
 		
 		JLabel lblNewLabel_4 = new JLabel("");
@@ -696,10 +653,7 @@ public class lehenLehioa extends JFrame {
                 WindowBuilderMetodoak.hurrengoaBtn(pelikulakData, ongiEtorri, zinemaAreto, pelikulak, pelikulakData, laburpena, login, erregistratu, tiket, bukaera);
                 String aukeratutakoTiltulo = (String) CBFilm.getSelectedItem();
                 aukeratutakoFilm.setTituloa(aukeratutakoTiltulo);	
-                aukeratutakoFilm.setGeneroa("a");
-                aukeratutakoFilm.setID_film(1);
-                aukeratutakoFilm.setIraupena(1);
-                aukeratutakoFilm.setPrezioa(1);
+
         		beharSaioa = metodoak.saioakBete(aukeratutakoZinema, aukeratutakoFilm);	
                 
         		CBSesioak.setVisible(false);
@@ -725,33 +679,27 @@ public class lehenLehioa extends JFrame {
 	        public void propertyChange(PropertyChangeEvent e) {
 	        	CBSesioak.setVisible(true);
 	        	CBSesioak.setEnabled(true);
-	        	DateFormat dt = new SimpleDateFormat("yyyy-MM-dd");
 	        	Date selectedDate = dateChooser.getDate();
-	        	aukeratutakoData = dt.format(selectedDate);
+	        	aukeratutakoData = selectedDate;
 	        	LocalTime [] saioOrduak = new LocalTime [0];
 	        	int saioOrduaI= 0;
-//	        	System.out.println(formattedDate);
 	        	
 	        	for (int i = 0; i < beharSaioa.length; i++) {
 //	        	    System.out.print(beharSaioa[i].getData());
 //	        	    System.out.println(" // " + beharSaioa[i].getOrdua());
-	        	    try {
-						if (beharSaioa[i].getData().equals(dt.parse(aukeratutakoData))) {
-							if(saioOrduaI == saioOrduak.length) {
-								LocalTime [] saioOrduaBerria = new LocalTime[saioOrduak.length+1];
-								System.arraycopy(saioOrduak, 0, saioOrduaBerria, 0, saioOrduak.length);
-								saioOrduak = saioOrduaBerria;
-							}
-							saioOrduak[saioOrduaI++] = beharSaioa[i].getOrdua();
-							//saioOrduak[0] = beharSaioa[i].getOrdua();
+					if (beharSaioa[i].getData().equals(aukeratutakoData)) {
+						if(saioOrduaI == saioOrduak.length) {
+							LocalTime [] saioOrduaBerria = new LocalTime[saioOrduak.length+1];
+							System.arraycopy(saioOrduak, 0, saioOrduaBerria, 0, saioOrduak.length);
+							saioOrduak = saioOrduaBerria;
 						}
-					} catch (ParseException e1) {
-						// TODO Auto-generated catch block
-						e1.printStackTrace();
+						saioOrduak[saioOrduaI++] = beharSaioa[i].getOrdua();
+						//saioOrduak[0] = beharSaioa[i].getOrdua();
 					}
 	        	}	
-	        	CBSesioak.setModel(new DefaultComboBoxModel(saioOrduak));
+	        	CBSesioak.setModel(new DefaultComboBoxModel(saioOrduak));        	
 	    		pelikulakData.add(CBSesioak);
+	    		
 	        }
 	});
 		
@@ -763,6 +711,8 @@ public class lehenLehioa extends JFrame {
             	aukeratutakoOrdua = (LocalTime) CBSesioak.getSelectedItem();	
         		CBSesioak.setEnabled(true);
         		CBSesioak.setVisible(true);
+        		//CBSesioak.setPopupVisible(true);
+        		
         		scrollPanePelData.setEnabled(true);
         		scrollPanePelData.setVisible(true);
         		aukeratutakoSaioa = new Saioa();
@@ -770,28 +720,43 @@ public class lehenLehioa extends JFrame {
         			for (int j = 0; j< aukeratutakoZinema.getAretoak()[i].getSaioak().length; j++) {
         				if (aukeratutakoZinema.getAretoak()[i].getSaioak()[j].getFilma().getTituloa().equals(aukeratutakoFilm.getTituloa())) {
         					aukeratutakoSaioa = aukeratutakoZinema.getAretoak()[i].getSaioak()[j];
-        					if (aukeratutakoSaioa.getOrdua().equals(aukeratutakoOrdua)) {
-        						System.out.println("a");
+        					if (aukeratutakoSaioa.getOrdua().equals(aukeratutakoOrdua) && aukeratutakoSaioa.getData().equals(aukeratutakoData)) {
+        						aretoZbk = aukeratutakoZinema.getAretoak()[i].getZenbakia();
+        						aukeratutakoFilm.setPrezioa(aukeratutakoZinema.getAretoak()[i].getSaioak()[j].getFilma().getPrezioa());
         					}
         					
         				}
         			}
         				
-        			
         		}
-        		System.out.println();
+	        	DateFormat dt = new SimpleDateFormat("yyyy-MM-dd");
+	        	String aukeratutakoDataStr = dt.format(aukeratutakoData);
         //		System.out.println(aukeratutakoZinema.getAretoak()[]);
         		tablePelData.setModel(new DefaultTableModel(
         				new Object[][] {
-        					{aukeratutakoFilm.getTituloa(), aukeratutakoData + " / " + aukeratutakoOrdua, null, null},
+        					{aukeratutakoFilm.getTituloa(), aukeratutakoDataStr + " / " + aukeratutakoOrdua, aretoZbk, aukeratutakoFilm.getPrezioa()},
         				},
         				new String[] {
         					"Izenburua", "Data", "Areto", "Prezio"
         				}
-        			));
-        			tablePelData.getColumnModel().getColumn(0).setPreferredWidth(186);
-        			tablePelData.getColumnModel().getColumn(1).setPreferredWidth(102);
-        			scrollPanePelData.setViewportView(tablePelData);
+        				) {
+        	    	boolean[] columnEditables = new boolean[] {
+        	    		false, false, false, false
+        	    	};
+        	    	public boolean isCellEditable(int row, int column) {
+        	    		return columnEditables[column];
+        	    	}
+        	    });
+        		tablePelData.getColumnModel().getColumn(0).setResizable(false);
+        		tablePelData.getColumnModel().getColumn(1).setResizable(false);
+        		tablePelData.getColumnModel().getColumn(2).setResizable(false);
+        		tablePelData.getColumnModel().getColumn(3).setResizable(false);
+        		
+    			tablePelData.getColumnModel().getColumn(0).setPreferredWidth(186);
+    			tablePelData.getColumnModel().getColumn(1).setPreferredWidth(102);
+    			scrollPanePelData.setViewportView(tablePelData);
+    			
+    			btnHurrengoa3.setEnabled(true);
             }
 		});
 		
@@ -804,6 +769,11 @@ public class lehenLehioa extends JFrame {
                 pelikula_kont++;
                 System.out.println(pelikula_kont);
                 WindowBuilderMetodoak.ezkutatu(btnHurrengoa1, btnHurrengoa2);
+                
+        		CBSesioak.setEnabled(false);
+        		CBSesioak.setVisible(false);
+        		scrollPanePelData.setEnabled(false);
+        		scrollPanePelData.setVisible(false);
             }
 		});
 
