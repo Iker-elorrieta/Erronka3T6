@@ -49,7 +49,7 @@ public class datuBase {
 			
 			Connection connection = null;
 			try {
-				String url = "jdbc:mysql://localhost:3306/zinema";
+				final String url = "jdbc:mysql://localhost:3306/zinema";
 				connection = DriverManager.getConnection(url, "root","");
 				Statement stmt = (Statement) connection.createStatement();	
 				ResultSet rs = stmt.executeQuery("SELECT Id_zinema, zinema_izena, zinema_helbide FROM zinema;");
