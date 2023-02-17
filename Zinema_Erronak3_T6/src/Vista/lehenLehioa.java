@@ -15,7 +15,6 @@ import java.time.LocalTime;
 import java.util.Calendar;
 import java.util.Date;
 
-import javax.swing.ButtonGroup;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -49,7 +48,6 @@ import javax.swing.DefaultComboBoxModel;
 public class lehenLehioa extends JFrame {
 	
 	private JPanel contentPane;
-	private final ButtonGroup zinemaGroup = new ButtonGroup();
 	private JTable laburpenaTaula;
 	private JTextField textPrezioa;
 	private JTextField textBeherapena;
@@ -60,7 +58,6 @@ public class lehenLehioa extends JFrame {
 	private JTextField txtNan;
 	private JPasswordField passwordField_2;
 	private JTable pelikulakTaula;
-	private final ButtonGroup pelikulakGroup = new ButtonGroup();
 	private JTable table;
 	
 
