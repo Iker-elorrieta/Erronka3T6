@@ -46,13 +46,18 @@ public class datuBase {
 			Areto[] aretoak = new Areto[0];
 			Saioa[] saioak;
 			Film filma = new Film();
+			final String url = "jdbc:mysql://localhost:3306/zinema";
+			final String zinemaKontsulta = "Id_zinema, zinema_izena, zinema_helbide";
+			final String aretoKontsulta = "ID_areto, areto_zbk";
+			final String saioKontsulta = "ID_saioa, data, ordua, ID_film";
+			final String filmKontsulta = "*";
 			
 			Connection connection = null;
 			try {
-				final String url = "jdbc:mysql://localhost:3306/zinema";
+				
 				connection = DriverManager.getConnection(url, "root","");
 				Statement stmt = (Statement) connection.createStatement();	
-				ResultSet rs = stmt.executeQuery("SELECT Id_zinema, zinema_izena, zinema_helbide FROM zinema;");
+				ResultSet rs = stmt.executeQuery("SELECT " + zinemaKontsulta + " FROM zinema;");
 
 				int ID_zinema = 1;
 				//Zinemen informazioa
@@ -66,7 +71,7 @@ public class datuBase {
 					
 					try {	
 						Statement stmt2 = (Statement) connection.createStatement();	
-						ResultSet rs2 = stmt2.executeQuery("SELECT ID_areto, areto_zbk FROM areto join zinema ON areto.ID_zinema=zinema.ID_zinema WHERE areto.ID_zinema="+ID_zinema+";");		
+						ResultSet rs2 = stmt2.executeQuery("SELECT " + aretoKontsulta + " FROM areto join zinema ON areto.ID_zinema=zinema.ID_zinema WHERE areto.ID_zinema="+ID_zinema+";");		
 						aretoak= new Areto[0];
 						//Zinema bakoitzeko aretoak
 						while(rs2.next()) {
@@ -79,7 +84,7 @@ public class datuBase {
 							//Saioa
 							try {
 								Statement stmt3 = (Statement) connection.createStatement();	
-								ResultSet rs3 = stmt3.executeQuery("SELECT ID_saioa, data, ordua, ID_film FROM saioa JOIN areto ON saioa.ID_areto=areto.ID_areto WHERE saioa.ID_areto="+ID_areto+" ORDER BY data, ordua;");
+								ResultSet rs3 = stmt3.executeQuery("SELECT " + saioKontsulta + " FROM saioa JOIN areto ON saioa.ID_areto=areto.ID_areto WHERE saioa.ID_areto="+ID_areto+" ORDER BY data, ordua;");
 								int i = 0;
 								rs3.last();
 								int length = rs3.getRow();
@@ -96,7 +101,7 @@ public class datuBase {
 									//Film
 									try {
 										Statement stmt4 = (Statement) connection.createStatement();	
-										ResultSet rs4 = stmt4.executeQuery("SELECT * FROM film WHERE ID_film="+ID_film_fk+";");
+										ResultSet rs4 = stmt4.executeQuery("SELECT " + filmKontsulta + " FROM film WHERE ID_film="+ID_film_fk+";");
 
 									    while (rs4.next()) {   
 									        Film myFilm = new Film();
