@@ -6,17 +6,13 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Time;
 import java.time.LocalTime;
-import java.util.Calendar;
 import java.util.Date;
 
 import com.mysql.jdbc.Statement;
 
 import Modelo.Areto;
-import Modelo.Bezero;
-import Modelo.Eskaria;
 import Modelo.Film;
 import Modelo.Saioa;
-import Modelo.Sarrera;
 import Modelo.Zinema;
 
 public class datuBase {

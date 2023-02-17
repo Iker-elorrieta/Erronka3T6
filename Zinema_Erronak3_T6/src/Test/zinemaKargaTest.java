@@ -3,13 +3,9 @@ package Test;
 import static org.junit.jupiter.api.Assertions.*;
 
 import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.ResultSet;
-import java.sql.SQLException;
 
 import org.junit.jupiter.api.Test;
 
-import com.mysql.jdbc.Statement;
 
 import Controlador.datuBase;
 import Modelo.Areto;

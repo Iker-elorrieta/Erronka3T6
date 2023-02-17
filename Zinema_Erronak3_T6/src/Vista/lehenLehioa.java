@@ -1,9 +1,6 @@
 package Vista;
 
 import java.awt.CardLayout;
-import java.awt.Color;
-import java.awt.Component;
-import java.awt.Dimension;
 import java.awt.EventQueue;
 import java.awt.Font;
 import java.awt.Image;
@@ -11,22 +8,13 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
-import java.sql.Time;
 import java.text.DateFormat;
-import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.util.Calendar;
 import java.util.Date;
-import java.util.Properties;
 
-import javax.swing.AbstractButton;
 import javax.swing.ButtonGroup;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -38,10 +26,6 @@ import javax.swing.border.EmptyBorder;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 
-import org.jdatepicker.impl.JDatePanelImpl;
-import org.jdatepicker.impl.JDatePickerImpl;
-import org.jdatepicker.impl.UtilDateModel;
-
 import com.toedter.calendar.JDateChooser;
 
 import Controlador.WindowBuilderMetodoak;
@@ -49,7 +33,6 @@ import Controlador.datuBase;
 import Controlador.metodoak;
 import Modelo.Areto;
 import Modelo.Bezero;
-import Modelo.DateLabelFormatter;
 import Modelo.Eskaria;
 import Modelo.Film;
 import Modelo.Saioa;
@@ -57,19 +40,11 @@ import Modelo.Sarrera;
 import Modelo.Zinema;
 
 import javax.swing.JTextField;
-import javax.swing.JScrollBar;
 import javax.swing.JPasswordField;
-import javax.swing.JRadioButton;
 import javax.swing.JScrollPane;
 import javax.swing.SwingConstants;
 import javax.swing.JComboBox;
 import javax.swing.DefaultComboBoxModel;
-import javax.swing.DebugGraphics;
-import javax.swing.ListSelectionModel;
-import javax.swing.DropMode;
-import java.awt.Cursor;
-import javax.swing.JSplitPane;
-import javax.swing.JTabbedPane;
 
 public class lehenLehioa extends JFrame {
 	

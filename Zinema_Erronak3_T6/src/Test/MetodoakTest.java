@@ -2,13 +2,9 @@ package Test;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-import java.util.Calendar;
-import java.util.Date;
-
 import org.junit.jupiter.api.Test;
 
 import Controlador.metodoak;
-import Modelo.Sarrera;
 
 class MetodoakTest {
 	

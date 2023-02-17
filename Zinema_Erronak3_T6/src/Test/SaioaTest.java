@@ -10,7 +10,6 @@ import java.util.Date;
 
 import org.junit.jupiter.api.Test;
 
-import Modelo.Areto;
 import Modelo.Film;
 
 import Modelo.Saioa;

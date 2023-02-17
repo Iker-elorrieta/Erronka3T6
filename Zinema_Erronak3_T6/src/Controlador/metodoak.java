@@ -6,9 +6,6 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.LocalTime;
 
-import javax.swing.JButton;
-import javax.swing.JComboBox;
-
 import Modelo.Film;
 import Modelo.Saioa;
 import Modelo.Zinema;
