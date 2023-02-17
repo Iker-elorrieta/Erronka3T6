@@ -185,6 +185,40 @@ public class metodoak {
 	}
 	return saioOrduak;
 	}
-
+	public static double prezioaLortu (Zinema aukeratutakoZinema, Film aukeratutakoFilm, LocalTime aukeratutakoOrdua, Date aukeratutakoData) {
+		Saioa aukeratutakoSaioa = new Saioa();
+		for (int i = 0; i < aukeratutakoZinema.getAretoak().length; i++) {
+			for (int j = 0; j< aukeratutakoZinema.getAretoak()[i].getSaioak().length; j++) {
+				if (aukeratutakoZinema.getAretoak()[i].getSaioak()[j].getFilma().getTituloa().equals(aukeratutakoFilm.getTituloa())) {
+					aukeratutakoSaioa = aukeratutakoZinema.getAretoak()[i].getSaioak()[j];
+					if (aukeratutakoSaioa.getOrdua().equals(aukeratutakoOrdua) && aukeratutakoSaioa.getData().equals(aukeratutakoData)) {
+						//aretoZbk = aukeratutakoZinema.getAretoak()[i].getZenbakia();
+						aukeratutakoFilm.setPrezioa(aukeratutakoZinema.getAretoak()[i].getSaioak()[j].getFilma().getPrezioa());
+					}
+					
+				}
+			}
+				
+		}
+		return aukeratutakoFilm.getPrezioa();
+	}
+	public static int aretoaLortu (Zinema aukeratutakoZinema, Film aukeratutakoFilm, LocalTime aukeratutakoOrdua, Date aukeratutakoData) {
+		Saioa aukeratutakoSaioa = new Saioa();
+		int aretoZbk = 0;
+		for (int i = 0; i < aukeratutakoZinema.getAretoak().length; i++) {
+			for (int j = 0; j< aukeratutakoZinema.getAretoak()[i].getSaioak().length; j++) {
+				if (aukeratutakoZinema.getAretoak()[i].getSaioak()[j].getFilma().getTituloa().equals(aukeratutakoFilm.getTituloa())) {
+					aukeratutakoSaioa = aukeratutakoZinema.getAretoak()[i].getSaioak()[j];
+					if (aukeratutakoSaioa.getOrdua().equals(aukeratutakoOrdua) && aukeratutakoSaioa.getData().equals(aukeratutakoData)) {
+						aretoZbk = aukeratutakoZinema.getAretoak()[i].getZenbakia();
+						//aukeratutakoFilm.setPrezioa(aukeratutakoZinema.getAretoak()[i].getSaioak()[j].getFilma().getPrezioa());
+					}
+					
+				}
+			}
+				
+		}
+		return aretoZbk;
+	}
 
 }

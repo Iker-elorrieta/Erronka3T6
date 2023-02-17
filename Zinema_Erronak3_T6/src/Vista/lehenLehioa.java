@@ -715,20 +715,8 @@ public class lehenLehioa extends JFrame {
         		
         		scrollPanePelData.setEnabled(true);
         		scrollPanePelData.setVisible(true);
-        		aukeratutakoSaioa = new Saioa();
-        		for (int i = 0; i < aukeratutakoZinema.getAretoak().length; i++) {
-        			for (int j = 0; j< aukeratutakoZinema.getAretoak()[i].getSaioak().length; j++) {
-        				if (aukeratutakoZinema.getAretoak()[i].getSaioak()[j].getFilma().getTituloa().equals(aukeratutakoFilm.getTituloa())) {
-        					aukeratutakoSaioa = aukeratutakoZinema.getAretoak()[i].getSaioak()[j];
-        					if (aukeratutakoSaioa.getOrdua().equals(aukeratutakoOrdua) && aukeratutakoSaioa.getData().equals(aukeratutakoData)) {
-        						aretoZbk = aukeratutakoZinema.getAretoak()[i].getZenbakia();
-        						aukeratutakoFilm.setPrezioa(aukeratutakoZinema.getAretoak()[i].getSaioak()[j].getFilma().getPrezioa());
-        					}
-        					
-        				}
-        			}
-        				
-        		}
+        		aukeratutakoFilm.setPrezioa(metodoak.prezioaLortu(aukeratutakoZinema, aukeratutakoFilm, aukeratutakoOrdua, aukeratutakoData));
+        		aretoZbk = metodoak.aretoaLortu(aukeratutakoZinema, aukeratutakoFilm, aukeratutakoOrdua, aukeratutakoData);
 	        	DateFormat dt = new SimpleDateFormat("yyyy-MM-dd");
 	        	String aukeratutakoDataStr = dt.format(aukeratutakoData);
         //		System.out.println(aukeratutakoZinema.getAretoak()[]);
