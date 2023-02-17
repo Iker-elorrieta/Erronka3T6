@@ -1,8 +1,6 @@
 package Test;
 import static org.junit.jupiter.api.Assertions.*;
 
-import java.util.Arrays;
-
 import org.junit.jupiter.api.Test;
 
 import Modelo.Areto;
@@ -30,7 +28,7 @@ class ZinemaTest {
 	@Test
 	void testToString() {
 		Zinema z1 = new Zinema (id, izena, lokalitatea, ar1);
-		assertEquals(z1.toString(), "Zinema [ID_zinema=" + id + ", izena=" + izena + ", lokalitatea=" + lokalitatea + ", aretoak=" + Arrays.toString(ar1) + "]");
+		assertEquals(z1.toString(), izena);
 	}
 	@Test
 	void testEquals() {

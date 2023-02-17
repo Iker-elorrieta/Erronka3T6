@@ -1,6 +1,5 @@
 package Modelo;
 
-import java.util.Arrays;
 import java.util.Objects;
 
 public class Film {
@@ -25,6 +24,12 @@ public class Film {
 		this.prezioa = prezioa;
 	}
 
+	public double getPrezioa() {
+		return prezioa;
+	}
+	public void setPrezioa(double prezioa) {
+		this.prezioa = prezioa;
+	}
 	public int getID_film() {
 		return ID_film;
 	}
@@ -49,13 +54,6 @@ public class Film {
 	public void setGeneroa(String generoa) {
 		this.generoa = generoa;
 	}
-	public double getPrezioa() {
-		return prezioa;
-	}
-	public void setPrezioa(double prezioa) {
-		this.prezioa = prezioa;
-	}
-	
 	@Override
 	public String toString() {
 		return "Film [ID_film=" + ID_film + ", tituloa=" + tituloa + ", iraupena=" + iraupena + ", generoa=" + generoa

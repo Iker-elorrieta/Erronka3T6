@@ -1,39 +1,41 @@
 package Modelo;
 
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
-import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.util.Arrays;
 import java.util.Date;
 import java.util.Objects;
 
 public class Sarrera {
-	LocalDateTime locaDate = LocalDateTime.now();
 	private int ID_sarrera;
-	private Date erosketa_data;
-	private int salneurria;
+	private LocalTime ordua;
+	private Date data;
 	private Saioa [] Saioa;
-	private Bezero Bezero;
+	private Eskaria [] Eskariak;
 	
+	public LocalTime getOrdua() {
+		return ordua;
+	}
+	public void setOrdua(LocalTime ordua) {
+		this.ordua = ordua;
+	}
+	public Date getData() {
+		return data;
+	}
+	public void setData(Date data) {
+		this.data = data;
+	}
+
 	public Sarrera () {
 		this.ID_sarrera = 0;
-		this.erosketa_data = null;
-		this.salneurria = 0;
 		this.Saioa = null;
-		this.Bezero = null;
+		this.Eskariak = null;
 	}
-	public Sarrera (int id, Date data, int salneurria, Saioa[] saioa, Bezero bezero) {
+	public Sarrera (int id, Date data, LocalTime ordua, Saioa[] saioa, Eskaria [] eskaria) {
 		this.ID_sarrera = id;
-		this.erosketa_data = data;
-		this.salneurria = salneurria;
+		this.data = data;
+		this.ordua = ordua;
 		this.Saioa = saioa;
-		this.Bezero = bezero;
-	}
-	public Bezero getBezero() {
-		return Bezero;
-	}
-	public void setBezero(Bezero bezero) {
-		Bezero = bezero;
+		this.Eskariak = eskaria;
 	}
 	public Saioa[] getSaioa() {
 		return Saioa;
@@ -47,25 +49,16 @@ public class Sarrera {
 	public void setID_sarrera(int iD_sarrera) {
 		ID_sarrera = iD_sarrera;
 	}
-	public Date getErosketa_data() {
-		return erosketa_data;
+	public Eskaria[] getEskariak() {
+		return Eskariak;
 	}
-	public void setErosketa_data(Date erosketa_data) {
-		this.erosketa_data = erosketa_data;
-	}
-	
-	public int getSalneurria() {
-		return salneurria;
-	}
-	public void setSalneurria(int salneurria) {
-		this.salneurria = salneurria;
+	public void setEskariak(Eskaria[] eskariak) {
+		Eskariak = eskariak;
 	}
 	@Override
 	public String toString() {
-		DateFormat dt = new SimpleDateFormat("dd/MM/yyyy");
-		return "Sarrera [locaDateH=" + locaDate.getHour() + "locaDateM=" + locaDate.getMinute() + ", ID_sarrera=" + ID_sarrera + ", erosketa_data=" + dt.format(erosketa_data)
-				+ ", salneurria=" + salneurria + ", Saioa="
-				+ Arrays.toString(Saioa) + ", Bezero=" + Bezero+"]";
+		return "Sarrera [ID_sarrera=" + ID_sarrera + ", ordua=" + ordua + ", data=" + data + ", Saioa="
+				+ Arrays.toString(Saioa) + ", Eskariak=" + Arrays.toString(Eskariak) + "]";
 	}
 
 	/*@Override

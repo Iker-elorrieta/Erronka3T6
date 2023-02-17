@@ -14,17 +14,9 @@ public class Areto {
 		this.saioak = null;
 	
 	}
-	public Areto (int ID_areto, int zenbakia, Saioa[] saioak) {
+	public Areto (int ID_areto, int zenbakia, Saioa [] saioak) {
 		this.ID_areto= ID_areto;
 		this.zenbakia = zenbakia;
-		this.saioak = saioak;
-	}
-	
-	public Saioa[] getSaioak() {
-		return saioak;
-	}
-
-	public void setSaioak(Saioa[] saioak) {
 		this.saioak = saioak;
 	}
 
@@ -39,6 +31,12 @@ public class Areto {
 	}
 	public void setZenbakia(int zenbakia) {
 		this.zenbakia = zenbakia;
+	}
+	public Saioa[] getSaioak() {
+		return saioak;
+	}
+	public void setSaioak(Saioa[] saioak) {
+		this.saioak = saioak;
 	}
 	@Override
 	public String toString() {

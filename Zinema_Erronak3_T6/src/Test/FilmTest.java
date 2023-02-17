@@ -12,7 +12,7 @@ class FilmTest {
 	String tituloa = "";
 	int iraupena = 120;
 	String generoa = "drama";
-	double prezioa = 0;
+	double prezioa = 1;
 
 	@Test
 	void testGetetaSet() {
@@ -20,13 +20,13 @@ class FilmTest {
 		f1.setID_film(id);
 		f1.setGeneroa(generoa);
 		f1.setIraupena(iraupena);
-		f1.setPrezioa(prezioa);
 		f1.setTituloa(tituloa);
+		f1.setPrezioa(prezioa);
 		assertEquals(f1.getID_film(), id);
 		assertEquals(f1.getGeneroa(), generoa);
 		assertEquals(f1.getIraupena(), iraupena);
-		assertEquals(f1.getPrezioa(), prezioa);
 		assertEquals(f1.getTituloa(), tituloa);
+		assertEquals(f1.getPrezioa(), prezioa);
 		
 	}
 	@Test
@@ -43,7 +43,6 @@ class FilmTest {
 		f1.setID_film(id);
 		f1.setGeneroa(generoa);
 		f1.setIraupena(iraupena);
-		f1.setPrezioa(prezioa);
 		f1.setTituloa(tituloa);
 		assertTrue(f1.equals(f2));
 		assertFalse(f1.equals(null));
