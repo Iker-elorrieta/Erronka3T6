@@ -217,5 +217,38 @@ public class metodoak {
 		}
 		return aretoZbk;
 	}
+	public static LocalTime[] beteSaioOrduak (Saioa[] beharSaioa, Date aukeratutakoData) {
+		LocalTime [] saioOrduak = new LocalTime [0];
+	int saioOrduaI= 0;
+	
+	for (int i = 0; i < beharSaioa.length; i++) {
+			if (beharSaioa[i].getData().equals(aukeratutakoData)) {
+				if(saioOrduaI == saioOrduak.length) {
+					LocalTime [] saioOrduaBerria = new LocalTime[saioOrduak.length+1];
+					System.arraycopy(saioOrduak, 0, saioOrduaBerria, 0, saioOrduak.length);
+					saioOrduak = saioOrduaBerria;
+				}
+				saioOrduak[saioOrduaI++] = beharSaioa[i].getOrdua();
+			}
+	}	
+	return saioOrduak;
+	}
 
+	public static String kalkulatuPrezioTotala (double prezioGuztira, int pelikula_kont) {
+		double prezioaD = prezioGuztira;
+		String prezioa = "";
+		if (pelikula_kont == 1) {
+			//Deskontua ez egiteko
+			prezioaD = prezioGuztira;
+		}
+		else if (pelikula_kont == 2) {
+			//20% deskontua
+			prezioaD = prezioaD * 0.8;
+		} else {
+			//30% deskontua
+			prezioaD = prezioaD * 0.7;
+		}
+		prezioa = String.valueOf(prezioaD);
+		return prezioa;
+	}
 }

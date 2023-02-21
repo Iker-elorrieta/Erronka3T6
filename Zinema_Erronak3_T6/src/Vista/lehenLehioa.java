@@ -87,6 +87,7 @@ public class lehenLehioa extends JFrame {
 	LocalDateTime locaDate;
 	Saioa[] beharSaioa;
 	private JTable tablePelData;
+	double prezioGuztira;
 	
 	/**
 	 * Launch the application.
@@ -383,20 +384,6 @@ public class lehenLehioa extends JFrame {
 	    table.setModel(new DefaultTableModel(
 	    	new Object[][] {
 	    		{null, null, null, null},
-	    		{null, null, null, null},
-	    		{null, null, null, null},
-	    		{null, null, null, null},
-	    		{null, null, null, null},
-	    		{null, null, null, null},
-	    		{null, null, null, null},
-	    		{null, null, null, null},
-	    		{null, null, null, null},
-	    		{null, null, null, null},
-	    		{null, null, null, null},
-	    		{null, null, null, null},
-	    		{null, null, null, null},
-	    		{null, null, null, null},
-	    		{null, null, null, null},
 	    	},
 	    	new String[] {
 	    		"Titulua", "Data", "Areto", "Prezioa"
@@ -596,6 +583,11 @@ public class lehenLehioa extends JFrame {
             public void actionPerformed(ActionEvent e) {
             	if(pelikula_kont>0) {
                 WindowBuilderMetodoak.hurrengoaBtn(laburpena, ongiEtorri, zinemaAreto, pelikulak, pelikulakData, laburpena, login, erregistratu, tiket, bukaera);
+            	
+                
+        		textPrezioa.setText(String.valueOf(prezioGuztira));
+            	textBeherapena.setText(metodoak.zenbatBeherapen(pelikula_kont));
+            	textTotala.setText(metodoak.kalkulatuPrezioTotala(prezioGuztira, pelikula_kont));
             	}else {
                     WindowBuilderMetodoak.hurrengoaBtn(bukaera, ongiEtorri, zinemaAreto, pelikulak, pelikulakData, laburpena, login, erregistratu, tiket, bukaera);
             	}
@@ -630,6 +622,7 @@ public class lehenLehioa extends JFrame {
                 
         		CBSesioak.setVisible(false);
         		CBSesioak.setEnabled(false);
+        		btnHurrengoa3.setEnabled(false);
             }
 		});
 		
@@ -717,6 +710,8 @@ public class lehenLehioa extends JFrame {
     			scrollPanePelData.setViewportView(tablePelData);
     			
     			btnHurrengoa3.setEnabled(true);
+    			
+    			prezioGuztira += aukeratutakoFilm.getPrezioa();
             }
 		});
 		
