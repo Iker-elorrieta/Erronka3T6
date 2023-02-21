@@ -44,6 +44,7 @@ import javax.swing.JScrollPane;
 import javax.swing.SwingConstants;
 import javax.swing.JComboBox;
 import javax.swing.DefaultComboBoxModel;
+import java.awt.Color;
 
 public class lehenLehioa extends JFrame {
 	
@@ -145,7 +146,7 @@ public class lehenLehioa extends JFrame {
 		JLabel txt1 = new JLabel("Ongi Etorri!");
 		txt1.setHorizontalAlignment(SwingConstants.CENTER);
 		txt1.setBounds(159, 249, 179, 54);
-		txt1.setFont(new Font("Comic Sans MS", Font.BOLD, 30));
+		txt1.setFont(new Font("Tahoma", Font.BOLD, 30));
 		
 		JButton btnOngiEtorri = new JButton("");
 		btnOngiEtorri.setBounds(0, 0, 484, 314);
@@ -170,8 +171,8 @@ public class lehenLehioa extends JFrame {
 		zinemaAreto.add(logoa2_1);
 		
 		JLabel titulo2 = new JLabel("Hautatu hurrengo zinema areto bat");
-		titulo2.setFont(new Font("Comic Sans MS", Font.BOLD, 20));
-		titulo2.setBounds(111, 11, 352, 54);
+		titulo2.setFont(new Font("Tahoma", Font.BOLD, 20));
+		titulo2.setBounds(111, 11, 365, 54);
 		zinemaAreto.add(titulo2);
 		
 		JButton btnBukatu = new JButton("Bukatu");
@@ -281,8 +282,8 @@ public class lehenLehioa extends JFrame {
 		laburpena.setLayout(null);
 		
 		JLabel lblNewLabel = new JLabel("LABURPENA");
-		lblNewLabel.setFont(new Font("Tahoma", Font.PLAIN, 22));
-		lblNewLabel.setBounds(180, 0, 124, 27);
+		lblNewLabel.setFont(new Font("Tahoma", Font.BOLD, 22));
+		lblNewLabel.setBounds(173, 0, 153, 27);
 		laburpena.add(lblNewLabel); 
         
 		JButton btnAtzera3 = new JButton("Atzera");
@@ -346,10 +347,11 @@ public class lehenLehioa extends JFrame {
 		login.add(textFieldNan);
 		textFieldNan.setColumns(10);
 		
-		JLabel lblLogin = new JLabel("LOGIN");
-		lblLogin.setFont(new Font("Tahoma", Font.PLAIN, 22));
-		lblLogin.setBounds(223, 57, 71, 27);
-		login.add(lblLogin);
+		JLabel lblLoginErr = new JLabel("Erabiltzaile edo pasahitz okerra");
+		lblLoginErr.setForeground(new Color(255, 0, 0));
+		lblLoginErr.setFont(new Font("Tahoma", Font.BOLD, 17));
+		lblLoginErr.setBounds(116, 74, 268, 27);
+		login.add(lblLoginErr);
 		
 		JButton btnAtzera4 = new JButton("Atzera");
 		btnAtzera4.setBounds(10, 280, 148, 23);
@@ -366,6 +368,16 @@ public class lehenLehioa extends JFrame {
 		JButton btnBerrezarri = new JButton("Berrezarri datu guztiak");
 		btnBerrezarri.setBounds(10, 246, 464, 23);
 		login.add(btnBerrezarri);
+		
+		JLabel lblLogin_2 = new JLabel("LOGIN");
+		lblLogin_2.setFont(new Font("Tahoma", Font.PLAIN, 22));
+		lblLogin_2.setBounds(223, 36, 71, 27);
+		login.add(lblLogin_2);
+		
+		JLabel lblLogin_1 = new JLabel("LOGIN");
+		lblLogin_1.setFont(new Font("Tahoma", Font.PLAIN, 22));
+		lblLogin_1.setBounds(223, 57, 71, 27);
+		login.add(lblLogin_1);
 		
 		JButton btnBukatuErosketa = new JButton("Bukatu erosketa");
 		btnBukatuErosketa.setBounds(340, 280, 134, 23);
@@ -492,6 +504,18 @@ public class lehenLehioa extends JFrame {
 		textAbizena2.setColumns(10);
 		textAbizena2.setBounds(343, 165, 131, 20);
 		erregistratu.add(textAbizena2);
+		
+		JLabel lblPassErr = new JLabel("Pasahitz desberdinak dira");
+		lblPassErr.setForeground(Color.RED);
+		lblPassErr.setFont(new Font("Tahoma", Font.BOLD, 16));
+		lblPassErr.setBounds(158, 41, 220, 27);
+		erregistratu.add(lblPassErr);
+		
+		JLabel lblNanErr = new JLabel("Sartutako NAN zenbakia erregistratuta dago");
+		lblNanErr.setForeground(new Color(255, 0, 0));
+		lblNanErr.setFont(new Font("Tahoma", Font.BOLD, 16));
+		lblNanErr.setBounds(107, 41, 371, 27);
+		erregistratu.add(lblNanErr);
 		
 		//TIKET
 		JPanel tiket = new JPanel();
@@ -752,6 +776,10 @@ public class lehenLehioa extends JFrame {
 		btnBukatuErosketa.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 WindowBuilderMetodoak.hurrengoaBtn(login, ongiEtorri, zinemaAreto, pelikulak, pelikulakData, laburpena, login, erregistratu, tiket, bukaera);
+            
+                lblLoginErr.setVisible(false);
+                lblLogin_2.setVisible(false);
+                lblLogin_1.setVisible(true);
             }
 		});
 		
@@ -767,14 +795,28 @@ public class lehenLehioa extends JFrame {
 		btnErregistratu.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 WindowBuilderMetodoak.hurrengoaBtn(erregistratu, ongiEtorri, zinemaAreto, pelikulak, pelikulakData, laburpena, login, erregistratu, tiket, bukaera);
+            
+                lblPassErr.setVisible(false);
+        		lblNanErr.setVisible(false);
             }
 		});
 		
 		//Login panelean "BukatuErosketa2" botoiari click egin eta tiket panelera bueltatzeko
 		btnBukatuErosketa2.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                JOptionPane.showMessageDialog(null, "Erosketa zuzen burutu da");
-                WindowBuilderMetodoak.hurrengoaBtn(tiket, ongiEtorri, zinemaAreto, pelikulak, pelikulakData, laburpena, login, erregistratu, tiket, bukaera);
+           
+            	String erabiltzailea = textFieldNan.getText();
+            	char[] pasahitza = passwordField.getPassword();
+                if(metodoak.balidatuLogin(erabiltzailea, pasahitza, bezeroak) == true) { 	
+                	
+                	JOptionPane.showMessageDialog(null, "Erosketa zuzen burutu da");
+                    WindowBuilderMetodoak.hurrengoaBtn(tiket, ongiEtorri, zinemaAreto, pelikulak, pelikulakData, laburpena, login, erregistratu, tiket, bukaera);
+                } else {
+                	lblLoginErr.setVisible(true);
+                	lblLogin_2.setVisible(true);
+                	lblLogin_1.setVisible(false);
+                }
+            
             }
 		});
 		

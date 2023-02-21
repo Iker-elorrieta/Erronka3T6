@@ -6,6 +6,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.LocalTime;
 
+import Modelo.Bezero;
 import Modelo.Film;
 import Modelo.Saioa;
 import Modelo.Zinema;
@@ -250,5 +251,12 @@ public class metodoak {
 		}
 		prezioa = String.valueOf(prezioaD);
 		return prezioa;
+	}
+	
+	public static boolean balidatuLogin(String erabiltzailea, char[] pasahitza, Bezero [] bezeroak) {
+		boolean zuzena = false;
+		
+		
+		return zuzena;
 	}
 }
