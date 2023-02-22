@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 5.2.0
+-- version 5.1.1
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 15-02-2023 a las 08:13:25
--- Versión del servidor: 10.4.27-MariaDB
--- Versión de PHP: 8.2.0
+-- Tiempo de generación: 22-02-2023 a las 14:30:30
+-- Versión del servidor: 10.4.22-MariaDB
+-- Versión de PHP: 8.1.2
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -31,7 +31,7 @@ CREATE TABLE `areto` (
   `ID_areto` int(11) NOT NULL,
   `areto_zbk` int(11) NOT NULL,
   `ID_zinema` int(11) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Volcado de datos para la tabla `areto`
@@ -64,7 +64,16 @@ CREATE TABLE `bezero` (
   `abizen_2` varchar(30) NOT NULL,
   `sexua` enum('gizon','emakume') NOT NULL,
   `pasahitza` varchar(100) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Volcado de datos para la tabla `bezero`
+--
+
+INSERT INTO `bezero` (`DNI`, `izena_bezero`, `abizen_1`, `abizen_2`, `sexua`, `pasahitza`) VALUES
+('73264893A', 'Unax', 'Zulaika', 'Fuente', 'gizon', 'zineadmin123'),
+('79144847F', 'Aritza', 'Herrero', 'Nino', 'gizon', 'zineadmin123'),
+('79439437J', 'Hodei', 'Martinez', 'Aguado', 'gizon', 'zineadmin123');
 
 -- --------------------------------------------------------
 
@@ -78,7 +87,7 @@ CREATE TABLE `film` (
   `iraupena` varchar(5) NOT NULL,
   `generoa` varchar(20) NOT NULL,
   `prezioa` decimal(6,2) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Volcado de datos para la tabla `film`
@@ -115,7 +124,7 @@ CREATE TABLE `saioa` (
   `ID_areto` int(11) DEFAULT NULL,
   `ID_film` int(11) DEFAULT NULL,
   `bukaera_ordua` time NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Volcado de datos para la tabla `saioa`
@@ -1120,8 +1129,10 @@ CREATE TABLE `sarrera` (
   `ID_Sarrera` int(11) NOT NULL,
   `erosketa_data` date NOT NULL,
   `erosketa_ordua` time NOT NULL,
-  `ID_saioa` int(11) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+  `ID_saioa` int(11) DEFAULT NULL,
+  `prezioa` double DEFAULT NULL,
+  `DNI` varchar(9) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
 
@@ -1133,7 +1144,7 @@ CREATE TABLE `zinema` (
   `ID_zinema` int(11) NOT NULL,
   `zinema_izena` varchar(100) NOT NULL,
   `zinema_helbide` varchar(150) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Volcado de datos para la tabla `zinema`
@@ -1181,7 +1192,8 @@ ALTER TABLE `saioa`
 --
 ALTER TABLE `sarrera`
   ADD PRIMARY KEY (`ID_Sarrera`),
-  ADD KEY `fk_id_saioa` (`ID_saioa`);
+  ADD KEY `fk_id_saioa` (`ID_saioa`),
+  ADD KEY `fk_DNI` (`DNI`);
 
 --
 -- Indices de la tabla `zinema`
@@ -1244,6 +1256,7 @@ ALTER TABLE `saioa`
 -- Filtros para la tabla `sarrera`
 --
 ALTER TABLE `sarrera`
+  ADD CONSTRAINT `fk_DNI` FOREIGN KEY (`DNI`) REFERENCES `bezero` (`DNI`) ON DELETE CASCADE ON UPDATE CASCADE,
   ADD CONSTRAINT `fk_id_saioa` FOREIGN KEY (`ID_saioa`) REFERENCES `saioa` (`ID_saioa`) ON DELETE CASCADE;
 COMMIT;
 

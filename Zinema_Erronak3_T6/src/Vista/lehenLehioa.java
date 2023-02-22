@@ -55,9 +55,9 @@ public class lehenLehioa extends JFrame {
 	private JTextField textTotala;
 	private JPasswordField passwordField;
 	private JTextField textFieldNan;
-	private JPasswordField passwordField_1;
+	private JPasswordField pasahitza_1;
 	private JTextField txtNan;
-	private JPasswordField passwordField_2;
+	private JPasswordField pasahitza_konfirmazio;
 	private JTable pelikulakTaula;
 	private JTable table;
 	
@@ -65,9 +65,9 @@ public class lehenLehioa extends JFrame {
 	
 	//Aldagaiak
 	int pelikula_kont=0;
-	private JTextField textField;
-	private JTextField textAbizena1;
-	private JTextField textAbizena2;
+	private JTextField txtIzena;
+	private JTextField txtAbizen_1;
+	private JTextField txtAbizen_2;
 	private int ID_zinema;
 	private String izena;
 	private String zinema_helbide;
@@ -85,7 +85,6 @@ public class lehenLehioa extends JFrame {
 	Zinema aukeratutakoZinema;
 	Film aukeratutakoPelikula;
 	Saioa aukeratutakoSaioa;
-	LocalDateTime locaDate;
 	Saioa[] beharSaioa;
 	private JTable tablePelData;
 	double prezioGuztira;
@@ -442,10 +441,10 @@ public class lehenLehioa extends JFrame {
 		lblNewLabelPasahitza1.setBounds(53, 132, 62, 14);
 		erregistratu.add(lblNewLabelPasahitza1);
 		
-		passwordField_1 = new JPasswordField();
-		passwordField_1.setToolTipText("");
-		passwordField_1.setBounds(115, 129, 132, 20);
-		erregistratu.add(passwordField_1);
+		pasahitza_1 = new JPasswordField();
+		pasahitza_1.setToolTipText("");
+		pasahitza_1.setBounds(115, 129, 132, 20);
+		erregistratu.add(pasahitza_1);
 		
 		txtNan = new JTextField();
 		txtNan.setToolTipText("");
@@ -466,9 +465,9 @@ public class lehenLehioa extends JFrame {
 		btnBukatuErregistratu3.setBounds(340, 280, 134, 23);
 		erregistratu.add(btnBukatuErregistratu3);
 		
-		passwordField_2 = new JPasswordField();
-		passwordField_2.setBounds(115, 162, 132, 20);
-		erregistratu.add(passwordField_2);
+		pasahitza_konfirmazio = new JPasswordField();
+		pasahitza_konfirmazio.setBounds(115, 162, 132, 20);
+		erregistratu.add(pasahitza_konfirmazio);
 		
 		JLabel lblNewLabelPasahitza2 = new JLabel("Errepikatu pasahitza");
 		lblNewLabelPasahitza2.setBounds(10, 165, 105, 14);
@@ -487,29 +486,29 @@ public class lehenLehioa extends JFrame {
 		lblIzena.setBounds(297, 101, 35, 14);
 		erregistratu.add(lblIzena);
 		
-		textField = new JTextField();
-		textField.setColumns(10);
-		textField.setBounds(342, 98, 131, 20);
-		erregistratu.add(textField);
+		txtIzena = new JTextField();
+		txtIzena.setColumns(10);
+		txtIzena.setBounds(342, 98, 131, 20);
+		erregistratu.add(txtIzena);
 		
 		JLabel lblAbizena1 = new JLabel("1. Abizena");
 		lblAbizena1.setBounds(280, 132, 62, 14);
 		erregistratu.add(lblAbizena1);
 		
-		textAbizena1 = new JTextField();
-		textAbizena1.setColumns(10);
-		textAbizena1.setBounds(343, 129, 131, 20);
-		erregistratu.add(textAbizena1);
+		txtAbizen_1 = new JTextField();
+		txtAbizen_1.setColumns(10);
+		txtAbizen_1.setBounds(343, 129, 131, 20);
+		erregistratu.add(txtAbizen_1);
 		
-		textAbizena2 = new JTextField();
-		textAbizena2.setColumns(10);
-		textAbizena2.setBounds(343, 165, 131, 20);
-		erregistratu.add(textAbizena2);
+		txtAbizen_2 = new JTextField();
+		txtAbizen_2.setColumns(10);
+		txtAbizen_2.setBounds(343, 165, 131, 20);
+		erregistratu.add(txtAbizen_2);
 		
 		JLabel lblPassErr = new JLabel("Pasahitz desberdinak dira");
 		lblPassErr.setForeground(Color.RED);
 		lblPassErr.setFont(new Font("Tahoma", Font.BOLD, 16));
-		lblPassErr.setBounds(158, 41, 220, 27);
+		lblPassErr.setBounds(158, 64, 220, 27);
 		erregistratu.add(lblPassErr);
 		
 		JLabel lblNanErr = new JLabel("Sartutako NAN zenbakia erregistratuta dago");
@@ -735,8 +734,6 @@ public class lehenLehioa extends JFrame {
     			scrollPanePelData.setViewportView(tablePelData);
     			
     			btnHurrengoa3.setEnabled(true);
-    			
-    			prezioGuztira += aukeratutakoFilm.getPrezioa();
             }
 		});
 		
@@ -744,6 +741,7 @@ public class lehenLehioa extends JFrame {
 		//pelikulaDatak panelean "Hurrengoa" botoiari click egin eta zinemaAreto panelera pasatzeko
 		btnHurrengoa3.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
+            	prezioGuztira += aukeratutakoFilm.getPrezioa();
                 JOptionPane.showMessageDialog(null, "Zure sarrera zuzen gorde da");
                 WindowBuilderMetodoak.hurrengoaBtn(zinemaAreto, ongiEtorri, zinemaAreto, pelikulak, pelikulakData, laburpena, login, erregistratu, tiket, bukaera);
                 pelikula_kont++;
@@ -827,6 +825,15 @@ public class lehenLehioa extends JFrame {
 		//Login panelean "berrezarri" botoiari click egin eta ongiEtorri panelera bueltatzeko
 		btnBerrezarri.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
+            	aukeratutakoData = null;
+            	aukeratutakoOrdua = null;
+            	aretoZbk = 0;
+            	filmAukerak = null;
+            	aukeratutakoZinema = null;
+            	aukeratutakoSaioa = null;
+            	beharSaioa = null;
+            	prezioGuztira = 0;
+            	pelikula_kont = 0;
                 WindowBuilderMetodoak.btn3secDelay(ongiEtorri, 2, ongiEtorri, zinemaAreto, pelikulak, pelikulakData, laburpena, login, erregistratu, tiket, bukaera, e);
             }
 		});
@@ -842,9 +849,49 @@ public class lehenLehioa extends JFrame {
 		//Erregistratu panelean "Atzera" botoiari click egin eta laburpena panelera bueltatzeko
 		btnBukatuErregistratu3.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
+            	String erabiltzailea = txtNan.getText();
+            	String abizen_1 = txtAbizen_1.getText();
+            	String abizen_2 = txtAbizen_2.getText();
+            	char[] pasahitza_char = pasahitza_1.getPassword();
+            	String pasahitza = new String (pasahitza_char);
+            	char[] pasahitza_char_konfir= pasahitza_konfirmazio.getPassword();
+            	String pasahitza_Konfirmazio = new String (pasahitza_char_konfir);
+            	Boolean sexua = false;
+            	
+            	//NAN txarra bada
+            	if (!metodoak.NANegiaztatu(erabiltzailea)) {
+            		System.err.println("nan gaizki");
+            		lblNanErr.setVisible(true);
+            	} else {
+            		//NAN erregistratuta badago
+                	for (int i = 0;i<bezeroak.length;i++) {
+                		if (erabiltzailea.equals(bezeroak[i].getDNI())) {
+                			System.out.println("errepikatuta");
+                			lblNanErr.setVisible(true);
+                		} else {
+                			lblNanErr.setVisible(false);
+                		}
+                	}
+            	}
+            	
+            	
+            	if (comboSexua.getSelectedIndex() == 0) {
+            		sexua = true;
+            		System.out.println("Gizon");
+            	} else {
+            		System.out.println("emakume");
+            	}
+            	
+            	//Pasahitzaren konfirmazioa txarra bada
+            	if (!pasahitza.equals(pasahitza_Konfirmazio)) {
+            		lblPassErr.setVisible(true);
+            	} else {
+            		lblPassErr.setVisible(false);
+            	}
             	 JOptionPane.showMessageDialog(null, "Erosketa zuzen burutu da");
-                 WindowBuilderMetodoak.hurrengoaBtn(tiket, ongiEtorri, zinemaAreto, pelikulak, pelikulakData, laburpena, login, erregistratu, tiket, bukaera);            }
-		});
+                // WindowBuilderMetodoak.hurrengoaBtn(tiket, ongiEtorri, zinemaAreto, pelikulak, pelikulakData, laburpena, login, erregistratu, tiket, bukaera);            }
+            }		
+            });
 		
 		//Tiket
 		//Tiket panelean "bai" botoiari click egin eta showDialog bat agertuko da, tiketa gordeko da eta bukaera penelera joango da

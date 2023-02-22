@@ -38,8 +38,14 @@ public class metodoak {
 	 * @return True bueltatuko digu NAN-a ondo badago sartuta eta false ez badago zuzen sartuta.
 	 */
 	public static boolean NANegiaztatu(String NAN_osoa) {
-	    int NAN = Integer.parseInt(NAN_osoa.substring(0, 8));
-	    String dniKalkulatuta = letraKalkulatu(NAN);
+		String dniKalkulatuta = new String();
+		if (NAN_osoa.length()>9) {
+		    int NAN = Integer.parseInt(NAN_osoa.substring(0, 8));
+		    dniKalkulatuta = letraKalkulatu(NAN);
+		} else {
+			dniKalkulatuta = "-1";
+		}
+
 	    return dniKalkulatuta.equals(NAN_osoa);
 	}
 
