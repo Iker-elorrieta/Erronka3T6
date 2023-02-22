@@ -253,8 +253,13 @@ public class metodoak {
 		return prezioa;
 	}
 	
-	public static boolean balidatuLogin(String erabiltzailea, char[] pasahitza, Bezero [] bezeroak) {
+	public static boolean balidatuLogin(String erabiltzailea, String pasahitza, Bezero [] bezeroak) {
 		boolean zuzena = false;
+		for (int i = 0; i<bezeroak.length;i++) {
+			if (bezeroak[i].getDNI().equals(erabiltzailea) && bezeroak[i].getPasahitza().equals(pasahitza)) {
+				zuzena = true;
+			}
+		}
 		
 		
 		return zuzena;

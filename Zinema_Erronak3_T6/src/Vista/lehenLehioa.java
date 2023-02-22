@@ -807,9 +807,12 @@ public class lehenLehioa extends JFrame {
             public void actionPerformed(ActionEvent e) {
            
             	String erabiltzailea = textFieldNan.getText();
-            	char[] pasahitza = passwordField.getPassword();
-                if(metodoak.balidatuLogin(erabiltzailea, pasahitza, bezeroak) == true) { 	
-                	
+            	char[] pasahitza_char = passwordField.getPassword();
+            	String pasahitza = new String (pasahitza_char);
+                if(metodoak.balidatuLogin(erabiltzailea, pasahitza, bezeroak)) {
+                	lblLoginErr.setVisible(false);
+                	lblLogin_2.setVisible(false);
+                	lblLogin_1.setVisible(true);
                 	JOptionPane.showMessageDialog(null, "Erosketa zuzen burutu da");
                     WindowBuilderMetodoak.hurrengoaBtn(tiket, ongiEtorri, zinemaAreto, pelikulak, pelikulakData, laburpena, login, erregistratu, tiket, bukaera);
                 } else {
