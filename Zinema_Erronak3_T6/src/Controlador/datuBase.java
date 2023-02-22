@@ -11,6 +11,7 @@ import java.util.Date;
 import com.mysql.jdbc.Statement;
 
 import Modelo.Areto;
+import Modelo.Bezero;
 import Modelo.Film;
 import Modelo.Saioa;
 import Modelo.Zinema;
@@ -46,16 +47,16 @@ public class datuBase {
 			Areto[] aretoak = new Areto[0];
 			Saioa[] saioak;
 			Film filma = new Film();
-			final String url = "jdbc:mysql://localhost:3306/zinema";
-			final String zinemaKontsulta = "Id_zinema, zinema_izena, zinema_helbide";
-			final String aretoKontsulta = "ID_areto, areto_zbk";
-			final String saioKontsulta = "ID_saioa, data, ordua, ID_film";
-			final String filmKontsulta = "*";
+			
 			
 			Connection connection = null;
 			try {
-				
-				connection = DriverManager.getConnection(url, "root","");
+				final String url = "jdbc:mysql://10.5.14.240:3306/zinema";
+				final String zinemaKontsulta = "Id_zinema, zinema_izena, zinema_helbide";
+				final String aretoKontsulta = "ID_areto, areto_zbk";
+				final String saioKontsulta = "ID_saioa, data, ordua, ID_film";
+				final String filmKontsulta = "*";
+				connection = DriverManager.getConnection(url, "Hodei","zineadmin123");
 				Statement stmt = (Statement) connection.createStatement();	
 				ResultSet rs = stmt.executeQuery("SELECT " + zinemaKontsulta + " FROM zinema;");
 
@@ -161,89 +162,125 @@ public class datuBase {
 	 
 	 public static Zinema kargaHutsa() {
 		 Film f1 = new Film();
-			Zinema z1 = new Zinema();
-			Areto [] a1 = new Areto[2];
-			Saioa [] s1 = new Saioa[2];
-			int ID_film = 1;
-			String tituloa = "";
-			int iraupena = 110;
-			String generoa = "Drama";
-			double prezioa = 7.5;
-			LocalTime ordua = null;
-			LocalTime buk_ordua = null;
-			int ID_saioa = 1;
-			Date data = null;
-			int ID_areto = 1;
-			int zenbakia = 1;
-			int ID_zinema = 1;
-			String izena = "Golem";
-			String lokalitatea = "Bilbao";
-				f1.setGeneroa(generoa);
-				f1.setID_film(ID_film);
-				f1.setIraupena(iraupena);
-				f1.setPrezioa(prezioa);
-				f1.setTituloa(tituloa);
-				
-				s1[0] = new Saioa();
-			 s1[0].setID_saioa(ID_saioa);
-			 s1[0].setBuk_ordua(buk_ordua);
-			 s1[0].setData(data);
-			 s1[0].setFilma(f1);
-			 s1[0].setOrdua(ordua);
-			 s1[1] = new Saioa();
-			 s1[1].setBuk_ordua(buk_ordua);
-			 s1[1].setData(data);
-			 s1[1].setFilma(f1);
-			 s1[1].setID_saioa(ID_saioa+1);
-			 s1[1].setOrdua(ordua);
-			 a1[0] = new Areto();
-			 a1[0].setID_areto(ID_areto);
-			 a1[0].setZenbakia(zenbakia);
-			 a1[0].setSaioak(s1);
-			 a1[1] = new Areto();
-			 a1[1].setID_areto(ID_areto+1);
-			 a1[1].setZenbakia(zenbakia);
-			 a1[1].setSaioak(s1);
+		 Zinema z1 = new Zinema();
+		 Areto [] a1 = new Areto[2];
+		 Saioa [] s1 = new Saioa[2];
+		 int ID_film = 1;
+		 String tituloa = "";
+		 int iraupena = 110;
+		 String generoa = "Drama";
+		 double prezioa = 7.5;
+		 LocalTime ordua = null;
+		 LocalTime buk_ordua = null;
+		 int ID_saioa = 1;
+		 Date data = null;
+		 int ID_areto = 1;
+		 int zenbakia = 1;
+		 int ID_zinema = 1;
+		 String izena = "Golem";
+		 String lokalitatea = "Bilbao";
+		 f1.setGeneroa(generoa);
+		 f1.setID_film(ID_film);
+		 f1.setIraupena(iraupena);
+		 f1.setPrezioa(prezioa);
+		 f1.setTituloa(tituloa);
 			
-				z1.setAretoak(a1);
-				z1.setID_zinema(ID_zinema);
-				z1.setIzena(izena);
-				z1.setLokalitatea(lokalitatea);
+		 s1[0] = new Saioa();
+		 s1[0].setID_saioa(ID_saioa);
+		 s1[0].setBuk_ordua(buk_ordua);
+		 s1[0].setData(data);
+		 s1[0].setFilma(f1);
+		 s1[0].setOrdua(ordua);
+		 s1[1] = new Saioa();
+		 s1[1].setBuk_ordua(buk_ordua);
+		 s1[1].setData(data);
+		 s1[1].setFilma(f1);
+		 s1[1].setID_saioa(ID_saioa+1);
+		 s1[1].setOrdua(ordua);
+		 a1[0] = new Areto();
+		 a1[0].setID_areto(ID_areto);
+		 a1[0].setZenbakia(zenbakia);
+		 a1[0].setSaioak(s1);
+		 a1[1] = new Areto();
+		 a1[1].setID_areto(ID_areto+1);
+		 a1[1].setZenbakia(zenbakia);
+		 a1[1].setSaioak(s1);
+		
+		 z1.setAretoak(a1);
+		 z1.setID_zinema(ID_zinema);
+		 z1.setIzena(izena);
+		 z1.setLokalitatea(lokalitatea);
 		 return z1;
 	 }
 
 
+	 public static Bezero [] bezeroKarga () {
+		 Bezero bezeroak [] = new Bezero [0];
+		 Connection connection = null;
+		 try {
+			 final String url = "jdbc:mysql://10.5.14.240:3306/zinema";
+			 final String bezeroKontsulta = "DNI, pasahitza";
+			 connection = DriverManager.getConnection(url, "Hodei","zineadmin123");
+			 Statement stmt = (Statement) connection.createStatement();	
+			 ResultSet rs = stmt.executeQuery("SELECT " + bezeroKontsulta + " FROM bezero;");
+			 while (rs.next()) {
+				 Bezero myBezero = new Bezero();
+                 String dni = rs.getString(1);
+                 String pasahitza = rs.getString(2);
 
-//		//Bezero
-//     try(Statement stmt = con.createStatement();
-//             ResultSet rs = stmt.executeQuery("SELECT * FROM Bezero")) {
-//             int i = 0;
-//             rs.last();
-//             int length = rs.getRow();
-//             bezeroak = new Bezero[length];
-//             rs.beforeFirst();
-//             while (rs.next()) {   
-//                 Bezero myBezero = new Bezero();
-//                 String dni = rs.getString(1);
-//                 String izena_bezero = rs.getString(2);
-//                 String abizen_1 = rs.getString(3);
-//                 String abizen_2 = rs.getString(4);
-//                 Boolean sexua = rs.getBoolean(5);
-//                 String pasahitza = rs.getString(6);
-//
-//                 myBezero.setDNI(dni);
-//                 myBezero.setIzena(izena_bezero);
-//                 myBezero.setAbizen_1(abizen_1);
-//                 myBezero.setAbizen_2(abizen_2);
-//                 myBezero.setSexua(sexua);
-//                 myBezero.setPasahitza(pasahitza);
-//                 
-//                 bezeroak[i] = myBezero;
-//                 i++;
-//             }
-//     } catch (SQLException e) {
-//            e.printStackTrace();
-//         }
+                 myBezero.setDNI(dni);
+                 myBezero.setPasahitza(pasahitza);
+                 
+                 
+                 Bezero[] bezeroBerriak = new Bezero[bezeroak.length+1];				
+				 for(int j = 0; j < bezeroak.length; j++) {
+ 					 bezeroBerriak[j] = bezeroak[j];					
+     			 }
+     			 bezeroBerriak[bezeroak.length] = myBezero;				
+     			 bezeroak=bezeroBerriak;
+			  }	 
+		 } catch (SQLException e) {
+	            e.printStackTrace();
+	     }
+		 
+		 return bezeroak;
+	 }
+		 
+		 
+		 
+		 
+		/* try(Statement stmt = connection.createStatement();
+	             ResultSet rs = stmt.executeQuery("SELECT * FROM Bezero")) {
+	             int i = 0;
+	             rs.last();
+	             int length = rs.getRow();
+	             bezeroak = new Bezero[length];
+	             rs.beforeFirst();
+	             while (rs.next()) {   
+	                 Bezero myBezero = new Bezero();
+	                 String dni = rs.getString(1);
+	                 String izena_bezero = rs.getString(2);
+	                 String abizen_1 = rs.getString(3);
+	                 String abizen_2 = rs.getString(4);
+	                 Boolean sexua = rs.getBoolean(5);
+	                 String pasahitza = rs.getString(6);
+
+	                 myBezero.setDNI(dni);
+	                 myBezero.setIzena(izena_bezero);
+	                 myBezero.setAbizen_1(abizen_1);
+	                 myBezero.setAbizen_2(abizen_2);
+	                 myBezero.setSexua(sexua);
+	                 myBezero.setPasahitza(pasahitza);
+	                 
+	                 bezeroak[i] = myBezero;
+	                 i++;
+	             }
+	     } catch (SQLException e) {
+	            e.printStackTrace();
+	         }
+	 }*/
+		//Bezero
+     
   
 //     //Eskaria
 //     try(Statement stmt = con.createStatement();

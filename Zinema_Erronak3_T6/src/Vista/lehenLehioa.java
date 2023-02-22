@@ -114,6 +114,7 @@ public class lehenLehioa extends JFrame {
 	public lehenLehioa() {	
 		//String[] filmGordeta = new String [15];
 		zinemak = datuBase.ZinemakKarga();
+		bezeroak = datuBase.bezeroKarga();
 		
 		Zinema z1 = datuBase.kargaHutsa();
         String  aukeratutakoPelikula = (String) "Million Dolar Baby";	
