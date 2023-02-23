@@ -39,7 +39,7 @@ public class metodoak {
 	 */
 	public static boolean NANegiaztatu(String NAN_osoa) {
 		String dniKalkulatuta = new String();
-		if (NAN_osoa.length()>9) {
+		if (NAN_osoa.length() == 9) {
 		    int NAN = Integer.parseInt(NAN_osoa.substring(0, 8));
 		    dniKalkulatuta = letraKalkulatu(NAN);
 		} else {

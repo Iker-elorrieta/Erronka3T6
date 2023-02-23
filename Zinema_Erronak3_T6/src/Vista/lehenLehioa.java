@@ -470,7 +470,7 @@ public class lehenLehioa extends JFrame {
 		erregistratu.add(pasahitza_konfirmazio);
 		
 		JLabel lblNewLabelPasahitza2 = new JLabel("Errepikatu pasahitza");
-		lblNewLabelPasahitza2.setBounds(10, 165, 105, 14);
+		lblNewLabelPasahitza2.setBounds(-2, 165, 158, 14);
 		erregistratu.add(lblNewLabelPasahitza2);
 		
 		JLabel lblNewLabelSexua = new JLabel("Sexua");

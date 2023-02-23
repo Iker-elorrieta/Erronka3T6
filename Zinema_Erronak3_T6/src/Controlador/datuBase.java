@@ -52,11 +52,12 @@ public class datuBase {
 			Connection connection = null;
 			try {
 				final String url = "jdbc:mysql://10.5.14.240:3306/zinema";
+				final String urlLocal = "jdbc:mysql://localhost:3306/zinema";
 				final String zinemaKontsulta = "Id_zinema, zinema_izena, zinema_helbide";
 				final String aretoKontsulta = "ID_areto, areto_zbk";
 				final String saioKontsulta = "ID_saioa, data, ordua, ID_film";
 				final String filmKontsulta = "*";
-				connection = DriverManager.getConnection(url, "Hodei","zineadmin123");
+				connection = DriverManager.getConnection(urlLocal, "root","");
 				Statement stmt = (Statement) connection.createStatement();	
 				ResultSet rs = stmt.executeQuery("SELECT " + zinemaKontsulta + " FROM zinema;");
 
@@ -219,8 +220,9 @@ public class datuBase {
 		 Connection connection = null;
 		 try {
 			 final String url = "jdbc:mysql://10.5.14.240:3306/zinema";
+			 final String urlLocal = "jdbc:mysql://localhost:3306/zinema";
 			 final String bezeroKontsulta = "DNI, pasahitza";
-			 connection = DriverManager.getConnection(url, "Hodei","zineadmin123");
+			 connection = DriverManager.getConnection(urlLocal, "root","");
 			 Statement stmt = (Statement) connection.createStatement();	
 			 ResultSet rs = stmt.executeQuery("SELECT " + bezeroKontsulta + " FROM bezero;");
 			 while (rs.next()) {
