@@ -40,8 +40,6 @@ public class datuBase {
 	        }
 	      }*/
 	 
-	 
-
 	 public static Zinema[] ZinemakKarga() {
 			Zinema[] zinemak = new Zinema[0];
 			Areto[] aretoak = new Areto[0];
@@ -247,7 +245,29 @@ public class datuBase {
 		 
 		 return bezeroak;
 	 }
+	 
+	 
+	 public static void bezeroaInsertatu (String NaN, String izena, String Abizen_1, String Abizen_2, boolean sexua, String pasahitza ) {
+		 String sexuaStr = new String ();
+		 if (sexua) {
+			 sexuaStr  = "gizon";
+		 } else {
+			 sexuaStr = "emakume";
+		 }
+		 Connection connection = null;
 		 
+		 try {
+			 final String url = "jdbc:mysql://10.5.14.240:3306/zinema";
+			 final String urlLocal = "jdbc:mysql://localhost:3306/zinema";
+			 final String bezeroKontsulta = "DNI, pasahitza";
+			 connection = DriverManager.getConnection(urlLocal, "root","");
+			 Statement stmt = (Statement) connection.createStatement();	
+			 stmt.executeUpdate("INSERT INTO bezero VALUES ('"+NaN+"','"+izena+"','"+Abizen_1+"','"+Abizen_2+"','"+sexuaStr+"','"+pasahitza+"');");
+			 
+		 } catch (SQLException e) {
+	            e.printStackTrace();
+	     }
+	 }
 		 
 		 
 		 

@@ -89,6 +89,13 @@ public class lehenLehioa extends JFrame {
 	private JTable tablePelData;
 	double prezioGuztira;
 	
+	String erabiltzailea;
+	String izenaBezero;
+	String abizen_1;
+	String abizen_2;
+	String pasahitza;
+	Boolean sexua;
+	
 	/**
 	 * Launch the application.
 	 */
@@ -454,7 +461,7 @@ public class lehenLehioa extends JFrame {
 		
 		JLabel lblErregistratu = new JLabel("ERREGISTRATU");
 		lblErregistratu.setFont(new Font("Tahoma", Font.PLAIN, 22));
-		lblErregistratu.setBounds(169, 11, 177, 27);
+		lblErregistratu.setBounds(168, 5, 158, 27);
 		erregistratu.add(lblErregistratu);
 		
 		JButton btnAtzera5 = new JButton("Atzera");
@@ -511,11 +518,15 @@ public class lehenLehioa extends JFrame {
 		lblPassErr.setBounds(158, 64, 220, 27);
 		erregistratu.add(lblPassErr);
 		
-		JLabel lblNanErr = new JLabel("Sartutako NAN zenbakia erregistratuta dago");
+		JLabel lblNanErr = new JLabel("Sartutako NAN okerra! Sailatu berriro");
 		lblNanErr.setForeground(new Color(255, 0, 0));
 		lblNanErr.setFont(new Font("Tahoma", Font.BOLD, 16));
-		lblNanErr.setBounds(107, 41, 371, 27);
+		lblNanErr.setBounds(124, 41, 339, 27);
 		erregistratu.add(lblNanErr);
+		
+		JButton btnEgiaztatu = new JButton("Egiaztatu");
+		btnEgiaztatu.setBounds(169, 280, 158, 23);
+		erregistratu.add(btnEgiaztatu);
 		
 		//TIKET
 		JPanel tiket = new JPanel();
@@ -797,6 +808,7 @@ public class lehenLehioa extends JFrame {
             
                 lblPassErr.setVisible(false);
         		lblNanErr.setVisible(false);
+        		btnBukatuErregistratu3.setEnabled(false);
             }
 		});
 		
@@ -846,51 +858,68 @@ public class lehenLehioa extends JFrame {
             }
 		});
 		
+		
+		btnEgiaztatu.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+            	erabiltzailea = txtNan.getText();
+            	izenaBezero = txtIzena.getText();
+            	abizen_1 = txtAbizen_1.getText();
+            	abizen_2 = txtAbizen_2.getText();
+            	char[] pasahitza_char = pasahitza_1.getPassword();
+            	pasahitza = new String (pasahitza_char);
+            	char[] pasahitza_char_konfir= pasahitza_konfirmazio.getPassword();
+            	String pasahitza_Konfirmazio = new String (pasahitza_char_konfir);
+            	sexua = false;
+            	int kontGenero = 0;
+            	
+            	lblNanErr.setVisible(false);
+            	lblPassErr.setVisible(false);
+            	
+				if (!metodoak.NANegiaztatu(erabiltzailea)) {
+		    		System.err.println("nan gaizki");
+		    		lblNanErr.setVisible(true);
+		    	} else {
+		    		//NAN erregistratuta badago
+		        	for (int i = 0;i<bezeroak.length;i++) {
+		        		if (erabiltzailea.equals(bezeroak[i].getDNI())) {
+		        			System.out.println("errepikatuta");
+		        			lblNanErr.setVisible(true);
+		        		} else {
+		        			lblNanErr.setVisible(false);
+		        			
+		        			//Pasahitzaren konfirmazioa txarra bada
+			            	if (!pasahitza.equals(pasahitza_Konfirmazio)) {
+			            		lblPassErr.setVisible(true);
+			            	} else {
+			            		lblPassErr.setVisible(false);
+			                	
+			                	if ((izenaBezero.length() == 0 || abizen_1.length() == 0 || abizen_2.length() == 0) || kontGenero != 0) {
+			                		System.out.println("ez dago beteta");
+			                	} else {
+			                		
+			                		if (comboSexua.getSelectedIndex() == 0) {
+				                		sexua = true;
+				                		System.out.println("Gizon");
+				                		btnBukatuErregistratu3.setEnabled(true);
+				                	} else if (comboSexua.getSelectedIndex() == 1){
+				                		System.out.println("emakume");
+				                		btnBukatuErregistratu3.setEnabled(true);
+				                	}
+			                		kontGenero++;	
+			                	}
+			            	}
+		        		}
+                	}
+            	}
+				
+            }		
+            });
 		//Erregistratu panelean "Atzera" botoiari click egin eta laburpena panelera bueltatzeko
 		btnBukatuErregistratu3.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-            	String erabiltzailea = txtNan.getText();
-            	String abizen_1 = txtAbizen_1.getText();
-            	String abizen_2 = txtAbizen_2.getText();
-            	char[] pasahitza_char = pasahitza_1.getPassword();
-            	String pasahitza = new String (pasahitza_char);
-            	char[] pasahitza_char_konfir= pasahitza_konfirmazio.getPassword();
-            	String pasahitza_Konfirmazio = new String (pasahitza_char_konfir);
-            	Boolean sexua = false;
-            	
-            	//NAN txarra bada
-            	if (!metodoak.NANegiaztatu(erabiltzailea)) {
-            		System.err.println("nan gaizki");
-            		lblNanErr.setVisible(true);
-            	} else {
-            		//NAN erregistratuta badago
-                	for (int i = 0;i<bezeroak.length;i++) {
-                		if (erabiltzailea.equals(bezeroak[i].getDNI())) {
-                			System.out.println("errepikatuta");
-                			lblNanErr.setVisible(true);
-                		} else {
-                			lblNanErr.setVisible(false);
-                		}
-                	}
-            	}
-            	
-            	
-            	if (comboSexua.getSelectedIndex() == 0) {
-            		sexua = true;
-            		System.out.println("Gizon");
-            	} else {
-            		System.out.println("emakume");
-            	}
-            	
-            	//Pasahitzaren konfirmazioa txarra bada
-            	if (!pasahitza.equals(pasahitza_Konfirmazio)) {
-            		lblPassErr.setVisible(true);
-            	} else {
-            		lblPassErr.setVisible(false);
-            	}
-            	 JOptionPane.showMessageDialog(null, "Erosketa zuzen burutu da");
-                // WindowBuilderMetodoak.hurrengoaBtn(tiket, ongiEtorri, zinemaAreto, pelikulak, pelikulakData, laburpena, login, erregistratu, tiket, bukaera);            }
-            }		
+            	datuBase.bezeroaInsertatu(erabiltzailea, izenaBezero, abizen_1, abizen_2, sexua, pasahitza);
+            	JOptionPane.showMessageDialog(null, "Erosketa zuzen burutu da");
+                WindowBuilderMetodoak.hurrengoaBtn(tiket, ongiEtorri, zinemaAreto, pelikulak, pelikulakData, laburpena, login, erregistratu, tiket, bukaera);            }	
             });
 		
 		//Tiket
