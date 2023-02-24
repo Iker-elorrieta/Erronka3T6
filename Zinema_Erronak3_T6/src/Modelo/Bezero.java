@@ -25,7 +25,6 @@ public class Bezero {
 		this.abizen_2= abizen_2;
 		this.sexua = sexua;
 		this.pasahitza= pasahitza;
-		
 	}
 	
 	public String getDNI() {

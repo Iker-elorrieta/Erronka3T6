@@ -10,7 +10,6 @@ import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
-import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.util.Calendar;
 import java.util.Date;
@@ -30,7 +29,6 @@ import com.toedter.calendar.JDateChooser;
 import Controlador.WindowBuilderMetodoak;
 import Controlador.datuBase;
 import Controlador.metodoak;
-import Modelo.Areto;
 import Modelo.Bezero;
 import Modelo.Eskaria;
 import Modelo.Film;
@@ -68,15 +66,8 @@ public class lehenLehioa extends JFrame {
 	private JTextField txtIzena;
 	private JTextField txtAbizen_1;
 	private JTextField txtAbizen_2;
-	private int ID_zinema;
-	private String izena;
-	private String zinema_helbide;
 	private Zinema [] zinemak;
 	private Bezero [] bezeroak;
-	private Eskaria [] eskariak;
-	private Sarrera [] sarrerak;
-	private Saioa [] saioak;
-	private Areto [] aretoak;
 	Film aukeratutakoFilm = new Film();
 	Date aukeratutakoData;
 	LocalTime aukeratutakoOrdua; 
@@ -88,6 +79,12 @@ public class lehenLehioa extends JFrame {
 	Saioa[] beharSaioa;
 	private JTable tablePelData;
 	double prezioGuztira;
+	String erabiltzailea;
+	String izenaBezero;
+	String abizen_1;
+	String abizen_2;
+	String pasahitza;
+	Boolean sexua;
 	
 	/**
 	 * Launch the application.
@@ -583,7 +580,6 @@ public class lehenLehioa extends JFrame {
 		//zinemaAreto (zinema aukeratu) panelean "Hurrengoa" botoiari click egin eta pelikulak panelera pasatzeko
 		CBZinemak.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-            	int zinema_aukera = CBZinemak.getSelectedIndex();
     			btnHurrengoa1.setEnabled(true);
             }
 		});
@@ -670,22 +666,8 @@ public class lehenLehioa extends JFrame {
 	        	CBSesioak.setEnabled(true);
 	        	Date selectedDate = dateChooser.getDate();
 	        	aukeratutakoData = selectedDate;
-	        	LocalTime [] saioOrduak = new LocalTime [0];
-	        	int saioOrduaI= 0;
+	        	LocalTime [] saioOrduak = metodoak.orduakLortu(beharSaioa, selectedDate);
 	        	
-	        	for (int i = 0; i < beharSaioa.length; i++) {
-//	        	    System.out.print(beharSaioa[i].getData());
-//	        	    System.out.println(" // " + beharSaioa[i].getOrdua());
-					if (beharSaioa[i].getData().equals(aukeratutakoData)) {
-						if(saioOrduaI == saioOrduak.length) {
-							LocalTime [] saioOrduaBerria = new LocalTime[saioOrduak.length+1];
-							System.arraycopy(saioOrduak, 0, saioOrduaBerria, 0, saioOrduak.length);
-							saioOrduak = saioOrduaBerria;
-						}
-						saioOrduak[saioOrduaI++] = beharSaioa[i].getOrdua();
-						//saioOrduak[0] = beharSaioa[i].getOrdua();
-					}
-	        	}	
 	        	CBSesioak.setModel(new DefaultComboBoxModel(saioOrduak));        	
 	    		pelikulakData.add(CBSesioak);
 	    		
@@ -849,49 +831,60 @@ public class lehenLehioa extends JFrame {
 		//Erregistratu panelean "Atzera" botoiari click egin eta laburpena panelera bueltatzeko
 		btnBukatuErregistratu3.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-            	String erabiltzailea = txtNan.getText();
-            	String abizen_1 = txtAbizen_1.getText();
-            	String abizen_2 = txtAbizen_2.getText();
+            	erabiltzailea = txtNan.getText();
+            	izenaBezero = txtIzena.getText();
+            	abizen_1 = txtAbizen_1.getText();
+            	abizen_2 = txtAbizen_2.getText();
             	char[] pasahitza_char = pasahitza_1.getPassword();
-            	String pasahitza = new String (pasahitza_char);
+            	pasahitza = new String (pasahitza_char);
             	char[] pasahitza_char_konfir= pasahitza_konfirmazio.getPassword();
             	String pasahitza_Konfirmazio = new String (pasahitza_char_konfir);
-            	Boolean sexua = false;
+            	sexua = false;
+            	int kontGenero = 0;
             	
-            	//NAN txarra bada
-            	if (!metodoak.NANegiaztatu(erabiltzailea)) {
-            		System.err.println("nan gaizki");
-            		lblNanErr.setVisible(true);
-            	} else {
-            		//NAN erregistratuta badago
-                	for (int i = 0;i<bezeroak.length;i++) {
-                		if (erabiltzailea.equals(bezeroak[i].getDNI())) {
-                			System.out.println("errepikatuta");
-                			lblNanErr.setVisible(true);
-                		} else {
-                			lblNanErr.setVisible(false);
-                		}
-                	}
-            	}
+            	lblNanErr.setVisible(false);
+            	lblPassErr.setVisible(false);
             	
-            	
-            	if (comboSexua.getSelectedIndex() == 0) {
-            		sexua = true;
-            		System.out.println("Gizon");
-            	} else {
-            		System.out.println("emakume");
-            	}
-            	
-            	//Pasahitzaren konfirmazioa txarra bada
-            	if (!pasahitza.equals(pasahitza_Konfirmazio)) {
-            		lblPassErr.setVisible(true);
-            	} else {
-            		lblPassErr.setVisible(false);
-            	}
-            	 JOptionPane.showMessageDialog(null, "Erosketa zuzen burutu da");
-                // WindowBuilderMetodoak.hurrengoaBtn(tiket, ongiEtorri, zinemaAreto, pelikulak, pelikulakData, laburpena, login, erregistratu, tiket, bukaera);            }
-            }		
+					if (!metodoak.NANegiaztatu(erabiltzailea)) {
+						System.err.println("nan gaizki");
+        		 		lblNanErr.setVisible(true);
+        		 	} else {
+        		 		//NAN erregistratuta badago
+        		 		for (int i = 0;i<bezeroak.length;i++) {
+        		 			if (erabiltzailea.equals(bezeroak[i].getDNI())) {
+        		 				System.out.println("errepikatuta");
+            		 			lblNanErr.setVisible(true);
+            		 		} else {
+            		 			lblNanErr.setVisible(false);
+            		 			
+            		 			//Pasahitzaren konfirmazioa txarra bada
+            		 			if (!pasahitza.equals(pasahitza_Konfirmazio)) {
+            		 				lblPassErr.setVisible(true);
+            		 			} else {
+            		 				lblPassErr.setVisible(false);
+            			 	
+            		 				if ((izenaBezero.length() == 0 || abizen_1.length() == 0 || abizen_2.length() == 0) || kontGenero != 0) {
+            		 					System.out.println("ez dago beteta");
+            		 				} else {
+            			 		
+            		 					if (comboSexua.getSelectedIndex() == 0) {
+            		 						sexua = true;
+            		 						System.out.println("Gizon");
+            		 						btnBukatuErregistratu3.setEnabled(true);
+            		 					} else if (comboSexua.getSelectedIndex() == 1){
+            		 						System.out.println("emakume");
+            		 						btnBukatuErregistratu3.setEnabled(true);
+            		 					}
+            		 					kontGenero++;	
+            		 				}
+            		 			}
+            		 		}
+        		 		}
+        		 	}
+		
+            	}		
             });
+
 		
 		//Tiket
 		//Tiket panelean "bai" botoiari click egin eta showDialog bat agertuko da, tiketa gordeko da eta bukaera penelera joango da
