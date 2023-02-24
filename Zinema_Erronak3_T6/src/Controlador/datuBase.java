@@ -55,7 +55,7 @@ public class datuBase {
 				final String aretoKontsulta = "ID_areto, areto_zbk";
 				final String saioKontsulta = "ID_saioa, data, ordua, ID_film";
 				final String filmKontsulta = "*";
-				connection = DriverManager.getConnection(urlLocal, "root","");
+				connection = DriverManager.getConnection(url, "Hodei","zineadmin123");
 				Statement stmt = (Statement) connection.createStatement();	
 				ResultSet rs = stmt.executeQuery("SELECT " + zinemaKontsulta + " FROM zinema;");
 
@@ -220,7 +220,7 @@ public class datuBase {
 			 final String url = "jdbc:mysql://10.5.14.240:3306/zinema";
 			 final String urlLocal = "jdbc:mysql://localhost:3306/zinema";
 			 final String bezeroKontsulta = "DNI, pasahitza";
-			 connection = DriverManager.getConnection(urlLocal, "root","");
+			 connection = DriverManager.getConnection(url, "Hodei","zineadmin123");
 			 Statement stmt = (Statement) connection.createStatement();	
 			 ResultSet rs = stmt.executeQuery("SELECT " + bezeroKontsulta + " FROM bezero;");
 			 while (rs.next()) {
