@@ -6,7 +6,6 @@ import org.junit.jupiter.api.Test;
 
 import Controlador.datuBase;
 import Modelo.Bezero;
-import Modelo.Zinema;
 
 class bezeroKargaTest {
 

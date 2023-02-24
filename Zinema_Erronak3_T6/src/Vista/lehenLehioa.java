@@ -890,14 +890,16 @@ public class lehenLehioa extends JFrame {
 		//Tiket panelean "bai" botoiari click egin eta showDialog bat agertuko da, tiketa gordeko da eta bukaera penelera joango da
 		btnBai.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
+            	pelikula_kont = 0;
                 JOptionPane.showMessageDialog(null, "Faktura zuzen gorde da");
                 WindowBuilderMetodoak.btn3secDelay(bukaera, 2, ongiEtorri, zinemaAreto, pelikulak, pelikulakData, laburpena, login, erregistratu, tiket, bukaera, e);
             }
 		});
 		
 		//Tiket panelean "ez" botoiari click egin eta bukaera panelera joango da
-		btnBai.addActionListener(new ActionListener() {
+		btnEz.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
+            	pelikula_kont = 0;
                 WindowBuilderMetodoak.btn3secDelay(bukaera, 2, ongiEtorri, zinemaAreto, pelikulak, pelikulakData, laburpena, login, erregistratu, tiket, bukaera, e);
             }
 		});
